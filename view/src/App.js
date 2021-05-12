@@ -24,12 +24,12 @@ function App() {
             <div class="collapse navbar-collapse justify-content-end" id="navbar">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <Link class="nav-link" to="/register">
+                  <Link class="nav-link" to="/merchant/register">
                     <button class="btn btn-outline-primary">Register</button>
                     </Link>
                 </li>
                 <li class="nav-item">
-                  <Link class="nav-link" to="/login">
+                  <Link class="nav-link" to="/merchant/login">
                     <button class="btn btn-outline-warning">Login</button>
                     </Link>
                 </li>
@@ -42,10 +42,10 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/login">
+          <Route path="/merchant/login">
             <Login />
           </Route>
-          <Route path="/register">
+          <Route path="/merchant/register">
             <Register />
           </Route>
         </Switch>

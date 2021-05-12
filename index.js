@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.get('/', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 // })
-app.get('/merchant', (req, res) => {
+app.get('/home', (req, res) => {
     db.query("SELECT * FROM Merchant", (err, result) => {
         if(err){
             console.log(err);
@@ -50,10 +50,10 @@ const ifNotLoggedIn = (req, res, next) => {
 }
 
 //Register
-app.post("/register", (req, res) => {
+app.post("/merchant/register", (req, res) => {
     db.query(
-        "INSERT INTO Branch (Branchname, Username, Password) VALUE (?, ?, ?)",
-        [Branchname, Username, Password], (err, result) => {
+        "INSERT INTO Branch (Categoty.category_name, Merchant.merchant_name, Branch.branch_name, Branch.user_name, Branch.password) JOIN Merchant ON Merchant.merchant_id = Branch.branch_id JOIN Category ON Merchant.merchant_id = Category.category_id VALUE (?, ?, ?, ?, ?)",
+        [category_name, merchant_name, branch_name, user_name, password], (err, result) => {
             console.log(err);
         }
     );

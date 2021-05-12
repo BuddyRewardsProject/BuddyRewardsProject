@@ -10,22 +10,34 @@ export default class Register extends Component {
                     <div className="col bg-light">
                         <h1 className="text-center">Register</h1>
                         <form action="/register" method="post" noValidate>
+                        <div className="col form-group mt-2">
+                                <label>Category Name</label>
+                                <div>
+                                    <input type="text" name="CategoryName" id="_cname" className="form-control" placeholder="Category Name" required></input>
+                                </div>
+                            </div>
+                            <div className="col form-group mt-2">
+                                <label>Merchant Name</label>
+                                <div>
+                                    <input type="text" name="MerchantName" id="_mname" className="form-control" placeholder="Merchant Name" required></input>
+                                </div>
+                            </div>
                             <div className="col form-group mt-2">
                                 <label>Branch Name</label>
                                 <div>
-                                    <input type="text" name="BranchName" id="_rbname" className="form-control" placeholder="Branch Name" required></input>
+                                    <input type="text" name="BranchName" id="_bname" className="form-control" placeholder="Branch Name" required></input>
                                 </div>
                             </div>
                             <div className="col form-group mt-2">
                                 <label>Username</label>
                                 <div>
-                                    <input type="text" name="Username" id="_rname" className="form-control" placeholder="Username" required></input>
+                                    <input type="text" name="Username" id="_busername" className="form-control" placeholder="Username" required></input>
                                 </div>
                             </div>
                             <div className="col form-group mt-2">
                                 <label>Password</label>
                                 <div>
-                                    <input type="password" name="Password" id="_rpassword" className="form-control" placeholder="Password" required></input>
+                                    <input type="password" name="Password" id="_bpassword" className="form-control" placeholder="Password" required></input>
                                 </div>
                             </div>
                             <div className="col text-center form-group mt-2">
