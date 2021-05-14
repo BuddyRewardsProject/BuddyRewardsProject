@@ -37,7 +37,6 @@ function App() {
             </div>
           </div>
         </nav>
-        <br />
         <Switch>
           <Route exact path="/">
             <Home />
