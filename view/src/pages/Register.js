@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
+import Navbar from "../layouts/Navbar";
 
 export default class Register extends Component {
     render() {
+        
         return (
+            <>
+            <Navbar></Navbar>
             <div className="container">
                 <div className="row align-items-center">
                     <div className="col-lg-4 col-md-3 col-sm-2"></div>
@@ -47,6 +51,7 @@ export default class Register extends Component {
                     <div className="col-lg-4 col-md-3 col-sm-2"></div>
                 </div>
             </div>
+            </>
         )
     }
 }

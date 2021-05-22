@@ -3,11 +3,11 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import Home from "./pages/Home"
 import Register from "./pages/Register"
 import Login from './pages/Login';
+
 
 function App() {
   return (
@@ -16,27 +16,6 @@ function App() {
         <title>Buddy Rewards</title>
       </Helmet>
       <Router>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-            <Link class="navbar-brand" to="/">
-              <img src="./img/logodemo.png" alt="buddyrewards" width="30" height="30" />
-            </Link>
-            <div class="collapse navbar-collapse justify-content-end" id="navbar">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <Link class="nav-link" to="/merchant/register">
-                    <button class="btn btn-outline-primary">Register</button>
-                    </Link>
-                </li>
-                <li class="nav-item">
-                  <Link class="nav-link" to="/merchant/login">
-                    <button class="btn btn-outline-warning">Login</button>
-                    </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
         <Switch>
           <Route exact path="/">
             <Home />

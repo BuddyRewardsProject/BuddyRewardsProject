@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import axios from "axios"
+import Navbar from "../layouts/Navbar";
+
 
 class Home extends Component {
 
@@ -32,6 +34,7 @@ class Home extends Component {
     render() {
         return (
             <>
+            <Navbar></Navbar>
                 <div className="container">
                     <div className="row text-center">
                         <div className="col col-lg-3"></div>
