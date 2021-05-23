@@ -23,3 +23,12 @@ code {
 .rounded-10 {
   border-radius: 10px;
 }
+
+.logo-padding {
+  padding-left: 15px;
+
+}
+.white {
+background-color: #ffffff!important;
+}
+

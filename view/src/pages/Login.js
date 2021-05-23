@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import color from "../config/color";
 import logo from "../asssets/img/logoM.svg";
+import {Link} from 'react-router-dom';
 
 const BtnOrange = styled.button`
   background-color: ${color.Button};
@@ -32,8 +33,9 @@ export default class Login extends Component {
             <div className="col-lg-3 col-md-2"></div>
             <MarginTop className="col bg-white shadow p-3 mb-5 bg-body rounded-10">
               <Formsize action="/login" method="post">
-                <div>
-                  <img src={logo} alt="buddyrewards" width="200" />
+                <div > <Link className="body "to="/">
+                  <img src={logo} alt="buddyrewards"  width="200" />
+                  </Link>
                 </div>
                 <h4 className="text-left mt-3 mb-3">Login</h4>
                 <div className="col form-group mt-2">
@@ -70,6 +72,8 @@ export default class Login extends Component {
               </Formsize>
             </MarginTop>
             <div className="col-lg-3 col-md-2"></div>
+            <Link className="body "to="/merchant/register"><h5 className="text-center " >ไม่มีบัญชีร้านค้าใช้มั้ย สมัครเลย! คลิก</h5></Link>
+            
           </div>
         </div>
       </BgGreen>

@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import { Helmet } from 'react-helmet'
+import Navbar from "../layouts/Navbar";
+
 class Profile extends Component {
 
     constructor(props){
@@ -7,9 +9,11 @@ class Profile extends Component {
 
     }
     render (){
+        
         return (
             
             <>
+            <Navbar></Navbar>
             <Helmet>
           <title>Profile</title>
             </Helmet>

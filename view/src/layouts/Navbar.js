@@ -4,11 +4,11 @@ import {Link} from 'react-router-dom';
 export default function Navbar() {
 
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light white">
       <div class="container-fluid">
         <Link class="navbar-brand" to="/">
           <div>
-            <img src={logo} alt="buddyrewards" width="280" />
+            <img src={logo} class="logo-padding" alt="buddyrewards" width="280" />
           </div>
         </Link>
         <div class="collapse navbar-collapse justify-content-end" id="navbar">
