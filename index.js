@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
-let db = require('./model/dbConnection');
+const db = require('./model/dbConnection');
 const cors = require('cors');
 const path = require('path');
-const cookieSession = require('cookie-session')
-const bcrypt = require('bcrypt')
-const {body, validationResult} = require('express-validator')
+const branch = require("./controller/branch");
+const bodyParser = require('body-parser');
+const functions = require('./utils/functions')
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 app.use(cors());
 app.use(express.json());
@@ -33,30 +36,23 @@ app.get('/home', (req, res) => {
 
 
 //Login (No finish)
-app.set('view', path.join(__dirname, 'view'));
-app.set('view engine', 'ejs');
 
-app.use(cookieSession({
-    name: 'session',
-    keys: ['keys1', 'key2'],
-    maxAge: 3600 * 1000 //1hr
-}))
-
-//Declaring Customer Middleware (No finish)
-const ifNotLoggedIn = (req, res, next) => {
-    if (!req.session.isLoggedIn) {
-        return res.render('Login');
-    }
-}
 
 //Register
-app.post("/merchant/register", (req, res) => {
-    db.query(
-        "INSERT INTO Branch (Categoty.category_name, Merchant.merchant_name, Branch.branch_name, Branch.user_name, Branch.password) JOIN Merchant ON Merchant.merchant_id = Branch.branch_id JOIN Category ON Merchant.merchant_id = Category.category_id VALUE (?, ?, ?, ?, ?)",
-        [category_name, merchant_name, branch_name, user_name, password], (err, result) => {
-            console.log(err);
+app.post("/merchant/v1/register", (req, res) => {
+    var branchInfo = req.body.branchInfo;
+    branch.addBranch(branchInfo).then((e) => {
+        var data = {
+            status: "sucess"
         }
-    );
+        return functions.responseJson(res,data)
+    }).catch((e) => {
+        var data = {
+            status: "error",
+            errorMessage: e
+        }
+        return functions.responseJson(res,data)
+    })
 })
 
 app.listen('3001', () => {

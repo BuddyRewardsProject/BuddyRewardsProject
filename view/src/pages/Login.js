@@ -19,8 +19,8 @@ const BgGreen = styled.div`
   border-radius: 0px 0px 35px 35px;
 `;
 const MarginTop = styled.div`
-  margin-top: 20vh;
-`;
+    margin-top: 15%;
+`
 const Formsize = styled.form`
   padding: 40px;
 `;
