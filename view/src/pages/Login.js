@@ -22,7 +22,7 @@ const MarginTop = styled.div`
     margin-top: 15%;
 `
 const Formsize = styled.form`
-  padding: 40px;
+  padding: 20px;
 `;
 export default class Login extends Component {
   render() {
@@ -66,13 +66,13 @@ export default class Login extends Component {
                 </div>
                 <div className="col text-center form-group mt-2 d-grid gap-2 col-6 mx-auto">
                   <BtnOrange className="btn btn-primary" type="submit">
-                    Submit
+                    login
                   </BtnOrange>
                 </div>
               </Formsize>
             </MarginTop>
             <div className="col-lg-3 col-md-2"></div>
-            <Link className="body "to="/merchant/register"><h5 className="text-center " >ไม่มีบัญชีร้านค้าใช้มั้ย สมัครเลย! คลิก</h5></Link>
+            <Link className="DBB "to="/merchant/register"><h5 className="text-center " >ไม่มีบัญชีร้านค้าใช้มั้ย สมัครเลย! คลิก</h5></Link>
             
           </div>
         </div>

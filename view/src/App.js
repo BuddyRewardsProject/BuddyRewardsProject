@@ -7,7 +7,7 @@ import {
 import Home from "./pages/Home"
 import Register from "./pages/Register"
 import Login from './pages/Login';
-
+import PinMerchantLogin from './pages/PinMerchantLogin';
 
 function App() {
   return (
@@ -23,6 +23,9 @@ function App() {
           <Route path="/merchant/login">
             <Login />
           </Route>
+          <Route path="/merchant/PinMerchantLogin">
+            <PinMerchantLogin />
+          </Route>
           <Route path="/merchant/register">
             <Register />
           </Route>
@@ -31,5 +34,6 @@ function App() {
     </div >
   );
 }
+
 
 export default App;
