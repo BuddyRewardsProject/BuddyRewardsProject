@@ -61,7 +61,7 @@ export default class Login extends Component {
                 </div>
                 <h1 className="text-center mt-3 mb-3 DBB">Merchant Name</h1>
                 <h4 className="text-center mt-3 mb-3 DB">
-                  กรอง PIN เพื่อเข้าใช้งาน
+                  กรอก PIN เพื่อเข้าใช้งาน
                 </h4>
                 <div className="text-center ">
                   
@@ -105,7 +105,9 @@ export default class Login extends Component {
             <div className="col-lg-3 col-md-2"></div>
           </div>
         </div>
+        
       </BgGreen>
+      
     );
   }
 }

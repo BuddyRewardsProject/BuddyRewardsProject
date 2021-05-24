@@ -63,7 +63,7 @@ export default class Register extends Component {
                   <img src={logo} alt="buddyrewards" width="200" />
                 </Link>
                 </div>
-                <h3 className="text-left mt-3 mb-3">สมัครบัญชีร้านค้า</h3>
+                <h3 className="text-left mt-3 mb-3 DB">สมัครบัญชีร้านค้า</h3>
                 <form action="/register" method="post" noValidate>
                   <div className="col form-group mt-2">
                     <input type="text" name="userName" id="userName" className="form-control" placeholder="Merchant Username" required></input>
@@ -74,7 +74,7 @@ export default class Register extends Component {
                   <div className="col form-group mt-2">
                     <input type="text" name="repeatPassword" id="repeatPassword" className="form-control" placeholder="Repeat Merchant Password" required></input>
                   </div>
-                  <h5 className="text-left mt-3 mb-3">ข้อมูลเจ้าของร้าน</h5>
+                  <h5 className="text-left mt-3 mb-3 DBB">ข้อมูลเจ้าของร้าน</h5>
                   <div className="row g-3">
                     <div className="col-6 form-group mt-2">
                       <input type="text" name="firstName" id="firstName" className="form-control" placeholder="First Name" required></input>
@@ -85,7 +85,7 @@ export default class Register extends Component {
                   <div className="col form-group mt-2">
                     <input type="text" name="phone" id="phone" className="form-control" placeholder="Phone" required></input>
                   </div>
-                  <h5 className="text-left mt-3 mb-3">ข้อมูลร้านค้า</h5>
+                  <h5 className="text-left mt-3 mb-3 DBB">ข้อมูลร้านค้า</h5>
                   <div className="col form-group mt-2">
                     <input type="text" name="branchName" id="branchName" className="form-control" placeholder="Merchant Name" required></input>
                   </div>
