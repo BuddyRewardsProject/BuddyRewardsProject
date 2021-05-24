@@ -14,7 +14,7 @@ const BtnOrange = styled.button`
 `;
 const BgGreen = styled.div`
   height: 300px;
-  background: linear-gradient(180deg, #f7931e 0%, #ff7676 100%);
+  background: ${color.Gradient};
   border-radius: 0px 0px 35px 35px;
 `;
 const MarginTop = styled.div`

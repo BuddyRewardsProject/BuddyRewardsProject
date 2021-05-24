@@ -17,14 +17,11 @@ const BtnOrange = styled.button`
 `;
 const BgGreen = styled.div`
   height: 300px;
-  background: #6FCF97;
+  background: ${color.Green};
   border-radius: 0px 0px 35px 35px;
 `;
 const MarginTop = styled.div`
   margin-top: 20vh;
-`;
-const Formsize = styled.form`
-  padding: 40px;
 `;
 
 export default class Register extends Component {
@@ -66,39 +63,51 @@ export default class Register extends Component {
                   <img src={logo} alt="buddyrewards" width="200" />
                 </Link>
                 </div>
-                <h3 className="text-left mt-3 mb-3 DB">ลงทะเบียนร้านค้า</h3>
+                <h3 className="text-left mt-3 mb-3">สมัครบัญชีร้านค้า</h3>
                 <form action="/register" method="post" noValidate>
                   <div className="col form-group mt-2">
-                    <label>Category Name</label>
-                    <div>
-                      <input type="text" name="CategoryName" id="_cname" className="form-control" placeholder="Category Name" required></input>
-                    </div>
+                    <input type="text" name="userName" id="userName" className="form-control" placeholder="Merchant Username" required></input>
                   </div>
                   <div className="col form-group mt-2">
-                    <label>Merchant Name</label>
-                    <div>
-                      <input type="text" name="MerchantName" id="_mname" className="form-control" placeholder="Merchant Name" required></input>
-                    </div>
+                    <input type="password" name="password" id="password" className="form-control" placeholder="Merchant Password" required></input>
                   </div>
                   <div className="col form-group mt-2">
-                    <label>Branch Name</label>
-                    <div>
-                      <input type="text" name="BranchName" id="_bname" className="form-control" placeholder="Branch Name" required></input>
+                    <input type="text" name="repeatPassword" id="repeatPassword" className="form-control" placeholder="Repeat Merchant Password" required></input>
+                  </div>
+                  <h5 className="text-left mt-3 mb-3">ข้อมูลเจ้าของร้าน</h5>
+                  <div className="row g-3">
+                    <div className="col-6 form-group mt-2">
+                      <input type="text" name="firstName" id="firstName" className="form-control" placeholder="First Name" required></input>
                     </div>
+                    <div className="col-6 form-group mt-2">
+                      <input type="text" name="lastName" id="lastName" className="form-control" placeholder="Last Name" required></input>
+                    </div></div>
+                  <div className="col form-group mt-2">
+                    <input type="text" name="phone" id="phone" className="form-control" placeholder="Phone" required></input>
+                  </div>
+                  <h5 className="text-left mt-3 mb-3">ข้อมูลร้านค้า</h5>
+                  <div className="col form-group mt-2">
+                    <input type="text" name="branchName" id="branchName" className="form-control" placeholder="Merchant Name" required></input>
+                  </div>
+                  <div className="col form-floating mt-2">
+                    <select class="form-select" id="categoryName" required>
+                      <option selected>Choose...</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                    <label for="floatingInputInvalid">Merchant Category</label>
                   </div>
                   <div className="col form-group mt-2">
-                    <label>Username</label>
-                    <div>
-                      <input type="text" name="Username" id="_busername" className="form-control" placeholder="Username" required></input>
-                    </div>
+                    <input type="text" name="branchPhone" id="branchPhone" className="form-control" placeholder="Merchant Phone" required></input>
                   </div>
                   <div className="col form-group mt-2">
-                    <label>Password</label>
-                    <div>
-                      <input type="password" name="Password" id="_bpassword" className="form-control" placeholder="Password" required></input>
-                    </div>
+                    <input type="text" name="districtName" id="districtName" className="form-control" placeholder="District" required></input>
                   </div>
-                  <div className="col text-center form-group mt-2">
+                  <div className="col form-group mt-2">
+                    <input type="text" name="provinceName" id="provinceName" className="form-control" placeholder="Province" required></input>
+                  </div>
+                  <div className="col text-center form-group mt-4 d-grid gap-2 col-6 mx-auto">
                     <BtnOrange className="btn btn-primary" type="submit">
                       Submit
                   </BtnOrange>

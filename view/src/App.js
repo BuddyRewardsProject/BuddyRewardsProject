@@ -8,6 +8,8 @@ import Home from "./pages/Home"
 import Register from "./pages/Register"
 import Login from './pages/Login';
 import PinMerchantLogin from './pages/PinMerchantLogin';
+import StaffView from './pages/StaffView'
+
 
 function App() {
   return (
@@ -28,6 +30,9 @@ function App() {
           </Route>
           <Route path="/merchant/register">
             <Register />
+          </Route>
+          <Route path="/merchant/branch/staff-view">
+            <StaffView />
           </Route>
         </Switch>
       </Router>
