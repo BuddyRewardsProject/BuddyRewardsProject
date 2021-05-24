@@ -66,7 +66,7 @@ export default class Register extends Component {
                   <img src={logo} alt="buddyrewards" width="200" />
                 </Link>
                 </div>
-                <h5 className="text-left mt-3 mb-3 DB">ลงทะเบียนร้านค้า</h5>
+                <h3 className="text-left mt-3 mb-3 DB">ลงทะเบียนร้านค้า</h3>
                 <form action="/register" method="post" noValidate>
                   <div className="col form-group mt-2">
                     <label>Category Name</label>

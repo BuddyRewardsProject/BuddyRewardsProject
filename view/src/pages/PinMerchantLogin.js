@@ -28,7 +28,7 @@ const MarginTop = styled.div`
   margin-top: 15%;
 `;
 const Formsize = styled.form`
-  padding: 20px;
+  padding: 5px;
 `;
 export default class Login extends Component {
   state = {
@@ -59,10 +59,10 @@ export default class Login extends Component {
                 <Link className="body "to="/">
                   <img src={logo} /></Link>
                 </div>
-                <h4 className="text-center mt-3 mb-3">Merchant Name</h4>
-                <h6 className="text-center mt-3 mb-3">
+                <h1 className="text-center mt-3 mb-3 DBB">Merchant Name</h1>
+                <h4 className="text-center mt-3 mb-3 DB">
                   กรอง PIN เพื่อเข้าใช้งาน
-                </h6>
+                </h4>
                 <div className="text-center ">
                   
                   <PinInput 
@@ -93,6 +93,14 @@ export default class Login extends Component {
                   </BtnOrange>
                 </div>
               </Formsize>
+              <div className="col text-center form-group mt-2 d-grid  mx-auto">
+              <BtnOrange 
+                    className="btn btn-primary "
+                    
+                    type="submit"
+                  >
+                    LOGOUT
+                  </BtnOrange></div>
             </MarginTop>
             <div className="col-lg-3 col-md-2"></div>
           </div>
