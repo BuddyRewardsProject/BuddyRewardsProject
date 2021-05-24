@@ -14,11 +14,6 @@ const BtnOrange = styled.button`
     background-color: ${color.ButtonOrange};
   }
 `;
-const logoMerchantPIN = styled.img`
-  width: 100px;
-  height: 100px;
-  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
-`;
 const BgGreen = styled.div`
   height: 300px;
   background: linear-gradient(180deg, #f7931e 0%, #ff7676 100%);
@@ -63,8 +58,7 @@ export default class Login extends Component {
                 <h4 className="text-center mt-3 mb-3 DB">
                   กรอก PIN เพื่อเข้าใช้งาน
                 </h4>
-                <div className="text-center ">
-                  
+                <div className="text-center ">                 
                   <PinInput 
                     length={6}
                     initialValue=""
@@ -82,25 +76,12 @@ export default class Login extends Component {
                   />
                 </div>
                 <div className="text-center">{value}</div>
-
                 <div className="col text-center form-group mt-2 d-grid gap-2 col-6 mx-auto">
-                  <BtnOrange
-                    className="btn btn-primary"
-                    onClick={this.onClear}
-                    type="submit"
-                  >
-                    clear
-                  </BtnOrange>
+                  <BtnOrange className="btn btn-primary" onClick={this.onClear} type="submit">clear</BtnOrange>
                 </div>
               </Formsize>
               <div className="col text-center form-group mt-2 d-grid  mx-auto">
-              <BtnOrange 
-                    className="btn btn-primary "
-                    
-                    type="submit"
-                  >
-                    LOGOUT
-                  </BtnOrange></div>
+              <BtnOrange className="btn btn-primary " type="submit">LOGOUT</BtnOrange></div>
             </MarginTop>
             <div className="col-lg-3 col-md-2"></div>
           </div>

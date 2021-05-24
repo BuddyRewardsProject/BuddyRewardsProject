@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import color from "../config/color";
-import logo from "../asssets/img/logoM.svg";
-import { Link } from 'react-router-dom';
 import Navbar2 from "../layouts/Navbar2";
 
 const BgGradient = styled.div`
