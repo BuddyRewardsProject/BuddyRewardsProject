@@ -3,9 +3,18 @@ const app = express();
 const db = require('./model/dbConnection');
 const cors = require('cors');
 const path = require('path');
-const branch = require("./controller/branch");
 const bodyParser = require('body-parser');
 const functions = require('./utils/functions')
+const crypto = require('crypto')
+require('dotenv').config()
+
+const branch = require("./controller/branch");
+const category = require("./controller/category");
+const district = require("./controller/district");
+const province = require("./controller/province");
+const merchant = require("./controller/merchant")
+const staff = require("./controller/staff")
+const e = require('express');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -18,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // })
 app.get('/home', (req, res) => {
     db.query("SELECT * FROM Merchant", (err, result) => {
-        if(err){
+        if (err) {
             console.log(err);
         } else {
             var results = {
@@ -36,25 +45,100 @@ app.get('/home', (req, res) => {
 
 
 //Login (No finish)
+app.post("/merchant/v1/login", (req, res) => {
+    var userName = req.body.userName;
+    var hashPassword = req.body.hashPassword;
+    
 
+
+})
 
 //Register
-app.post("/merchant/v1/register", (req, res) => {
-    var branchInfo = req.body.branchInfo;
-    branch.addBranch(branchInfo).then((e) => {
+app.post("/merchant/v1/register", async (req, res) => {
+    var registerData = req.body.data;
+    var generate = Math.round(new Date().getTime() / 1000);
+    var hash = crypto.createHmac('sha512', process.env.SECRET_KEY)
+    hash.update(registerData.merchantPassword)
+    var hasedPassword = hash.digest('hex')
+
+    if (registerData.merchantName === '') {
         var data = {
-            status: "sucess"
+            status: "error",
+            errorMessage: "Conflict"
         }
-        return functions.responseJson(res,data)
+        return functions.responseJson(res, data)
+    }
+    var merchantInfo = {
+        merchantId: generate,
+        merchantName: registerData.merchantName
+    }
+    var branchInfo = {
+        branchName: registerData.branchName,
+        phone: registerData.branchPhone,
+        userName: registerData.merchantUserName,
+        password: hasedPassword,
+        masterAccount: 1,
+        districtId: registerData.districtName,
+        merchantId: generate
+    }
+    try {
+        var merchantState = await merchant.addMerchant(merchantInfo)
+        var branchState = await branch.addBranch(branchInfo)
+        if (merchantState.affectedRows === 1 && branchState.affectedRows === 1) {
+            var staffInfo = {
+                firstName: registerData.ownerFirstName,
+                lastName: registerData.ownerLastName,
+                phone: registerData.staffPhone,
+                roleId: 1,
+                branchId: branchState.insertId
+            }
+            var staffState = await staff.addStaff(staffInfo)
+            if (staffState.affectedRows === 1) {
+                var data = {
+                    status: "success"
+                }
+                return functions.responseJson(res, data)
+            }
+        }
+    } catch (error) {
+        var data = {
+            status: "error",
+            errorMessage: "Conflict"
+        }
+        return functions.responseJson(res, data)
+    }
+})
+
+app.get("/merchant/v1/register/init", async (req, res) => {
+    var categoryInfo = await category.getCategory();
+    var provinceInfo = await province.getProvince();
+    var districtInfo = await district.getDistrict();
+
+    var data = {
+        status: "sucess",
+        categories: categoryInfo,
+        provinces: provinceInfo,
+        districts: districtInfo
+    }
+    return functions.responseJson(res, data)
+})
+
+app.get("/merchant/v1/categories", (req, res) => {
+    category.getCategory().then((e) => {
+        var data = {
+            status: "sucess",
+            categories: e
+        }
+        return functions.responseJson(res, data)
     }).catch((e) => {
         var data = {
             status: "error",
             errorMessage: e
         }
-        return functions.responseJson(res,data)
+        return functions.responseJson(res, data)
     })
 })
 
 app.listen('3001', () => {
-console.log ('Server is running on port 3001');
+    console.log('Server is running on port 3001');
 })
