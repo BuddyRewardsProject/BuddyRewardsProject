@@ -3,6 +3,11 @@ import styled from "styled-components";
 import color from "../config/color";
 import logo from "../asssets/img/logoM.svg";
 import { Link } from "react-router-dom";
+import axios from "axios"
+import $ from "jquery"
+import sha512 from "js-sha512"
+
+const SECRET_KEY = '2aaf1e7d17a8d4706225480585767166cabd'
 
 const BtnOrange = styled.button`
   background-color: ${color.Button};
@@ -20,10 +25,33 @@ const BgGreen = styled.div`
 const MarginTop = styled.div`
   margin-top: 15%;
 `;
-const Formsize = styled.form`
-  padding: 20px;
-`;
+
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    }
+  }
+  handleClick(e) {
+    e.preventDefault();
+    var userNameInput = $('#userName').val()
+    var passwordInput = $('#password').val()
+    var hash = sha512.hmac.create(SECRET_KEY);
+    hash.update(passwordInput);
+
+    axios.post('http://localhost:3001/merchant/v1/login', {
+      userName: userNameInput,
+      hashPassword: hash.hex()
+    })
+      .then((response) => {
+        alert(JSON.stringify(response.data))
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <BgGreen>
@@ -31,7 +59,7 @@ export default class Login extends Component {
           <div className="position-absolute overlap-box row align-items-center">
             <div className="col-lg-3 col-md-2"></div>
             <MarginTop className="col bg-white shadow p-3 mb-5 bg-body rounded-10">
-              <Formsize action="/login" method="post">
+              <div>
                 <div>
                   {" "}
                   <Link className="body " to="/">
@@ -45,7 +73,7 @@ export default class Login extends Component {
                     <input
                       type="text"
                       name="Username"
-                      id="_rname"
+                      id="userName"
                       className="form-control"
                       placeholder="Username"
                       required
@@ -58,7 +86,7 @@ export default class Login extends Component {
                     <input
                       type="password"
                       name="Password"
-                      id="_rpassword"
+                      id="password"
                       className="form-control"
                       placeholder="Password"
                       required
@@ -66,13 +94,13 @@ export default class Login extends Component {
                   </div>
                 </div>
                 <div className="col text-center form-group mt-2 d-grid gap-2 col-6 mx-auto">
-                  <BtnOrange className="btn btn-primary" type="submit">
+                  <BtnOrange className="btn btn-primary" type="button" onClick={(e) =>this.handleClick(e)}>
                     login
                   </BtnOrange>
                 </div>
-              </Formsize>
+              </div>
               <Link className="col text-center form-group mt-2 d-grid gap-2 col-6 mx-auto" to="/merchant/PinMerchantLogin">
-                <BtnOrange className="btn btn-primary" >
+                <BtnOrange className="btn btn-primary">
                   PIN
                 </BtnOrange>
               </Link>

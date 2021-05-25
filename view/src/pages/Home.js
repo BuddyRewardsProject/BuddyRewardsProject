@@ -33,16 +33,13 @@ class Home extends Component {
     return (
       <>
         <Navbar></Navbar>
-
         <div className="container">
           <div className="row text-center">
             <div className="col col-lg-3"></div>
-
-            <div className="col DBB">
+            <div className="col">
               <h1>ร้านค้าที่ใช้บริการกับทางเรา</h1>
               {this.state.merchantId} {this.state.merchantName}
             </div>
-
             <div className="col col-lg-3"></div>
             <div>
               <img

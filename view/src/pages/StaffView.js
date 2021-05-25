@@ -36,18 +36,18 @@ export default class Login extends Component {
                     <div className="row">
                         <div className="col-lg-3 col-md-2" />
                         <div className="col">
-                            <div class="row row-cols-1 row-cols-md-2 g-4 p-4">
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Web POS</h5>
+                            <div className="row row-cols-1 row-cols-md-2 g-4 p-4">
+                                <div className="col">
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <h5 className="card-title">Web POS</h5>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Web POS</h5>
+                                <div className="col">
+                                    <div className="card h-100">
+                                        <div className="card-body">
+                                            <h5 className="card-title">Web POS</h5>
                                         </div>
                                     </div>
                                 </div>

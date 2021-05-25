@@ -7,12 +7,18 @@ import { Link } from "react-router-dom";
 import axios from "axios"
 import $ from "jquery"
 
+import { message } from 'antd';
+
+const key = 'updatable';
+
 const BtnOrange = styled.button`
   background-color: ${color.Button};
   border-style: none;
   border-radius: 20px;
+  color: white;
   &:hover {
     background-color: ${color.ButtonOrange};
+    color: white;
   }
 `;
 const BgGreen = styled.div`
@@ -25,31 +31,110 @@ const MarginTop = styled.div`
 `;
 
 export default class Register extends Component {
-  handleClick() {
-    var fname = $('#_fname').val()
-    var branchInfo = {
-      branchId: 4,
-      branchName: fname,
-      branchLogo: "11111111111",
-      detail: "ชาดีที่คุณไว้วางใจ",
-      phone: "027777777",
-      userName: "chapayombangbon",
-      password: "345678",
-      masterAccount: 1,
-      districtId: 19,
-      merchantId: 1,
-      categoryMerchant: "test"
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: null,
+      provinces: null,
+      districts: null,
+      districtFilter: null,
+      repeatPassword: null,
+      formValidation: {
+        repeatPassword: true,
+        buttonState: ''
+      }
+    }
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    var merchantUserName = $('#userName').val()
+    var merchantPassword = $('#password').val()
+    var repeatMerchantPassword = $('#repeatPassword').val()
+    var ownerFirstName = $('#firstName').val()
+    var ownerLastName = $('#lastName').val()
+    var staffPhone = $('#phone').val()
+    var merchantName = $('#merchantName').val()
+    var branchName = $('#branchName').val()
+    var categoryName = $('#categoryName').val()
+    var branchPhone = $('#branchPhone').val()
+    var provinceName = $('#provinceName').val()
+    var districtName = $('#districtName').val()
+
+    var data = {
+      merchantUserName: merchantUserName,
+      merchantPassword: merchantPassword,
+      repeatMerchantPassword: repeatMerchantPassword,
+      ownerFirstName: ownerFirstName,
+      ownerLastName: ownerLastName,
+      staffPhone: staffPhone,
+      merchantName: merchantName,
+      branchName: branchName,
+      categoryName: categoryName,
+      branchPhone: branchPhone,
+      provinceName: provinceName,
+      districtName: districtName
     }
     axios.post('http://localhost:3001/merchant/v1/register', {
-      branchInfo
+      data
     })
-      .then(function (response) {
-        console.log(response);
+      .then((response) => {
+        if (response.data.status === "success") {
+          message.success({ content: 'สำเร็จแล้ว!', key, duration: 2 });
+          window.location.href = '/login';
+        } else {
+          message.error({ content: 'เกิดข้อผิดพลาด!', key, duration: 2 });
+        }
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }
+  componentDidMount() {
+    axios.get('http://localhost:3001/merchant/v1/register/init')
+      .then((response) => {
+        this.setState({
+          categories: response.data.categories,
+          provinces: response.data.provinces,
+          districts: response.data.districts
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  onProvinceSelection(e) {
+    var districts = this.state.districts.filter(district => {
+      return district.province_id === parseInt(e.target.value)
+    })
+    this.setState({ districtFilter: districts })
+  }
+  onRepeatPasswordInput(e) {
+    var password = $('#password').val()
+    if (!password || password.length === 0 || password === null) return false;
+    if (password === e.target.value) {
+      this.setState(prevState => ({
+        formValidation: {                   // object that we want to update
+          ...prevState.formValidation,    // keep all other key-value pairs
+          repeatPassword: true,
+          buttonState: 'active'       // update the value of specific key
+        }
+      }))
+      $('#repeatPassword').removeClass('is-invalid')
+      $('#repeatPassword').addClass('is-valid')
+    } else {
+      this.setState(prevState => ({
+        formValidation: {                   // object that we want to update
+          ...prevState.formValidation,    // keep all other key-value pairs
+          repeatPassword: false,
+          buttonState: ''       // update the value of specific key
+        }
+      }))
+      $('#repeatPassword').addClass('is-invalid')
+      $('#repeatPassword').removeClass('is-valid')
+    }
+  }
+
   render() {
     return (
       <div>
@@ -64,7 +149,7 @@ export default class Register extends Component {
                 </Link>
                 </div>
                 <h3 className="text-left mt-3 mb-3 DB">สมัครบัญชีร้านค้า</h3>
-                <form action="/register" method="post" noValidate>
+                <div>
                   <div className="col form-group mt-2">
                     <input type="text" name="userName" id="userName" className="form-control" placeholder="Merchant Username" required></input>
                   </div>
@@ -72,7 +157,8 @@ export default class Register extends Component {
                     <input type="password" name="password" id="password" className="form-control" placeholder="Merchant Password" required></input>
                   </div>
                   <div className="col form-group mt-2">
-                    <input type="text" name="repeatPassword" id="repeatPassword" className="form-control" placeholder="Repeat Merchant Password" required></input>
+                    <input type="password" name="repeatPassword" id="repeatPassword" className="form-control" placeholder="Repeat Merchant Password" onChange={(e) => this.onRepeatPasswordInput(e)} required></input>
+                    {!this.state.formValidation.repeatPassword && <small className="invalid-feedback">Password not match</small>}
                   </div>
                   <h5 className="text-left mt-3 mb-3 DBB">ข้อมูลเจ้าของร้าน</h5>
                   <div className="row g-3">
@@ -87,32 +173,49 @@ export default class Register extends Component {
                   </div>
                   <h5 className="text-left mt-3 mb-3 DBB">ข้อมูลร้านค้า</h5>
                   <div className="col form-group mt-2">
-                    <input type="text" name="branchName" id="branchName" className="form-control" placeholder="Merchant Name" required></input>
+                    <input type="text" name="merchantName" id="merchantName" className="form-control" placeholder="Merchant Name" required></input>
+                  </div>
+                  <div className="col form-group mt-2">
+                    <input type="text" name="branchName" id="branchName" className="form-control" placeholder="Branch Name" required></input>
                   </div>
                   <div className="col form-floating mt-2">
                     <select class="form-select" id="categoryName" required>
                       <option selected>Choose...</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      {this.state.categories !== null && this.state.categories.map(c =>
+                        <option key={c.category_id} value={c.category_id}>{c.category_name}</option>
+                      )}
                     </select>
                     <label for="floatingInputInvalid">Merchant Category</label>
                   </div>
                   <div className="col form-group mt-2">
                     <input type="text" name="branchPhone" id="branchPhone" className="form-control" placeholder="Merchant Phone" required></input>
                   </div>
-                  <div className="col form-group mt-2">
-                    <input type="text" name="districtName" id="districtName" className="form-control" placeholder="District" required></input>
+                  <div className="col form-floating mt-2">
+                    <select class="form-select" id="provinceName" onChange={(e) => this.onProvinceSelection(e)} required>
+                      <option selected>Choose...</option>
+                      {this.state.provinces !== null && this.state.provinces.map(p =>
+                        <option key={p.province_id} value={p.id}>{p.name_in_thai}</option>
+                      )}
+                    </select>
+                    <label for="floatingInputInvalid">Province</label>
                   </div>
-                  <div className="col form-group mt-2">
-                    <input type="text" name="provinceName" id="provinceName" className="form-control" placeholder="Province" required></input>
-                  </div>
+                  {this.state.districtFilter !== null &&
+                    <div className="col form-floating mt-2">
+                      <select className="form-select" id="districtName" required>
+                        <option selected>Choose...</option>
+                        {this.state.districtFilter.map(d =>
+                          <option key={d.district_id} value={d.id}>{d.name_in_thai}</option>
+                        )}
+                      </select>
+                      <label for="floatingInputInvalid">District</label>
+                    </div>
+                  }
                   <div className="col text-center form-group mt-4 d-grid gap-2 col-6 mx-auto">
-                    <BtnOrange className="btn btn-primary" type="submit">
+                    <BtnOrange className="btn" type="button" onClick={(e) => this.handleClick(e)} disabled={!this.state.formValidation.buttonState}>
                       Submit
                   </BtnOrange>
                   </div>
-                </form>
+                </div>
               </MarginTop>
               <div className="col-lg-3 col-md-2"></div>
             </div>
