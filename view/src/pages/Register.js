@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import Navbar from "../layouts/Navbar";
 import color from "../config/color";
-import logo from "../asssets/img/logoM.svg";
+import logo from "../assets/img/logoM.svg";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios"
 import $ from "jquery"
 
-import { message } from 'antd';
+import message from 'antd/lib/message/index';
 
 const key = 'updatable';
 
@@ -75,13 +75,13 @@ export default class Register extends Component {
       provinceName: provinceName,
       districtName: districtName
     }
-    axios.post('http://localhost:3001/merchant/v1/register', {
+    axios.post('/merchant/v1/register', {
       data
     })
       .then((response) => {
         if (response.data.status === "success") {
           message.success({ content: 'สำเร็จแล้ว!', key, duration: 2 });
-          window.location.href = '/login';
+          window.location.href = '/merchant/login';
         } else {
           message.error({ content: 'เกิดข้อผิดพลาด!', key, duration: 2 });
         }

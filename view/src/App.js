@@ -9,7 +9,10 @@ import Register from "./pages/Register"
 import Login from './pages/Login';
 import PinMerchantLogin from './pages/PinMerchantLogin';
 import StaffView from './pages/StaffView'
+import requireAuth from './utils/requireAuth'
+import { createBrowserHistory } from 'history'
 
+const browserHistory = createBrowserHistory();
 
 function App() {
   return (
@@ -17,23 +20,13 @@ function App() {
       <Helmet>
         <title>Buddy Rewards</title>
       </Helmet>
-      <Router>
+      <Router history={browserHistory}>
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/merchant/login">
-            <Login />
-          </Route>
-          <Route path="/merchant/PinMerchantLogin">
-            <PinMerchantLogin />
-          </Route>
-          <Route path="/merchant/register">
-            <Register />
-          </Route>
-          <Route path="/merchant/branch/staff-view">
-            <StaffView />
-          </Route>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/merchant/login" component={Login} />
+          <Route exact path="/merchant/login/pin" component={requireAuth(PinMerchantLogin)} />
+          <Route exact path="/merchant/register" component={Register} />
+          <Route exact path="/merchant/branch/staff-view" component={StaffView /*requireAuth(StaffView)*/} />
         </Switch>
       </Router>
     </div >

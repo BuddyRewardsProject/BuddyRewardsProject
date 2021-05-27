@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import color from "../config/color";
-import logo from "../asssets/img/logoM.svg";
+import logo from "../assets/img/logoM.svg";
 import { Link } from "react-router-dom";
 import axios from "axios"
 import $ from "jquery"
 import sha512 from "js-sha512"
+import message from 'antd/lib/message/index';
 
 const SECRET_KEY = '2aaf1e7d17a8d4706225480585767166cabd'
 
@@ -40,12 +41,14 @@ export default class Login extends Component {
     var hash = sha512.hmac.create(SECRET_KEY);
     hash.update(passwordInput);
 
-    axios.post('http://localhost:3001/merchant/v1/login', {
+    axios.post('/merchant/v1/login', {
       userName: userNameInput,
       hashPassword: hash.hex()
     })
       .then((response) => {
-        alert(JSON.stringify(response.data))
+        if(response.data.status === "error") return message.error(response.data.errorMessage);
+        localStorage.setItem("token", response.data.accessToken);
+        window.location.href = '/merchant/login/pin';
       })
       .catch((error) => {
         console.log(error);

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import color from "../config/color";
-import logo from "../asssets/img/merchantLOGO.svg";
-import {Link} from 'react-router-dom';
-import "../asssets/css/merchantSide/MerchantLOGO.css";
+import logo from "../assets/img/merchantLOGO.svg";
+import { Link } from 'react-router-dom';
+import "../assets/css/merchantSide/MerchantLOGO.css";
 import PinInput from "react-pin-input";
+import { connect } from 'react-redux'
+import { logout } from '../actions/authActions'
 
 const BtnOrange = styled.button`
   background-color: ${color.Button};
@@ -25,7 +27,7 @@ const MarginTop = styled.div`
 const Formsize = styled.form`
   padding: 5px;
 `;
-export default class Login extends Component {
+class PinMerchantLogin extends Component {
   state = {
     value: "",
   };
@@ -41,6 +43,11 @@ export default class Login extends Component {
     this.pin.clear();
   };
 
+  handleClick(e){
+    e.preventDefault();
+    this.props.logout()
+  }
+
   render() {
     const { value } = this.state;
     return (
@@ -51,15 +58,15 @@ export default class Login extends Component {
             <MarginTop className="col bg-white shadow p-3 mb-5 bg-body rounded-10">
               <Formsize action="/login" method="post">
                 <div className="LoginMerchantPIN align-items-center">
-                <Link className="body "to="/">
-                  <img src={logo} /></Link>
+                  <Link className="body " to="/">
+                    <img src={logo} alt="logo"/></Link>
                 </div>
                 <h1 className="text-center mt-3 mb-3 DBB">Merchant Name</h1>
                 <h4 className="text-center mt-3 mb-3 DB">
                   กรอก PIN เพื่อเข้าใช้งาน
                 </h4>
-                <div className="text-center ">                 
-                  <PinInput 
+                <div className="text-center ">
+                  <PinInput
                     length={6}
                     initialValue=""
                     secret={true}
@@ -67,10 +74,10 @@ export default class Login extends Component {
                     type="alphanumeric"
                     inputMode="tel"
                     focus={true}
-                    style={{ padding: "10px" } }
+                    style={{ padding: "10px" }}
                     inputStyle={{ borderColor: "blue" }}
                     inputFocusStyle={{ borderColor: "green" }}
-                    onComplete={(value, index) => {}}
+                    onComplete={(value, index) => { }}
                     autoSelect={true}
                     regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
                   />
@@ -81,14 +88,21 @@ export default class Login extends Component {
                 </div>
               </Formsize>
               <div className="col text-center form-group mt-2 d-grid  mx-auto">
-              <BtnOrange className="btn btn-primary " type="submit">LOGOUT</BtnOrange></div>
+                <BtnOrange className="btn" type="button" onClick={(e) => this.handleClick(e)}>LOGOUT</BtnOrange></div>
             </MarginTop>
             <div className="col-lg-3 col-md-2"></div>
           </div>
         </div>
-        
+
       </BgGreen>
-      
+
     );
   }
 }
+
+const mapDispatch = { logout };
+const mapStateToProps = (state) => {
+  return state
+}
+
+export default connect(mapStateToProps, mapDispatch)(PinMerchantLogin)
