@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const functions = require('./utils/functions')
 const crypto = require('crypto')
 require('dotenv').config()
+const jwt = require('jsonwebtoken');
 
 const branch = require("./controller/branch");
 const category = require("./controller/category");
@@ -14,6 +15,7 @@ const district = require("./controller/district");
 const province = require("./controller/province");
 const merchant = require("./controller/merchant")
 const staff = require("./controller/staff")
+const login = require("./controller/login")
 const e = require('express');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,13 +46,33 @@ app.get('/home', (req, res) => {
 });
 
 
-//Login (No finish)
-app.post("/merchant/v1/login", (req, res) => {
+//Login
+app.post("/merchant/v1/login", async (req, res) => {
     var userName = req.body.userName;
     var hashPassword = req.body.hashPassword;
-    
+    var result = await login.getUserById(userName);
 
-
+    if (result.length > 0) {
+        if (result[0].password !== hashPassword) {
+            var data = {
+                status: "error",
+                errorMessage: "Username or Password is incorrect"
+            }
+            return functions.responseJson(res, data)
+        }
+        var user = {
+            branchId: result[0].branch_id,
+            phone: result[0].phone,
+            userName: result[0].user_name,
+            districtId: result[0].district_id,
+            merchantId: result[0].merchant_id
+        }
+        var data = {
+            status: "success",
+            accessToken: generateAccessToken(user)
+        }
+        return functions.responseJson(res, data)
+    }
 })
 
 //Register
@@ -139,6 +161,10 @@ app.get("/merchant/v1/categories", (req, res) => {
     })
 })
 
-app.listen('3001', () => {
+app.listen(process.env.PORT, () => {
     console.log('Server is running on port 3001');
 })
+
+function generateAccessToken(user) {
+    return jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1800s' });
+}

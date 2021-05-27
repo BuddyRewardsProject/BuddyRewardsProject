@@ -1,9 +1,9 @@
 const db = require('../model/dbConnection');
 
-exports.getUserById() = () => {
+exports.getUserById = (userName) => {
     return new Promise((resolve, reject) => {
-        db.query("SELECT * FROM Branch WHERE branch_id = ?",[
-            branchId
+        db.query("SELECT * FROM Branch WHERE user_name = ?",[
+            userName
         ],
             (err, result) => {
                 if (err) reject(err)
