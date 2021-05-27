@@ -1,4 +1,4 @@
-import logo from '../asssets/img/logoM.svg';
+import logo from '../assets/img/logoM.svg';
 import { Link } from 'react-router-dom';
 
 export default function Navbar2() {
