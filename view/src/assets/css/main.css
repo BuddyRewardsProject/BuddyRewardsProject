@@ -41,6 +41,19 @@ background-color: #ffffff!important;
 
 }
 
+
+
+.iconStaffManagement{
+  
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+
+}
+
 @font-face {
   font-family: 'DBHeavent';
   src: local('DBHeavent'), url(../fonts/DB\ Heavent\ v3.2.1.ttf) format('truetype');
@@ -52,7 +65,7 @@ background-color: #ffffff!important;
 
 .DB{
   font-family: DBHeavent, serif;
-  color: rgb(0, 0, 0);
+
 }
 .DBB{
   font-family: DBHeaventDB, serif;
