@@ -27,7 +27,7 @@ const MarginTop = styled.div`
 const Formsize = styled.form`
   padding: 5px;
 `;
-class PinMerchantLogin extends Component {
+class PinReset extends Component {
   state = {
     value: "",
   };

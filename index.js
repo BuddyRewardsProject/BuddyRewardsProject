@@ -16,10 +16,9 @@ const province = require("./controller/province");
 const merchant = require("./controller/merchant")
 const staff = require("./controller/staff")
 const login = require("./controller/login")
-const e = require('express');
+const staffRole = require("./controller/staffRole")
 
 app.use(bodyParser.urlencoded({ extended: false }));
-
 
 app.use(cors());
 app.use(express.json());
@@ -40,7 +39,7 @@ app.get('/home', (req, res) => {
                 results: results,
                 statusCode: 200
             }
-            res.json(data);
+            return functions.responseJson(res, data)
         }
     });
 });
@@ -70,6 +69,75 @@ app.post("/merchant/v1/login", async (req, res) => {
         var data = {
             status: "success",
             accessToken: generateAccessToken(user)
+        }
+        return functions.responseJson(res, data)
+    } else {
+        var data = {
+            status: "error",
+            errorMessage: "Username or Password is incorrect"
+        }
+        return functions.responseJson(res, data)
+    }
+})
+
+//Pin Login
+app.post("/merchant/v1/login/pin", async (req, res) => {
+    var pin = req.body.pincode;
+    console.log(pin)
+    var user = await staff.getStaffByPin(pin)
+
+    if (user.length > 0) {
+        if (pin === user[0].pincode) {
+            var userInfo = {
+                staffId: user[0].staff_id,
+                firstName: user[0].first_name,
+                lastName: user[0].last_name,
+                phone: user[0].phone,
+                roleId: user[0].role_id,
+                branchId: user[0].branch_Id
+            }
+            var data = {
+                status: "success",
+                pinToken: generatePinToken(userInfo)
+            }
+            return functions.responseJson(res, data)
+        } else {
+            var data = {
+                status: "error",
+                errorMessage: "Conflict"
+            }
+            return functions.responseJson(res, data)
+        }
+
+    } else {
+        var data = {
+            status: "error",
+            errorMessage: "Conflict"
+        }
+        return functions.responseJson(res, data)
+    }
+})
+
+app.post("/merchant/v1/login/pin/check", async (req, res) => {
+    var branchId = req.body.branchId;
+    var user = await staff.getStaffByBranchId(branchId)
+
+    if (user.length > 0) {
+        if (user[0].pincode === null) {
+            var data = {
+                status: "unsuccess"
+            }
+            return functions.responseJson(res, data)
+        } else {
+            var data = {
+                status: "success"
+            }
+            return functions.responseJson(res, data)
+        }
+    } else {
+        var data = {
+            status: "error",
+            errorMessage: "Conflict"
         }
         return functions.responseJson(res, data)
     }
@@ -131,6 +199,44 @@ app.post("/merchant/v1/register", async (req, res) => {
     }
 })
 
+//add staff in branch
+app.post("/merchant/v1/branch/staff/manage", async (req, res) => {
+    var staffData = req.body.data;
+    var generate = Math.round(new Date().getTime() / 1000);
+
+    if (staffData.firstName === '') {
+        var data = {
+            status: "error",
+            errorMessage: "Empty"
+        }
+        return functions.responseJson(res, data)
+    }
+    var staffInfo = {
+        staffId: generate,
+        firstName: staffData.firstName,
+        lastName: staffData.lastName,
+        pincode: staffData.pincode,
+        phone: staffData.phone,
+        roleId: staffData.roleId,
+        branchId: staffData.branchId
+    }
+    try {
+        var staffState = await staff.addStaffManagement(staffInfo)
+        if (staffState.affectedRows === 1) {
+            var data = {
+                status: "success"
+            }
+            return functions.responseJson(res, data)
+        }
+    } catch (error) {
+        var data = {
+            status: "error",
+            errorMessage: "Conflict"
+        }
+        return functions.responseJson(res, data)
+    }
+})
+
 app.get("/merchant/v1/register/init", async (req, res) => {
     var categoryInfo = await category.getCategory();
     var provinceInfo = await province.getProvince();
@@ -141,6 +247,16 @@ app.get("/merchant/v1/register/init", async (req, res) => {
         categories: categoryInfo,
         provinces: provinceInfo,
         districts: districtInfo
+    }
+    return functions.responseJson(res, data)
+})
+
+app.get("/merchant/v1/branch/staff/init", async (req, res) => {
+    var staffRoleInfo = await staffRole.getStaffRole();
+
+    var data = {
+        status: "sucess",
+        roles: staffRoleInfo
     }
     return functions.responseJson(res, data)
 })
@@ -161,10 +277,29 @@ app.get("/merchant/v1/categories", (req, res) => {
     })
 })
 
+app.get("/merchant/v1/branch/staff/role", (req, res) => {
+    staffRole.getStaffRole().then((e) => {
+        var data = {
+            status: "sucess",
+            roles: e
+        }
+        return functions.responseJson(res, data)
+    }).catch((e) => {
+        var data = {
+            status: "error",
+            errorMessage: e
+        }
+        return functions.responseJson(res, data)
+    })
+})
+
 app.listen(process.env.PORT, () => {
     console.log('Server is running on port 3001');
 })
 
 function generateAccessToken(user) {
     return jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1800s' });
+}
+function generatePinToken(user) {
+    return jwt.sign(user, process.env.JWT_PIN_SECRET, { expiresIn: '1800s' });
 }

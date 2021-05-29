@@ -29,7 +29,7 @@ function App() {
           <Route exact path="/merchant/login/pin" component={requireAuth(PinMerchantLogin)} />
           <Route exact path="/merchant/login/pin/reset" component={requireAuth(PinReset)} />
           <Route exact path="/merchant/register" component={Register} />
-          <Route exact path="/merchant/branch/staff-view" component={StaffView /*requireAuth(StaffView)*/} />
+          <Route exact path="/merchant/branch" component={requireAuth(StaffView)} />
           <Route exact path="/merchant/branch/staff-Management" component={StaffManagement} />
           <Route exact path="/merchant/branch/branch-Management" component={BranchManagement} />
         </Switch>

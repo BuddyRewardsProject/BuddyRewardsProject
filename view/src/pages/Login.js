@@ -25,6 +25,9 @@ const BgGreen = styled.div`
 `;
 const MarginTop = styled.div`
   margin-top: 15%;
+  @media (min-width: 320px) and (max-width: 768px) {
+  margin-top: 50%;
+  }
 `;
 
 export default class Login extends Component {
@@ -40,19 +43,34 @@ export default class Login extends Component {
     var passwordInput = $('#password').val()
     var hash = sha512.hmac.create(SECRET_KEY);
     hash.update(passwordInput);
+    this.login(userNameInput, hash.hex())
+  }
 
+  login(userName, password) {
     axios.post('/merchant/v1/login', {
-      userName: userNameInput,
-      hashPassword: hash.hex()
+      userName: userName,
+      hashPassword: password
     })
       .then((response) => {
-        if(response.data.status === "error") return message.error(response.data.errorMessage);
+        if (response.data.status === "error") return message.error(response.data.errorMessage);
         localStorage.setItem("token", response.data.accessToken);
         window.location.href = '/merchant/login/pin';
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  componentDidMount() {
+    $(document).on('keypress', (e) => {
+      if (e.which === 13) {
+        var userNameInput = $('#userName').val()
+        var passwordInput = $('#password').val()
+        var hash = sha512.hmac.create(SECRET_KEY);
+        hash.update(passwordInput);
+        this.login(userNameInput, hash.hex())
+      }
+    });
   }
 
   render() {
@@ -65,7 +83,7 @@ export default class Login extends Component {
               <div>
                 <div>
                   {" "}
-                  <Link className="body " to="/">
+                  <Link className="body" to="/">
                     <img src={logo} alt="buddyrewards" width="200" />
                   </Link>
                 </div>
@@ -97,19 +115,14 @@ export default class Login extends Component {
                   </div>
                 </div>
                 <div className="col text-center form-group mt-2 d-grid gap-2 col-6 mx-auto">
-                  <BtnOrange className="btn btn-primary" type="button" onClick={(e) =>this.handleClick(e)}>
+                  <BtnOrange className="btn btn-primary" type="button" onClick={(e) => this.handleClick(e)}>
                     login
                   </BtnOrange>
                 </div>
               </div>
-              <Link className="col text-center form-group mt-2 d-grid gap-2 col-6 mx-auto" to="/merchant/PinMerchantLogin">
-                <BtnOrange className="btn btn-primary">
-                  PIN
-                </BtnOrange>
-              </Link>
             </MarginTop>
             <div className="col-lg-3 col-md-2"></div>
-            <Link className="body DB" to="/merchant/register">
+            <Link className="body" to="/merchant/register">
               <h5 className="text-center ">
                 ไม่มีบัญชีร้านค้าใช้มั้ย สมัครเลย! คลิก
               </h5>
