@@ -11,12 +11,14 @@ export const setUser = (user) => {
 }
 
 export function login(data) {
+    console.log(data)
     return (dispatch) => {
+        console.log(dispatch)
         return axios
             .post("/merchant/v1/login", data)
             .then((response) => {
                 const token = response.data.accessToken;
-                localStorage.setItem("token", token);
+                localStorage.setItem("branchToken", token);
                 setAuthorizationToken(token);
                 dispatch(setUser(jwt.decode(token)));
             })
@@ -28,7 +30,7 @@ export function login(data) {
 
 export function logout() {
     return (dispatch) => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("branchToken");
         setAuthorizationToken(false);
         dispatch(setUser({}));
     };

@@ -11,6 +11,7 @@ import axios from "axios"
 import message from 'antd/lib/message/index';
 import { setStaff } from '../actions/pinActions'
 import jwt from 'jsonwebtoken';
+import { bindActionCreators } from 'redux'
 
 const BtnOrange = styled.button`
   background-color: ${color.Button};
@@ -95,7 +96,8 @@ class PinMerchantLogin extends Component {
     )
       .then((response) => {
         if(response.data.status === "success"){
-          this.props.dispatch(setStaff(jwt.decode(response.data.pinToken)))
+          this.props.setStaff(jwt.decode(response.data.pinToken)) 
+          localStorage.setItem("pinToken", response.data.pinToken);
           window.location.href='/merchant/branch';
         } else {
           message.error({ content: 'เกิดข้อผิดพลาด!', duration: 2 });
@@ -169,9 +171,12 @@ class PinMerchantLogin extends Component {
   }
 }
 
-const mapDispatch = { logout };
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ setStaff, logout }, dispatch)
+}
+
 const mapStateToProps = (state) => {
   return state
 }
 
-export default connect(mapStateToProps, mapDispatch)(PinMerchantLogin)
+export default connect(mapStateToProps, mapDispatchToProps)(PinMerchantLogin)

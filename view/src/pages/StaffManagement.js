@@ -20,8 +20,6 @@ const BranchNameSize = styled.h2`
   color: white;
 `;
 
-
-
 export default class StaffManagement extends Component {
   render() {
     return (
@@ -147,8 +145,6 @@ export default class StaffManagement extends Component {
             <div className="col">
               <div className="row row-cols-1 row-cols-md-3 row-cols-lg-3  g-3 p-3  text-center">
               <div className="col">
-                  
-
               <div className="card rounded-10 ">
                     <div className="card-body ">
                       <div className="iconStaffManagement align-items-center">
@@ -162,7 +158,6 @@ export default class StaffManagement extends Component {
                   </div>
                 </div>
                 <div className="col">
-
                   <div className="card rounded-10 ">
                     <div className="card-body ">
                       <div className="iconStaffManagement align-items-center">
@@ -176,7 +171,6 @@ export default class StaffManagement extends Component {
                   </div>
                 </div>
                 <div className="col">
-                  
                   <div className="card rounded-10 ">
                     <div className="card-body">
                       <div className="iconStaffManagement align-items-center">
@@ -200,7 +194,6 @@ export default class StaffManagement extends Component {
                       >
                         <img src={plus} alt="logo" />
                       </div>
-
                       <h3 className="card-title mt-3 mb-2">add staff</h3>
                       <h6 className="card-title ">add staff</h6>
                       <div className="d-grid gap-2 col-6 mx-auto">

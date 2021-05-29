@@ -4,6 +4,9 @@ import color from "../config/color";
 import Navbar2 from "../layouts/Navbar2";
 import logo from "../assets/img/userM.svg";
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux'
+import { logout } from '../actions/authActions'
+
 const BgGradient = styled.div`
   height: 300px;
   background: ${color.Gradient};
@@ -16,8 +19,7 @@ const BranchNameSize = styled.h2`
   font-style: bold;
   color: white;
 `;
-
-export default class StaffView extends Component {
+class StaffView extends Component {
   render() {
     return (
       <div>
@@ -27,7 +29,7 @@ export default class StaffView extends Component {
             <div className="row align-items-center">
               <div className="col-lg-1 col-md-2"></div>
               <MarginTop className="col">
-                <BranchNameSize className="text-center">Simple cafe</BranchNameSize>
+                <BranchNameSize className="text-center">{this.props.auth.user.branchName}</BranchNameSize>
               </MarginTop>
               <div className="col-lg-1 col-md-2"></div>
             </div>
@@ -110,3 +112,10 @@ export default class StaffView extends Component {
     );
   }
 }
+
+const mapDispatch = { logout };
+const mapStateToProps = (state) => {
+  return state
+}
+
+export default connect(mapStateToProps, mapDispatch)(StaffView)
