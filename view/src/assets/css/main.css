@@ -1,8 +1,9 @@
+html,body {
+  font-family: DBHeavent, serif !important;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont,DB Heavent v3.2.1, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -55,12 +56,12 @@ background-color: #ffffff!important;
 }
 
 @font-face {
-  font-family: 'DBHeavent';
-  src: local('DBHeavent'), url(../fonts/DB\ Heavent\ v3.2.1.ttf) format('truetype');
+  font-family: DBHeavent;
+  src: url(../fonts/DB_Heavent_v3.2.1.ttf);
 }
 @font-face {
-  font-family: 'DBHeaventDB';
-  src: local('DBHeaventDB'), url(../fonts/DB\ Heavent\ Bd\ v3.2.1.ttf) format('truetype');
+  font-family: DBHeaventDB;
+  src: url(../fonts/DB_Heavent_Bd_v3.2.1.ttf);
 }
 
 .DB{
