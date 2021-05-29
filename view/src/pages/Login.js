@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import color from "../config/color";
 import logo from "../assets/img/logoM.svg";
+import logoBW from "../assets/img/logoMBW.svg";
 import { Link } from "react-router-dom";
 import axios from "axios"
 import $ from "jquery"
@@ -129,7 +130,12 @@ export default class Login extends Component {
             </Link>
           </div>
         </div>
+        <footer class="text-center text-white fixed-bottom mt-3 mb-3"> <div><img src={logoBW} alt="buddyrewards" width="130" /></div>
+                  
+                   </footer>
+                   
       </BgGreen>
+      
     );
   }
 }
