@@ -18,11 +18,12 @@ exports.addStaff = (staff) => {
 
 exports.addStaffManagement = (staff) => {
     return new Promise((resolve, reject) => {
-        db.query("INSERT INTO Staff (staff_id, first_name, last_name, phone, role_id, branch_id) VALUES (?,?,?,?,?,?)", 
+        db.query("INSERT INTO Staff (staff_id, first_name, last_name, pincode, phone, role_id, branch_id) VALUES (?,?,?,?,?,?,?)", 
         [
             staff.staffId,
             staff.firstName,
             staff.lastName,
+            staff.pincode,
             staff.phone,
             staff.roleId,
             staff.branchId

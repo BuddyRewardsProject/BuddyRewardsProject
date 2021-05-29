@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import color from "../config/color";
 import Navbar2 from "../layouts/Navbar2";
-import logo from "../assets/img/merchantLOGO.svg";
+import logo from "../assets/img/userM.svg";
+
 import plus from "../assets/img/plusSM.svg";
 import PinInput from "react-pin-input";
-import { contains } from "jquery";
+
 const BgGradient = styled.div`
   height: 200px;
   background: ${color.Gradient};
@@ -17,15 +18,6 @@ const BranchNameSize = styled.h2`
   font-size: 48px;
   font-style: bold;
   color: white;
-`;
-
-const BtnAddstaff = styled.button`
-  background-color: ${color.Button};
-  border-style: none;
-  border-radius: 20px;
-  &:hover {
-    background-color: ${color.ButtonOrange};
-  }
 `;
 
 export default class StaffManagement extends Component {
@@ -139,7 +131,7 @@ export default class StaffManagement extends Component {
         <BgGradient>
           <div className="container">
             <div className="row align-items-center">
-              <div className="col-lg-1 col-md-2"></div>
+              <div className="col-lg-1 col-md-2 "></div>
               <MarginTop className="col">
                 <BranchNameSize>Staff Management</BranchNameSize>
               </MarginTop>
@@ -149,22 +141,50 @@ export default class StaffManagement extends Component {
         </BgGradient>
         <div className="container">
           <div className="row">
-            <div className="col-lg-3 col-md-2" />
+            <div className="col-lg-1 col-md-2" />
             <div className="col">
-              <div className="row row-cols-1 row-cols-md-2 g-4 p-4 text-center">
-                <div className="col">
-                  <div className="card">
-                    <div className="card-body">
+              <div className="row row-cols-1 row-cols-md-3 row-cols-lg-3  g-3 p-3  text-center">
+              <div className="col">
+              <div className="card rounded-10 ">
+                    <div className="card-body ">
                       <div className="iconStaffManagement align-items-center">
                         <img src={logo} alt="logo" />
                       </div>
-                      <h5 className="card-title mt-3 mb-2">username</h5>
-                      <h6 className="card-title ">role</h6>
+                      <h3 className="card-title mt-3 mb-2">owner name</h3>
+                      <h6 className="card-title ">owner</h6>
+                      <div className="d-grid gap-2 col-6 mx-auto">
+                      <button type="button" className="btn btn-outline rounded-all btnOrg"> edit </button></div>
                     </div>
                   </div>
                 </div>
                 <div className="col">
-                  <div className="card h-100">
+                  <div className="card rounded-10 ">
+                    <div className="card-body ">
+                      <div className="iconStaffManagement align-items-center">
+                        <img src={logo} alt="logo" />
+                      </div>
+                      <h3 className="card-title mt-3 mb-2">owner name</h3>
+                      <h6 className="card-title ">owner</h6>
+                      <div className="d-grid gap-2 col-6 mx-auto">
+                      <button type="button" className="btn btn-outline rounded-all btnOrg"> edit </button></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col">
+                  <div className="card rounded-10 ">
+                    <div className="card-body">
+                      <div className="iconStaffManagement align-items-center">
+                        <img src={logo} alt="logo" />
+                      </div>
+                      <h3 className="card-title mt-3 mb-2">demo2</h3>
+                      <h6 className="card-title ">role</h6>
+                      <div className="d-grid gap-2 col-6 mx-auto">
+                      <button type="button" className="btn btn-outline rounded-all btnOrg"> edit </button></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col">
+                  <div className="card h-100 rounded-10 ">
                     <div className="card-body">
                       <div
                         className="iconStaffManagement align-items-center"
@@ -174,14 +194,18 @@ export default class StaffManagement extends Component {
                       >
                         <img src={plus} alt="logo" />
                       </div>
-
-                      <h5 className="card-title mt-3 mb-2">add staff</h5>
+                      <h3 className="card-title mt-3 mb-2">add staff</h3>
+                      <h6 className="card-title ">add staff</h6>
+                      <div className="d-grid gap-2 col-6 mx-auto">
+                      <button type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addStaff" className="btn btn-outline rounded-all btnOrg "> Add staff </button></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="col-lg-3 col-md-2" />
+            <div className="col-lg-1 col-md-2" />
           </div>
         </div>
       </div>

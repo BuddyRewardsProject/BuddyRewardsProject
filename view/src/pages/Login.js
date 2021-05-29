@@ -2,11 +2,17 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import color from "../config/color";
 import logo from "../assets/img/logoM.svg";
+import logoBW from "../assets/img/logoMBW.svg";
 import { Link } from "react-router-dom";
 import axios from "axios"
 import $ from "jquery"
 import sha512 from "js-sha512"
 import message from 'antd/lib/message/index';
+import { setUser } from "../actions/authActions";
+import jwt from 'jsonwebtoken'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
 
 const SECRET_KEY = '2aaf1e7d17a8d4706225480585767166cabd'
 
@@ -30,7 +36,7 @@ const MarginTop = styled.div`
   }
 `;
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,7 +59,8 @@ export default class Login extends Component {
     })
       .then((response) => {
         if (response.data.status === "error") return message.error(response.data.errorMessage);
-        localStorage.setItem("token", response.data.accessToken);
+        this.props.setUser(jwt.decode(response.data.accessToken)) 
+        localStorage.setItem("branchToken", response.data.accessToken);
         window.location.href = '/merchant/login/pin';
       })
       .catch((error) => {
@@ -71,6 +78,7 @@ export default class Login extends Component {
         this.login(userNameInput, hash.hex())
       }
     });
+    console.log(this.props)
   }
 
   render() {
@@ -129,7 +137,21 @@ export default class Login extends Component {
             </Link>
           </div>
         </div>
+        <footer class="text-center text-white fixed-bottom mt-3 mb-3"> <div><img src={logoBW} alt="buddyrewards" width="130" /></div>
+                  
+                   </footer>
+                   
       </BgGreen>
+      
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ setUser }, dispatch)
+}
+const mapStateToProps = (state) => {
+  return state
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

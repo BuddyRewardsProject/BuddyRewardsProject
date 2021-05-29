@@ -61,6 +61,7 @@ app.post("/merchant/v1/login", async (req, res) => {
         }
         var user = {
             branchId: result[0].branch_id,
+            branchName: result[0].branch_name,
             phone: result[0].phone,
             userName: result[0].user_name,
             districtId: result[0].district_id,
@@ -81,7 +82,7 @@ app.post("/merchant/v1/login", async (req, res) => {
 })
 
 //Pin Login
-app.post("/merchant/v1/login/pin", async (req, res) => {
+app.post("/merchant/v1/login/pin",authenticateToken, async (req, res) => {
     var pin = req.body.pincode;
     console.log(pin)
     var user = await staff.getStaffByPin(pin)
@@ -118,7 +119,7 @@ app.post("/merchant/v1/login/pin", async (req, res) => {
     }
 })
 
-app.post("/merchant/v1/login/pin/check", async (req, res) => {
+app.post("/merchant/v1/login/pin/check",authenticateToken, async (req, res) => {
     var branchId = req.body.branchId;
     var user = await staff.getStaffByBranchId(branchId)
 
@@ -200,8 +201,8 @@ app.post("/merchant/v1/register", async (req, res) => {
 })
 
 //add staff in branch
-app.post("/merchant/v1/branch/staff/manage", async (req, res) => {
-    var staffData = req.body.data;
+app.post("/merchant/v1/branch/staff/add", async (req, res) => {
+    var staffData = req.body.staffData;
     var generate = Math.round(new Date().getTime() / 1000);
 
     if (staffData.firstName === '') {
@@ -303,3 +304,19 @@ function generateAccessToken(user) {
 function generatePinToken(user) {
     return jwt.sign(user, process.env.JWT_PIN_SECRET, { expiresIn: '1800s' });
 }
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+  
+    if (token == null) return res.sendStatus(401)
+  
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+      console.log(err)
+  
+      if (err) return res.sendStatus(403)
+  
+      req.user = user
+  
+      next()
+    })
+  }

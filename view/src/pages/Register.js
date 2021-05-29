@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Navbar from "../layouts/Navbar";
 import color from "../config/color";
 import logo from "../assets/img/logoM.svg";
+import logoBW from "../assets/img/logoMBW.svg";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios"
@@ -137,10 +138,13 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div>
+      <>
+      
         <Navbar></Navbar>
         <BgGreen >
+          
           <div className="container">
+            
             <div className="position-absolute overlap-box row align-items-center">
               <div className="col-lg-3 col-md-2"></div>
               <MarginTop className="col bg-white shadow p-3 mb-5 bg-body rounded-10">
@@ -220,8 +224,10 @@ export default class Register extends Component {
               <div className="col-lg-3 col-md-2"></div>
             </div>
           </div>
+         
         </BgGreen>
-      </div>
+        
+      </>
     );
   }
 }

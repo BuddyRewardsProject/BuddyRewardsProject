@@ -7,6 +7,7 @@ import setAuthorizationToken from './utils/setAuthorizationToken'
 import jwt from 'jsonwebtoken'
 import rootReducer from './rootReducer'
 import { setUser } from './actions/authActions'
+import { setStaff } from './actions/pinActions'
 import axios from 'axios'
 import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -23,10 +24,15 @@ const store = createStore(
   )
 );
 
-const token = localStorage.getItem("token");
-if (token) {
-  setAuthorizationToken(token);
-  store.dispatch(setUser(jwt.decode(token)))
+const branchToken = localStorage.getItem("branchToken");
+if (branchToken) {
+  setAuthorizationToken(branchToken);
+  store.dispatch(setUser(jwt.decode(branchToken)))
+}
+
+const pinToken = localStorage.getItem("pinToken");
+if (pinToken) {
+  store.dispatch(setStaff(jwt.decode(pinToken)))
 }
 
 ReactDOM.render(
