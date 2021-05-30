@@ -84,7 +84,6 @@ app.post("/merchant/v1/login", async (req, res) => {
 //Pin Login
 app.post("/merchant/v1/login/pin",authenticateToken, async (req, res) => {
     var pin = req.body.pincode;
-    console.log(pin)
     var user = await staff.getStaffByPin(pin)
 
     if (user.length > 0) {
@@ -201,8 +200,21 @@ app.post("/merchant/v1/register", async (req, res) => {
 })
 
 //add staff in branch
-app.post("/merchant/v1/branch/staff/add", async (req, res) => {
-    var staffData = req.body.staffData;
+app.post("/merchant/v1/branch/staff/add", authenticatePinToken, async (req, res) => {
+    var authHeader = req.headers['authorization']
+    var token = authHeader && authHeader.split(' ')[1]
+
+    if (token == null) return res.sendStatus(401)
+    var decode = jwt.decode(token)
+
+    if(decode.roleId !== undefined && decode.roleId === 3){
+        var data = {
+            status: "error",
+            errorMessage: "Do not have permittion"
+        }
+        return functions.responseJson(res, data)
+    }
+    var staffData = req.body.data;
     var generate = Math.round(new Date().getTime() / 1000);
 
     if (staffData.firstName === '') {
@@ -214,10 +226,10 @@ app.post("/merchant/v1/branch/staff/add", async (req, res) => {
     }
     var staffInfo = {
         staffId: generate,
-        firstName: staffData.firstName,
-        lastName: staffData.lastName,
-        pincode: staffData.pincode,
-        phone: staffData.phone,
+        firstName: staffData.staffFirstName,
+        lastName: staffData.staffLastName,
+        pincode: staffData.staffPin,
+        phone: staffData.staffPhone,
         roleId: staffData.roleId,
         branchId: staffData.branchId
     }
@@ -252,11 +264,14 @@ app.get("/merchant/v1/register/init", async (req, res) => {
     return functions.responseJson(res, data)
 })
 
-app.get("/merchant/v1/branch/staff/init", async (req, res) => {
+app.post("/merchant/v1/branch/staff/init", async (req, res) => {
+    var branchId = req.body.branchId;
+    var staffList = await staff.getStaffByBranchId(branchId);
     var staffRoleInfo = await staffRole.getStaffRole();
 
     var data = {
         status: "sucess",
+        staffList: staffList,
         roles: staffRoleInfo
     }
     return functions.responseJson(res, data)
@@ -278,7 +293,7 @@ app.get("/merchant/v1/categories", (req, res) => {
     })
 })
 
-app.get("/merchant/v1/branch/staff/role", (req, res) => {
+app.get("/merchant/v1/branch/staff/role", authenticatePinToken, (req, res) => {
     staffRole.getStaffRole().then((e) => {
         var data = {
             status: "sucess",
@@ -311,6 +326,22 @@ function authenticateToken(req, res, next) {
     if (token == null) return res.sendStatus(401)
   
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+      console.log(err)
+  
+      if (err) return res.sendStatus(403)
+  
+      req.user = user
+  
+      next()
+    })
+  }
+  function authenticatePinToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+  
+    if (token == null) return res.sendStatus(401)
+  
+    jwt.verify(token, process.env.JWT_PIN_SECRET, (err, user) => {
       console.log(err)
   
       if (err) return res.sendStatus(403)

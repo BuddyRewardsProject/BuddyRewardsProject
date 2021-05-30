@@ -28,7 +28,7 @@ const BgGreen = styled.div`
   border-radius: 0px 0px 35px 35px;
 `;
 const MarginTop = styled.div`
-  margin-top: 20vh;
+  margin-top: 15vh;
 `;
 
 export default class Register extends Component {
@@ -145,9 +145,9 @@ export default class Register extends Component {
           
           <div className="container">
             
-            <div className="position-absolute overlap-box row align-items-center">
-              <div className="col-lg-3 col-md-2"></div>
-              <MarginTop className="col bg-white shadow p-3 mb-5 bg-body rounded-10">
+            <div className=" row align-items-center ">
+              <div className="col-lg-3 col-md-2 "></div>
+              <MarginTop className="col bg-white shadow p-3 mb-5 bg-body rounded-10 ">
                 <div > <Link className="body " to="/">
                   <img src={logo} alt="buddyrewards" width="200" />
                 </Link>
