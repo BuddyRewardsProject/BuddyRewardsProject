@@ -82,7 +82,7 @@ class StaffManagement extends Component {
   }
 
   componentDidMount() {
-    axios.post('http://localhost:3001/merchant/v1/branch/staff/init', { branchId: this.props.auth.user.branchId })
+    axios.post('/merchant/v1/branch/staff/init', { branchId: this.props.auth.user.branchId })
       .then((response) => {
         console.log(response.data)
         this.setState({
