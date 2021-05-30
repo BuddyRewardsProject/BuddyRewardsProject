@@ -92,7 +92,7 @@ export default class Register extends Component {
       });
   }
   componentDidMount() {
-    axios.get('http://localhost:3001/merchant/v1/register/init')
+    axios.get('/merchant/v1/register/init')
       .then((response) => {
         this.setState({
           categories: response.data.categories,

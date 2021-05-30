@@ -12,7 +12,7 @@ class Home extends Component {
   }
   componentDidMount() {
     axios
-      .get("http://localhost:3001/home")
+      .get("/home")
       .then((response) => {
         // handle success
         this.setState({
