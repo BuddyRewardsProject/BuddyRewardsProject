@@ -15,12 +15,12 @@ export default function Navbar2() {
                     <div className="collapse navbar-collapse justify-content-end" id="navbarNavDarkDropdown">
                         <div className="btn-group">
                             <button type="button" className="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                Right-aligned, left-aligned lg
+                                profile
                             </button>
                             <ul className="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                                <li><a className="dropdown-item" href="#">Menu item</a></li>
-                                <li><a className="dropdown-item" href="#">Menu item</a></li>
-                                <li><a className="dropdown-item" href="#">Menu item</a></li>
+                                <li><a className="dropdown-item" href="#">pin</a></li>
+                                <li><a className="dropdown-item" href="#">settings</a></li>
+                                <li><a className="dropdown-item" href="#">logout</a></li>
                             </ul>
                         </div>
                     </div>
