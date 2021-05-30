@@ -15,7 +15,7 @@ import './assets/css/main.css';
 
 import 'antd/dist/antd.css';
 
-axios.defaults.baseURL = "http://localhost:3001/";
+axios.defaults.baseURL = "http://buddyrewards.me/service";
 const store = createStore(
   rootReducer,
   compose(
