@@ -206,6 +206,7 @@ export default class StaffManagement extends Component {
               </div>
             </div>
             <div className="col-lg-1 col-md-2" />
+            
           </div>
         </div>
       </div>

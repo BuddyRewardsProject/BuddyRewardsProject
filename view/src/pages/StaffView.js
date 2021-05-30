@@ -2,10 +2,25 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import color from "../config/color";
 import Navbar2 from "../layouts/Navbar2";
-import logo from "../assets/img/userM.svg";
+
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import { logout } from '../actions/authActions'
+import branch from "../assets/img/icon/branch.svg";
+import dash from "../assets/img/icon/Bdash.svg";
+import pos from "../assets/img/icon/Bpos.svg";
+import staff from "../assets/img/icon/staff.svg";
+
+
+const BtnOrange = styled.button`
+  background-color: ${color.Button};
+  border-style: none;
+  border-radius: 20px;
+  &:hover {
+    background-color: ${color.ButtonOrange};
+  }
+`;
+
 
 const BgGradient = styled.div`
   height: 300px;
@@ -19,7 +34,16 @@ const BranchNameSize = styled.h2`
   font-style: bold;
   color: white;
 `;
+
+
+
 class StaffView extends Component {
+
+  handleClick(e){
+    e.preventDefault();
+    this.props.logout()
+  }
+
   render() {
     return (
       <div>
@@ -45,7 +69,7 @@ class StaffView extends Component {
                   <div className="card h-100  card rounded-10  ">
                     <div className="card-body ">
                       <div className="iconStaffManagement align-items-center">
-                        <img src={logo} alt="logo" />
+                        <img src={pos} alt="WebPOS" />
                       </div>
                       <h2 className="card-title mt-2 mb-2 text-center">
                         web POS
@@ -60,7 +84,7 @@ class StaffView extends Component {
                   <div className="card h-100 card rounded-10  ">
                     <div className="card-body">
                       <div className="iconStaffManagement align-items-center">
-                        <img src={logo} alt="logo" />
+                        <img src={dash} alt="Dashboard" />
                       </div>
                       <h2 className="card-title mt-2 mb-2 text-center">
                       Dashbroad
@@ -75,7 +99,7 @@ class StaffView extends Component {
                   <div className="card h-100 card rounded-10 "  >
                     <div className="card-body">
                       <div className="iconStaffManagement align-items-center">
-                        <img src={logo} alt="logo" />
+                        <img src={staff} alt="staff Management" />
                       </div>
                       <h2 className="card-title mt-2 mb-2 text-center">
                       Staff Management
@@ -92,7 +116,7 @@ class StaffView extends Component {
                   <div className="card h-100 card rounded-10 ">
                     <div className="card-body">
                       <div className="iconStaffManagement align-items-center">
-                        <img src={logo} alt="logo" />
+                        <img src={branch} alt="branch" />
                       </div>
                       <h2 className="card-title mt-2 mb-2 text-center">
                       Branch Management
@@ -106,7 +130,9 @@ class StaffView extends Component {
               </div>
             </div>
             <div className="col-lg-2 col-md-2" />
+            <button type="button" className="btn btn-outline rounded-all btnOrg" onClick={(e) => this.handleClick(e)}>LOGOUT</button>
           </div>
+          
         </div>
       </div>
     );

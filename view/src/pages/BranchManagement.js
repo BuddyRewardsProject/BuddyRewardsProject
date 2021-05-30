@@ -107,18 +107,38 @@ export default class BranchManagement extends Component {
             </div>
           </div>
         </BgGradient>
+        
         <div className="container">
+      
+  
           <div className="row">
             <div className="col-lg-3 col-md-2" />
             <div className="col">
-              <div className="row row-cols-1 row-cols-md-2 g-4 p-4 text-center">
+              <div className="row row-cols-1 row-cols-md-1 g-4 p-4 text-center">
+              <div className="col">
+                  <div className="card">
+                    <div className="card-body">
+                    <div className="row justify-content-md-left">
+    <div className="col-md-auto lg-auto">
+    <img src={logo} alt="logo" />
+    </div>
+    <div className="col-md-auto lg-auto topbt ">
+    <h2 className="card-title ">MerchantName </h2>
+  
+    <button type="button" className="btn btn-outline rounded-all btnOrg "> edit </button>
+    </div>
+  
+  </div>
+                    </div>
+                  </div>
+                </div>
                 <div className="col">
                   <div className="card">
                     <div className="card-body">
                       <div className="iconStaffManagement align-items-center">
                         <img src={logo} alt="logo" />
                       </div>
-                      <h5 className="card-title mt-3 mb-2">MerchantName</h5>
+                      <h5 className="card-title mt-3 mb-1">MerchantName</h5>
                       <h6 className="card-title ">BranchName</h6>
                     </div>
                   </div>
@@ -135,7 +155,7 @@ export default class BranchManagement extends Component {
                         <img src={plus} alt="logo" />
                       </div>
 
-                      <h5 className="card-title mt-3 mb-2">add branch</h5>
+                      <h5 className="card-title mt-3 mb-1">add branch</h5>
                     </div>
                   </div>
                 </div>
