@@ -10,9 +10,9 @@ import { setUser } from './actions/authActions'
 import { setStaff } from './actions/pinActions'
 import axios from 'axios'
 import App from './App';
-import "bootstrap/dist/css/bootstrap.min.css"
+
 import './assets/css/main.css';
-import "bootstrap/dist/js/bootstrap.min.js"
+
 import 'antd/dist/antd.css';
 
 axios.defaults.baseURL = "http://localhost:3001/";
@@ -26,7 +26,12 @@ const store = createStore(
 
 const branchToken = localStorage.getItem("branchToken");
 if (branchToken) {
-  setAuthorizationToken(branchToken);
+  const pinToken = localStorage.getItem("pinToken");
+  if (pinToken) {
+    setAuthorizationToken(pinToken);
+  } else {
+    setAuthorizationToken(branchToken);
+  }
   store.dispatch(setUser(jwt.decode(branchToken)))
 }
 

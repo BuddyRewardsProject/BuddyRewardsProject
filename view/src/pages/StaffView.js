@@ -5,7 +5,7 @@ import Navbar2 from "../layouts/Navbar2";
 
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
-import { logout } from '../actions/authActions'
+import { logoutPin } from '../actions/pinActions'
 import branch from "../assets/img/icon/branch.svg";
 import dash from "../assets/img/icon/Bdash.svg";
 import pos from "../assets/img/icon/Bpos.svg";
@@ -16,11 +16,12 @@ const BtnOrange = styled.button`
   background-color: ${color.Button};
   border-style: none;
   border-radius: 20px;
+  color: white;
   &:hover {
     background-color: ${color.ButtonOrange};
+    color: white;
   }
 `;
-
 
 const BgGradient = styled.div`
   height: 300px;
@@ -35,13 +36,12 @@ const BranchNameSize = styled.h2`
   color: white;
 `;
 
-
-
 class StaffView extends Component {
 
   handleClick(e){
     e.preventDefault();
-    this.props.logout()
+    this.props.logoutPin()
+    window.location.href = '/merchant/login/pin'
   }
 
   render() {
@@ -130,16 +130,15 @@ class StaffView extends Component {
               </div>
             </div>
             <div className="col-lg-2 col-md-2" />
-            <button type="button" className="btn btn-outline rounded-all btnOrg" onClick={(e) => this.handleClick(e)}>LOGOUT</button>
-          </div>
-          
+            <BtnOrange type="button" className="btn btn-outline rounded-all" onClick={(e) => this.handleClick(e)}>LOGOUT</BtnOrange>
+          </div>         
         </div>
       </div>
     );
   }
 }
 
-const mapDispatch = { logout };
+const mapDispatch = { logoutPin };
 const mapStateToProps = (state) => {
   return state
 }
