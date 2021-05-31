@@ -82,9 +82,24 @@ app.post("/merchant/v1/login", async (req, res) => {
 })
 
 //Pin Login
-app.post("/merchant/v1/login/pin",authenticateToken, async (req, res) => {
+app.post("/merchant/v1/login/pin", authenticateToken, async (req, res) => {
     var pin = req.body.pincode;
     var user = await staff.getStaffByPin(pin)
+    var authHeader = req.headers['authorization']
+    var token = authHeader && authHeader.split(' ')[1]
+
+    if (token == null) return res.sendStatus(401)
+    var decode = jwt.decode(token)
+    console.log(decode)
+    console.log(user[0].branch_id)
+
+    if (user[0].branch_id !== decode.branchId) {
+        var data = {
+            status: "error",
+            errorMessage: "Username or Password is incorrect"
+        }
+        return functions.responseJson(res, data)
+    }
 
     if (user.length > 0) {
         if (pin === user[0].pincode) {
@@ -94,7 +109,7 @@ app.post("/merchant/v1/login/pin",authenticateToken, async (req, res) => {
                 lastName: user[0].last_name,
                 phone: user[0].phone,
                 roleId: user[0].role_id,
-                branchId: user[0].branch_Id
+                branchId: user[0].branch_id
             }
             var data = {
                 status: "success",
@@ -118,7 +133,7 @@ app.post("/merchant/v1/login/pin",authenticateToken, async (req, res) => {
     }
 })
 
-app.post("/merchant/v1/login/pin/check",authenticateToken, async (req, res) => {
+app.post("/merchant/v1/login/pin/check", authenticateToken, async (req, res) => {
     var branchId = req.body.branchId;
     var user = await staff.getStaffByBranchId(branchId)
 
@@ -207,7 +222,7 @@ app.post("/merchant/v1/branch/staff/add", authenticatePinToken, async (req, res)
     if (token == null) return res.sendStatus(401)
     var decode = jwt.decode(token)
 
-    if(decode.roleId !== undefined && decode.roleId === 3){
+    if (decode.roleId !== undefined && decode.roleId === 3) {
         var data = {
             status: "error",
             errorMessage: "Do not have permittion"
@@ -322,32 +337,32 @@ function generatePinToken(user) {
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
-  
+
     if (token == null) return res.sendStatus(401)
-  
+
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-      console.log(err)
-  
-      if (err) return res.sendStatus(403)
-  
-      req.user = user
-  
-      next()
+        console.log(err)
+
+        if (err) return res.sendStatus(403)
+
+        req.user = user
+
+        next()
     })
-  }
-  function authenticatePinToken(req, res, next) {
+}
+function authenticatePinToken(req, res, next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
-  
+
     if (token == null) return res.sendStatus(401)
-  
+
     jwt.verify(token, process.env.JWT_PIN_SECRET, (err, user) => {
-      console.log(err)
-  
-      if (err) return res.sendStatus(403)
-  
-      req.user = user
-  
-      next()
+        console.log(err)
+
+        if (err) return res.sendStatus(403)
+
+        req.user = user
+
+        next()
     })
-  }
+}
