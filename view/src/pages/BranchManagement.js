@@ -4,7 +4,7 @@ import color from "../config/color";
 import Navbar2 from "../layouts/Navbar2";
 import logo from "../assets/img/merchantLOGO.svg";
 import plus from "../assets/img/plusSM.svg";
-import PinInput from "react-pin-input";
+
 
 const BgGradient = styled.div`
   height: 200px;
@@ -17,15 +17,6 @@ const BranchNameSize = styled.h2`
   font-size: 48px;
   font-style: bold;
   color: white;
-`;
-
-const BtnAddstaff = styled.button`
-  background-color: ${color.Button};
-  border-style: none;
-  border-radius: 20px;
-  &:hover {
-    background-color: ${color.ButtonOrange};
-  }
 `;
 
 export default class BranchManagement extends Component {
