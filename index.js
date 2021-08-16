@@ -16,7 +16,8 @@ const province = require("./controller/province");
 const merchant = require("./controller/merchant")
 const staff = require("./controller/staff")
 const login = require("./controller/login")
-const staffRole = require("./controller/staffRole")
+const staffRole = require("./controller/staffRole");
+const { response } = require('express');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -188,16 +189,21 @@ app.post("/merchant/v1/register", async (req, res) => {
     }
     try {
         var merchantState = await merchant.addMerchant(merchantInfo)
+        //console.log(merchantState)
         var branchState = await branch.addBranch(branchInfo)
+        //console.log(branchState)
         if (merchantState.affectedRows === 1 && branchState.affectedRows === 1) {
             var staffInfo = {
+                staffId: generate,
                 firstName: registerData.ownerFirstName,
                 lastName: registerData.ownerLastName,
                 phone: registerData.staffPhone,
                 roleId: 1,
                 branchId: branchState.insertId
             }
+            //console.log(staffInfo)
             var staffState = await staff.addStaff(staffInfo)
+            //console.log(staffState)
             if (staffState.affectedRows === 1) {
                 var data = {
                     status: "success"
@@ -257,6 +263,112 @@ app.post("/merchant/v1/branch/staff/add", authenticatePinToken, async (req, res)
             return functions.responseJson(res, data)
         }
     } catch (error) {
+        var data = {
+            status: "error",
+            errorMessage: "Conflict"
+        }
+        return functions.responseJson(res, data)
+    }
+})
+
+app.post("/merchant/v1/branch/staff/update", authenticatePinToken, async (req, res) => {
+    var authHeader = req.headers['authorization']
+    var token = authHeader && authHeader.split(' ')[1]
+
+    if (token == null) return res.sendStatus(401)
+    var decode = jwt.decode(token)
+
+    if (decode.roleId !== undefined && decode.roleId === 3) {
+        var data = {
+            status: "error",
+            errorMessage: "Do not have permittion"
+        }
+        return functions.responseJson(res, data)
+    }
+
+    var staffData = req.body.data;
+    var staffPin = await staff.getStaffById(decode.staffId)
+    console.log(staffData)
+    var staffInfo = {
+        staffId: decode.staffId,
+        firstName: (function () {
+            if (staffData.firstName !== null && staffData.firstName && staffData.firstName !== undefined) {
+                return staffData.firstName;
+            }
+            return decode.firstName
+        }()),
+        lastName: (function(){
+            if (staffData.lastName !== null && staffData.lastName && staffData.lastName !== undefined) {
+                return staffData.lastName;
+            }
+            return decode.lastName
+        }()),
+        pincode: (function(){
+            if (staffData.pincode !== null && staffData.pincode && staffData.pincode !== undefined) {
+                return staffData.pincode;
+            }
+            return staffPin[0].pincode
+        }()),
+        phone: (function(){
+            if (staffData.phone !== null && staffData.phone && staffData.phone !== undefined) {
+                return staffData.phone;
+            }
+            return decode.phone
+        }()),
+        roleId: (function(){
+            if (staffData.roleId !== null && staffData.roleId && staffData.roleId !== undefined) {
+                return staffData.roleId;
+            }
+            return decode.roleId
+        }())
+    }
+    try {
+        console.log(staffInfo)
+        var staffState = await staff.updateStaffManagement(staffInfo)
+        if (staffState.affectedRows === 1) {
+            var data = {
+                status: "success"
+            }
+            return functions.responseJson(res, data)
+        }
+    } catch (error) {
+        console.log(error)
+        var data = {
+            status: "error",
+            errorMessage: "Conflict"
+        }
+        return functions.responseJson(res, data)
+    }
+})
+
+app.post("/merchant/v1/branch/staff/remove", authenticatePinToken, async (req, res) => {
+    var authHeader = req.headers['authorization']
+    var token = authHeader && authHeader.split(' ')[1]
+
+    if (token == null) return res.sendStatus(401)
+    var decode = jwt.decode(token)
+
+    if (decode.roleId !== undefined && decode.roleId === 3) {
+        var data = {
+            status: "error",
+            errorMessage: "Do not have permittion"
+        }
+        return functions.responseJson(res, data)
+    }
+    
+    var staffId = req.body.staffId
+    try {
+        console.log(staffId)
+        var staffState = await staff.removeStaffManagement(staffId);
+        console.log(staffState)
+        if (staffState.affectedRows === 1) {
+            var data = {
+                status: "success"
+            }
+            return functions.responseJson(res, data)
+        }
+    } catch (error) {
+        console.log(error)
         var data = {
             status: "error",
             errorMessage: "Conflict"
