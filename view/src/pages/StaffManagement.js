@@ -179,10 +179,26 @@ class StaffManagement extends Component {
         </BgGradient>
         <div className="container">
           <div className="row">
+            
             <div className="col-lg-1 col-md-2" />
+            
             <div className="col">
-            <h2 className="text-end">ผู้ใช้งาน {this.props.pinAuth.staff.staffId} {this.props.pinAuth.staff.firstName}</h2>
+            <h2 className="text-end">ผู้ใช้งาน NoiD {this.props.pinAuth.staff.staffId} name {this.props.pinAuth.staff.firstName}</h2>
+            
               <div className="row row-cols-1 row-cols-md-3 row-cols-lg-3  g-3 p-3  text-center">
+              <div className="col">
+                  <div className="card h-100 rounded-10 ">
+                    <div className="card-body">
+                      <div className="iconStaffManagement align-items-center" onClick={(e) => this.openModel(e)}>
+                        <img src={plus} alt="logo" />
+                      </div>
+                      <h3 className="card-title mt-3 mb-2">add staff</h3>
+                      <h6 className="card-title ">เพิ่ม staff</h6>
+                      <div className="d-grid gap-2 col-6 mx-auto">
+                        <button type="button" className="btn btn-outline rounded-all btnOrg" onClick={(e) => this.openModel(e)}> Add staff </button></div>
+                    </div>
+                  </div>
+                </div>
                 {this.state.staffList !== null && this.state.staffList.map((s,r) =>
                   <div className="col">
                     <div className="card rounded-10 ">
@@ -200,19 +216,7 @@ class StaffManagement extends Component {
                     </div>
                   </div>
                 )}
-                <div className="col">
-                  <div className="card h-100 rounded-10 ">
-                    <div className="card-body">
-                      <div className="iconStaffManagement align-items-center" onClick={(e) => this.openModel(e)}>
-                        <img src={plus} alt="logo" />
-                      </div>
-                      <h3 className="card-title mt-3 mb-2">add staff</h3>
-                      <h6 className="card-title ">add staff</h6>
-                      <div className="d-grid gap-2 col-6 mx-auto">
-                        <button type="button" className="btn btn-outline rounded-all btnOrg" onClick={(e) => this.openModel(e)}> Add staff </button></div>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
             <div className="col-lg-1 col-md-2" />
