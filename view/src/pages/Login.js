@@ -79,6 +79,7 @@ class Login extends Component {
       }
     });
     console.log(this.props)
+    localStorage.removeItem("pinToken");
   }
 
   render() {

@@ -44,7 +44,7 @@ class StaffManagement extends Component {
 
   openModel(e) {
     e.preventDefault();
-    this.modal_announcement = document.getElementById("test");
+    this.modal_announcement = document.getElementById("add");
     this.modal = new window.bootstrap.Modal(this.modal_announcement);
     this.modal.show();
   }
@@ -56,7 +56,6 @@ class StaffManagement extends Component {
     var staffLastName = $('#lastName').val()
     var staffPhone = $('#phone').val()
     var roleName = $('#roleName').val()
-
 
     var data = {
       staffFirstName: staffFirstName,
@@ -72,6 +71,26 @@ class StaffManagement extends Component {
       .then((response) => {
         if (response.data.status === "success") {
           message.success({ content: 'สำเร็จแล้ว!', key, duration: 2 });
+          window.location.reload();
+        } else {
+          message.error({ content: 'เกิดข้อผิดพลาด!', key, duration: 2 });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  removeUser(staffId){
+
+    console.log(staffId)
+    axios.post('/merchant/v1/branch/staff/remove', {
+      staffId: staffId
+    })
+      .then((response) => {
+        if (response.data.status === "success") {
+          message.success({ content: 'สำเร็จแล้ว!', key, duration: 2 });
+          window.location.reload();
         } else {
           message.error({ content: 'เกิดข้อผิดพลาด!', key, duration: 2 });
         }
@@ -98,7 +117,7 @@ class StaffManagement extends Component {
   render() {
     return (
       <div>
-        <div class="modal fade" id="test" tabindex="-1" aria-labelledby="addStaffLabel" aria-hidden="true">
+        <div class="modal fade" id="add" tabindex="-1" aria-labelledby="addStaffLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -146,7 +165,7 @@ class StaffManagement extends Component {
                     initialValue=""
                     secret={false}
                     onChange={(v) => this.onHandlePinInput(v)}
-                    type="alphanumeric"
+                    type="numeric"
                     inputMode="tel"
                     focus={true}
                     style={{ padding: "10px" }}
@@ -206,12 +225,13 @@ class StaffManagement extends Component {
                         <div className="iconStaffManagement align-items-center">
                           <img src={logo} alt="logo" />
                         </div>
-                        <h3 className="card-title mt-3 mb-2" key={s.first_name}>{s.first_name}</h3>                       
-                          <h6 className="card-title" key={s.role_id}>
-                            {s.role_id === 1 ? "Owner" : null}{s.role_id === 2 ? "Manger" : null}{s.role_id === 3 ? "Cashier" : null}
-                            </h6>                       
+                        <h3 className="card-title mt-3 mb-2" key={s.first_name}>{s.first_name}</h3>
+                        <h6 className="card-title" key={s.role_id}>
+                          {s.role_id === 1 ? "Owner" : null}{s.role_id === 2 ? "Manger" : null}{s.role_id === 3 ? "Cashier" : null}
+                        </h6>
                         <div className="d-grid gap-2 col-6 mx-auto">
-                          <button type="button" className="btn btn-outline rounded-all btnOrg"> edit </button></div>
+                          <button type="button" className="btn btn-outline-danger rounded-all" onClick={() => this.removeUser(s.staff_id)}> Delete </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -220,7 +240,7 @@ class StaffManagement extends Component {
               </div>
             </div>
             <div className="col-lg-1 col-md-2" />
-            
+
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios"
 import $ from "jquery"
-
+import PinInput from "react-pin-input";
 import message from 'antd/lib/message/index';
 
 const key = 'updatable';
@@ -36,6 +36,7 @@ export default class Register extends Component {
     super(props);
     this.state = {
       categories: null,
+      pin: null,
       provinces: null,
       districts: null,
       districtFilter: null,
@@ -45,6 +46,12 @@ export default class Register extends Component {
         buttonState: ''
       }
     }
+  }
+
+  onHandlePinInput(pincode) {
+    this.setState({
+      pin: pincode
+    })
   }
 
   handleClick(e) {
@@ -69,6 +76,7 @@ export default class Register extends Component {
       ownerFirstName: ownerFirstName,
       ownerLastName: ownerLastName,
       staffPhone: staffPhone,
+      staffPin: this.state.pin,
       merchantName: merchantName,
       branchName: branchName,
       categoryName: categoryName,
@@ -174,6 +182,26 @@ export default class Register extends Component {
                     </div></div>
                   <div className="col form-group mt-2">
                     <input type="text" name="phone" id="phone" className="form-control" placeholder="Phone" required></input>
+                    <div className="text-center ">
+                  <h6 className="text-center mt-3 mb-3 DB">
+                    กรอก PIN ของคุณเพื่อเข้าใช้งาน
+                  </h6>
+                  <PinInput
+                    length={6}
+                    initialValue=""
+                    secret={false}
+                    onChange={(v) => this.onHandlePinInput(v)}
+                    type="numeric"
+                    inputMode="tel"
+                    focus={true}
+                    style={{ padding: "10px" }}
+                    inputStyle={{ borderColor: "grey" }}
+                    inputFocusStyle={{ borderColor: "green" }}
+                    onComplete={(value, index) => { }}
+                    autoSelect={true}
+                    regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+                  />
+                </div>
                   </div>
                   <h5 className="text-left mt-3 mb-3 DBB">ข้อมูลร้านค้า</h5>
                   <div className="col form-group mt-2">
