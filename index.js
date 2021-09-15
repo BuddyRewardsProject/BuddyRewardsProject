@@ -221,6 +221,50 @@ app.post("/merchant/v1/register", async (req, res) => {
     }
 })
 
+app.post("/merchant/v1/branch/branchmanagement/add", authenticatePinToken, async (req, res) => {
+    var registerData = req.body.data;
+    var hash = crypto.createHmac('sha512', process.env.SECRET_KEY)
+    hash.update(registerData.merchantPassword)
+    var hasedPassword = hash.digest('hex')
+
+    var authHeader = req.headers['authorization']
+    var token = authHeader && authHeader.split(' ')[1]
+
+    if (token == null) return res.sendStatus(401)
+    var decode = jwt.decode(token)
+    if (decode.roleId !== undefined && decode.roleId === 2 && decode.roleId === 3) {
+        var data = {
+            status: "error",
+            errorMessage: "Do not have permittion"
+        }
+        return functions.responseJson(res, data)
+    }
+
+    var branchInfo = {
+        branchName: registerData.branchName,
+        phone: registerData.branchPhone,
+        userName: registerData.merchantUserName,
+        password: hasedPassword,
+        masterAccount: 0,
+        districtId: registerData.districtName,
+        merchantId: jwt.decode(registerData.userToken).merchantId
+    }
+    try {
+        await branch.addBranch(branchInfo)
+        var data = {
+            status: "success"
+        }
+        return functions.responseJson(res, data)
+        
+    } catch (error) {
+        var data = {
+            status: "error",
+            errorMessage: "Conflict"
+        }
+        return functions.responseJson(res, data)
+    }
+})
+
 //add staff in branch
 app.post("/merchant/v1/branch/staff/add", authenticatePinToken, async (req, res) => {
     var authHeader = req.headers['authorization']
@@ -356,7 +400,7 @@ app.post("/merchant/v1/branch/staff/remove", authenticatePinToken, async (req, r
         }
         return functions.responseJson(res, data)
     }
-    
+
     var staffId = req.body.staffId
     console.log(req.body)
     try {
@@ -402,6 +446,23 @@ app.post("/merchant/v1/branch/staff/init", async (req, res) => {
         status: "sucess",
         staffList: staffList,
         roles: staffRoleInfo
+    }
+    return functions.responseJson(res, data)
+})
+
+app.post("/merchant/v1/branch/branchmanagement/init", async (req, res) => {
+    var merchantId = req.body.branchId;
+    var categoryInfo = await category.getCategory();
+    var provinceInfo = await province.getProvince();
+    var districtInfo = await district.getDistrict();
+    var branchList = await branch.getBranchByMerchantId(merchantId);
+
+    var data = {
+        status: "sucess",
+        branchList: branchList,
+        categories: categoryInfo,
+        provinces: provinceInfo,
+        districts: districtInfo
     }
     return functions.responseJson(res, data)
 })

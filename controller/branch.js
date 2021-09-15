@@ -17,3 +17,39 @@ exports.addBranch = (branch) => {
         });
     })
 }
+
+exports.removeBranchManagement = (branchId) => {
+    return new Promise((resolve, reject) => {
+        db.query("DELETE FROM Branch WHERE branch_id = ?", 
+        [
+            branchId
+        ], (err, result) => {
+            if (err) reject(err)
+            resolve(result)
+        });
+    })
+}
+
+exports.getBranchByMerchantId = (merchantId) => {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM Branch WHERE merchant_id = ?",[
+            merchantId
+        ],
+            (err, result) => {
+                if (err) reject(err)
+                resolve(result)
+            });
+    })
+}
+
+exports.getBranchById = (branchId) => {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM Branch WHERE branch_id = ?",[
+            branchId
+        ],
+            (err, result) => {
+                if (err) reject(err)
+                resolve(result)
+            });
+    })
+}
