@@ -9,7 +9,6 @@ import $ from "jquery"
 import { connect } from 'react-redux'
 
 import message from 'antd/lib/message/index';
-import PinInput from "react-pin-input";
 const key = 'updatable';
 
 const BgGradient = styled.div`
@@ -31,7 +30,6 @@ class BranchManagement extends Component {
     super(props);
     this.state = {
       categories: [],
-      pin: null,
       provinces: [],
       districts: [],
       districtFilter: null,
@@ -44,12 +42,6 @@ class BranchManagement extends Component {
     }
     this.modal_announcement = null;
     this.modal = null;
-  }
-
-  onHandlePinInput(pincode) {
-    this.setState({
-      pin: pincode
-    })
   }
 
   openModel(e) {
@@ -65,6 +57,10 @@ class BranchManagement extends Component {
     var merchantUserName = $('#userName').val()
     var merchantPassword = $('#password').val()
     var repeatMerchantPassword = $('#repeatPassword').val()
+    var firstName = $('#firstName').val()
+    var lastName = $('#lastName').val()
+    var phone = $('#phone').val()
+    var pincode = $('#pincode').val()
     var branchName = $('#branchName').val()
     var categoryName = $('#categoryName').val()
     var branchPhone = $('#branchPhone').val()
@@ -75,6 +71,10 @@ class BranchManagement extends Component {
       merchantUserName: merchantUserName,
       merchantPassword: merchantPassword,
       repeatMerchantPassword: repeatMerchantPassword,
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      pincode: pincode,
       branchName: branchName,
       categoryName: categoryName,
       branchPhone: branchPhone,
@@ -117,7 +117,7 @@ class BranchManagement extends Component {
   }
 
   componentDidMount() {
-    axios.post('/merchant/v1/branch/branchmanagement/init', { branchId: this.props.auth.user.branchId })
+    axios.post('/merchant/v1/branch/branchmanagement/init', { branchId: this.props.auth.user.merchantId })
       .then((response) => {
         console.log(response.data)
         this.setState({
@@ -273,7 +273,7 @@ class BranchManagement extends Component {
                     </div>
                   </div>
                 </div>
-                {this.state.branchList !== null && this.state.branchList.map((s, r) =>
+                {this.state.branchList !== null && this.state.branchList.map((s) =>
                   <div className="col">
                     <div className="card">
                       <div className="card-body">
@@ -282,7 +282,7 @@ class BranchManagement extends Component {
                         </div>
                         <h5 className="card-title mt-3 mb-1" key={s.branch_name}>{s.branch_name}</h5>
                         <h6 className="card-title" key={s.master_account}>
-                          {s.master_account === 0 ? "สาขาหลัก" : null}{s.master_account === 2 ? "สาขาย่อย" : null}
+                          {s.master_account === 0 ? "สาขาย่อย" : null}{s.master_account === 1 ? "สาขาหลัก" : null}
                         </h6>
                       </div>
                     </div>

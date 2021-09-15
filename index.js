@@ -65,6 +65,7 @@ app.post("/merchant/v1/login", async (req, res) => {
             branchName: result[0].branch_name,
             phone: result[0].phone,
             userName: result[0].user_name,
+            masterAccount: result[0].master_account,
             districtId: result[0].district_id,
             merchantId: result[0].merchant_id
         }
@@ -91,13 +92,11 @@ app.post("/merchant/v1/login/pin", authenticateToken, async (req, res) => {
 
     if (token == null) return res.sendStatus(401)
     var decode = jwt.decode(token)
-    console.log(decode)
-    console.log(user[0].branch_id)
 
-    if (user[0].branch_id !== decode.branchId) {
+    if (user[0].branch_id !== decode.branchId && user[0].pin != decode.pin) {
         var data = {
             status: "error",
-            errorMessage: "Username or Password is incorrect"
+            errorMessage: "Username or Password is incorrect..."
         }
         return functions.responseJson(res, data)
     }
@@ -109,6 +108,7 @@ app.post("/merchant/v1/login/pin", authenticateToken, async (req, res) => {
                 firstName: user[0].first_name,
                 lastName: user[0].last_name,
                 phone: user[0].phone,
+                pincode: user[0].pincode,
                 roleId: user[0].role_id,
                 branchId: user[0].branch_id
             }
@@ -223,6 +223,7 @@ app.post("/merchant/v1/register", async (req, res) => {
 
 app.post("/merchant/v1/branch/branchmanagement/add", authenticatePinToken, async (req, res) => {
     var registerData = req.body.data;
+    var generate = Math.round(new Date().getTime() / 1000);
     var hash = crypto.createHmac('sha512', process.env.SECRET_KEY)
     hash.update(registerData.merchantPassword)
     var hasedPassword = hash.digest('hex')
@@ -250,12 +251,35 @@ app.post("/merchant/v1/branch/branchmanagement/add", authenticatePinToken, async
         merchantId: jwt.decode(registerData.userToken).merchantId
     }
     try {
-        await branch.addBranch(branchInfo)
-        var data = {
-            status: "success"
+        var branchState = await branch.addBranch(branchInfo)
+        if (branchState.affectedRows === 1) {
+            var staffInfo = {
+                //staffId: decode.staffId,
+                staffId: generate,
+                firstName: decode.firstName,
+                lastName: decode.lastName,
+                pincode: decode.pincode,
+                phone: decode.phone,
+                roleId: 1,
+                branchId: branchState.insertId
+            }
+
+            console.log(staffInfo)
+            var staffState = await staff.addStaff(staffInfo)
+            console.log(staffState)
+            if (staffState.affectedRows === 1) {
+                var data = {
+                    status: "success"
+                }
+                return functions.responseJson(res, data)
+            } else {
+                var data = {
+                    status: "error",
+                    errorMessage: "Error"
+                }
+                return functions.responseJson(res, data)
+            }
         }
-        return functions.responseJson(res, data)
-        
     } catch (error) {
         var data = {
             status: "error",
