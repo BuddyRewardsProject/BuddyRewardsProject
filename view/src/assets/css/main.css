@@ -1,8 +1,10 @@
 html,body {
   font-family: DBHeavent, serif !important;
+ 
 }
 
 body {
+  
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -24,13 +26,21 @@ code {
 .rounded-10 {
   border-radius: 10px;
 }
-
+.ipx {
+  padding: 12px;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}
 .rounded-all{
   border-radius: 50px;
 }
 
 .logo-padding {
   padding-left: 15px;
+
+}
+.logo-paddingCustomer {
+  padding-left: 1px;
 
 }
 .white {
@@ -51,6 +61,11 @@ background-color: #ffffff!important;
   
 }
 
+.mobile-nav {
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 0;
+}
 
 .iconStaffManagement{
   
@@ -84,3 +99,21 @@ background-color: #ffffff!important;
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.navbar {
+  border-bottom: solid 1px #EBEBEB;
+}
+.bottom-tab-nav {
+  border-top: solid 1px #EBEBEB;
+}
+.nav-link,
+.bottom-nav-link {
+  color: #55575b;
+}
+.bottom-nav-link.active {
+  color: #eb2d2d;
+}
+.bottom-tab-label {
+  font-size: 20px;
+}
+

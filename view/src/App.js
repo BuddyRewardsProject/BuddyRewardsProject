@@ -5,6 +5,9 @@ import {
   Route,
 } from "react-router-dom";
 import Home from "./pages/Home"
+import CustomerHome from "./pages/customer/CustomerHome"
+import CustomerRegister from "./pages/customer/CustomerRegister"
+import CustomerCard from "./pages/customer/CustomerCard"
 import Register from "./pages/Register"
 import Login from './pages/Login';
 import PinMerchantLogin from './pages/PinMerchantLogin';
@@ -14,11 +17,22 @@ import { createBrowserHistory } from 'history'
 import PinReset from './pages/PinReset';
 import StaffManagement from './pages/StaffManagement';
 import BranchManagement from './pages/BranchManagement';
+import Navigation from './layouts/Navigation';
 const browserHistory = createBrowserHistory();
 
 function App() {
   return (
+
+
+    
     <div className="App">
+
+<div>
+      
+      
+      
+    </div>
+      
       <Helmet>
         <title>Buddy Rewards</title>
       </Helmet>
@@ -32,8 +46,14 @@ function App() {
           <Route exact path="/merchant/branch" component={requireAuth(StaffView)} />
           <Route exact path="/merchant/branch/staff-Management" component={StaffManagement} />
           <Route exact path="/merchant/branch/branch-Management" component={BranchManagement} />
+
+
+          <Route exact path="/customer/home" component={CustomerHome} />
+          <Route exact path="/customer/register" component={CustomerRegister} />
+          <Route exact path="/customer/mycard" component={CustomerCard} />
         </Switch>
       </Router>
+      
     </div >
   );
 }
