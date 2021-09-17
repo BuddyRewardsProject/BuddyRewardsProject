@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Navbar from "../layouts/Navbar";
 import { Link } from "react-router-dom";
+import liff from "@line/liff";
 
 class Home extends Component {
   constructor(props) {
@@ -9,11 +10,16 @@ class Home extends Component {
     this.state = {
       merchantId: null,
       merchantName: null,
+      user: {},
     };
   }
 
-  
   componentDidMount() {
+    console.log(this.props.user);
+    document.getElementById("width").innerHTML =
+      "Screen width is " + window.screen.width;
+    document.getElementById("height").innerHTML =
+      "Screen Height: " + window.screen.height;
     axios
       .get("/home")
       .then((response) => {
@@ -33,19 +39,26 @@ class Home extends Component {
       });
   }
 
-  
   render() {
     return (
       <>
         <Navbar></Navbar>
         <div className="container">
-          <div className="row text-center">
+          <div className="row text-center"><h1>ร้านค้าที่ใช้บริการกับทางเรา</h1>
             <div className="col col-lg-3"></div>
             <div className="col">
-              <h1>ร้านค้าที่ใช้บริการกับทางเรา</h1>
+              
               {this.state.merchantId} {this.state.merchantName}
             </div>
             <div className="col col-lg-3"></div>
+
+            <header className="App-header">
+              <div className="support">
+                <p>ชื่อ </p>
+                <p>Line ID </p>
+                <img alt="pic" src="" />
+              </div>
+            </header>
             <div>
               <img
                 src="https://www.starbucks.co.th/stb-media/2020/10/starbucks_corporation_logo.png"
@@ -62,7 +75,12 @@ class Home extends Component {
                 width="90"
                 alt="Kbank"
               />
-             <div className="h1" >ปุ่มด่วน shortscut</div> 
+               <h1>
+          <div id="width"></div>
+          <div id="height"></div>
+          <div>ปุ่มด่วน shortscut</div>
+        </h1>
+             
               <Link to="/customer/home">
                 <div className="d-grid gap-2 col-6 mx-auto">
                   <button
@@ -103,8 +121,30 @@ class Home extends Component {
                   </button>
                 </div>
               </Link>
+              <div className="d-grid gap-2 col-6 mx-auto">
+                <button
+                  type="button"
+                  className="btn btn-outline rounded-all btnOrg"
+                  onClick={() => liff.closeWindow()}
+                >
+                  close
+                </button>
+              </div>
+              <div className="d-grid gap-2 col-6 mx-auto">
+                <button
+                  type="URL on LINE browser"
+                  className="btn btn-outline rounded-all btnOrg"
+                  onClick={() =>
+                    liff.openWindow({
+                      url: "https://line.me",
+                      external: false,
+                    })
+                  }
+                >
+                  close
+                </button>
+              </div>
             </div>
-            
           </div>
         </div>
       </>

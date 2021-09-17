@@ -1,7 +1,7 @@
 const colorNavBottom = {
-    Button : '#F7331E',
+    Button : '#F7931E',
     ButtonOrange: '#FF7676',
     Green : '#6FCF97',
-    Gradient : 'linear-gradient(180deg, rgba(255,255,255,0) 0%, #6FCF97 50%)'
+    Gradient : 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);'
 }
 export default colorNavBottom

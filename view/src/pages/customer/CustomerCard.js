@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Navbar from "../../layouts/NavbarCustomer";
+
 import Navigation from '../../layouts/Navigation';
 class CustomerCard extends Component {
   constructor(props) {
@@ -32,7 +32,8 @@ class CustomerCard extends Component {
   render() {
     return (
       <>
-         <Navigation></Navigation>
+           <Navigation history={this.props.history}
+        ></Navigation>
         <div className="container">
           <div className="row text-left">
             <h1>บัตรสะสมแต้มของคุณ</h1>

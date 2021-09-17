@@ -1,7 +1,38 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Navbar from "../../layouts/NavbarCustomer";
-import Navigation from '../../layouts/Navigation';
+import Footer from "../../layouts/Footer";
+import Navigation from "../../layouts/Navigation";
+import color from "../../config/color";
+import styled from "styled-components";
+import logo from "../../assets/img/logoC.svg";
+import liff from "@line/liff";
+import Navbarmimige from "../../layouts/Navbarmimige";
+import { Helmet } from "react-helmet";
+
+const BtnOrange = styled.button`
+  background-color: ${color.Button};
+  border-style: none;
+  border-radius: 20px;
+  &:hover {
+    background-color: ${color.ButtonOrange};
+  }
+`;
+const BgOrg = styled.div`
+  height: 300px;
+  background: ${color.Gradient};
+  border-radius: 0px 0px 35px 35px;
+`;
+
+const BgMimige = styled.div`
+  height: 20px;
+  background: ${color.white};
+  border-radius: 0px 0px 10px 10px;
+`;
+const MarginTop = styled.div`
+  margin-top: 50px;
+`;
+
 class CustomerRegister extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +41,12 @@ class CustomerRegister extends Component {
       merchantName: null,
     };
   }
+
   componentDidMount() {
+    document.getElementById("width").innerHTML =
+      "Screen width is " + window.screen.width;
+    document.getElementById("height").innerHTML =
+      "Screen Height: " + window.screen.height;
     axios
       .get("/home")
       .then((response) => {
@@ -29,53 +65,31 @@ class CustomerRegister extends Component {
         // always executed
       });
   }
+
   render() {
     return (
-      <>
-         <Navigation></Navigation>
-        <div className="container">
-          <div className="row text-left">
-            <h1>สมัคร</h1>
-            <span className="second-word-formatting"> </span>
-            <div>
-              <input
-                type="text"
-                name="nickname"
-                id="nickName"
-                className="form-control"
-                placeholder="nickname"
-                required
-              ></input>
-            </div>
-
-            <div>
-              <input
-                type="text"
-                name="firstname"
-                id="firstName"
-                className="form-control"
-                placeholder="firstname"
-                required
-              ></input>
-            </div>
-
-            <div className="col col-lg-3"></div>
-
-            <div className="col col-lg-3"></div>
-            <div></div>
-            <button
-              type="button"
-              className="btn btn-outline rounded-all btnOrg"
-            >
-             
-              LINE LOGIN
-            </button>
-          </div>
-        </div>
-      </>
+      <BgOrg>
+        <Navbarmimige>
+          <Helmet>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+            ></meta>
+          </Helmet>
+        </Navbarmimige>
+        <Navigation history={this.props.history}
+        ></Navigation>
+        <h1>{liff.getOS()}</h1>
+        <h1>
+          <p id="width"></p>
+          <p id="height"></p>
+        </h1>
+        <h1>{liff.getLanguage()}</h1>
+        <h1>{liff.getOS()}</h1>
+        <h1>{liff.getOS()}</h1>
+      </BgOrg>
     );
   }
 }
-
 
 export default CustomerRegister;
