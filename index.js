@@ -86,22 +86,25 @@ app.post("/merchant/v1/login", async (req, res) => {
 //Pin Login
 app.post("/merchant/v1/login/pin", authenticateToken, async (req, res) => {
     var pin = req.body.pincode;
-    var user = await staff.getStaffByPin(pin)
     var authHeader = req.headers['authorization']
     var token = authHeader && authHeader.split(' ')[1]
-
     if (token == null) return res.sendStatus(401)
     var decode = jwt.decode(token)
 
-    if (user[0].branch_id !== decode.branchId && user[0].pin != decode.pin) {
-        var data = {
-            status: "error",
-            errorMessage: "Username or Password is incorrect..."
-        }
-        return functions.responseJson(res, data)
+    var data = {
+        pincode: pin,
+        branchId: decode.branchId
     }
+    var user = await staff.getStaffByPin(data)
 
     if (user.length > 0) {
+        if (user[0].branch_id !== decode.branchId) {
+            var data = {
+                status: "error",
+                errorMessage: "Username or Password is incorrect..."
+            }
+            return functions.responseJson(res, data)
+        }
         if (pin === user[0].pincode) {
             var userInfo = {
                 staffId: user[0].staff_id,
@@ -233,13 +236,14 @@ app.post("/merchant/v1/branch/branchmanagement/add", authenticatePinToken, async
 
     if (token == null) return res.sendStatus(401)
     var decode = jwt.decode(token)
-    if (decode.roleId !== undefined && decode.roleId === 2 && decode.roleId === 3) {
+    if (decode.roleId !== undefined && decode.roleId === 2 && decode.roleId === 3 && jwt.decode(registerData.userToken).masterAccount === 0) {
         var data = {
             status: "error",
             errorMessage: "Do not have permittion"
         }
         return functions.responseJson(res, data)
     }
+    
 
     var branchInfo = {
         branchName: registerData.branchName,

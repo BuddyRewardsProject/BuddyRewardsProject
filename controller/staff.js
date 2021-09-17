@@ -77,10 +77,12 @@ exports.getStaffByBranchId = (branchId) => {
     })
 }
 
-exports.getStaffByPin = (pincode) => {
+exports.getStaffByPin = (staff) => {
+    console.log(staff)
     return new Promise((resolve, reject) => {
-        db.query("SELECT * FROM Staff WHERE pincode = ?",[
-            pincode
+        db.query("SELECT * FROM Staff WHERE pincode = ? AND branch_id = ?",[
+            staff.pincode,
+            staff.branchId
         ],
             (err, result) => {
                 if (err) reject(err)

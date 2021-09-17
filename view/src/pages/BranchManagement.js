@@ -177,7 +177,7 @@ class BranchManagement extends Component {
               </div>
               <div class="modal-body">
                 <div className="col bg-body">
-                <h5 className="text-left mt-3 DBB">กรุณากรอกบัญชีร้านค้าสาขาย่อย</h5>
+                  <h5 className="text-left mt-3 DBB">กรุณากรอกบัญชีร้านค้าสาขาย่อย</h5>
                   <div>
                     <div className="col form-group mt-2">
                       <input type="text" name="userName" id="userName" className="form-control" placeholder="Merchant Username" required></input>
@@ -255,24 +255,26 @@ class BranchManagement extends Component {
 
             <div className="col">
               <div className="row row-cols-1 row-cols-md-1 g-4 p-4 text-center">
-                <div className="col">
-                  <div className="card h-100">
-                    <div className="card-body">
-                      <div
-                        className="iconStaffManagement align-items-center"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#addStaff"
-                        onClick={(e) => this.openModel(e)}
-                      >
-                        <img src={plus} alt="logo" />
-                      </div>
+                {this.props.auth.user.masterAccount === 1 &&
+                  <div className="col">
+                    <div className="card h-100">
+                      <div className="card-body">
+                        <div
+                          className="iconStaffManagement align-items-center"
+                          type="button"
+                          data-bs-toggle="modal"
+                          data-bs-target="#addStaff"
+                          onClick={(e) => this.openModel(e)}
+                        >
+                          <img src={plus} alt="logo" />
+                        </div>
 
-                      <h5 className="card-title mt-3 mb-1">add branch</h5>
-                      <h6 className="card-title" onClick={(e) => this.openModel(e)}> เพิ่มสาขาในบัญชี</h6>
+                        <h5 className="card-title mt-3 mb-1">add branch</h5>
+                        <h6 className="card-title" onClick={(e) => this.openModel(e)}> เพิ่มสาขาในบัญชี</h6>
+                      </div>
                     </div>
                   </div>
-                </div>
+                }
                 {this.state.branchList !== null && this.state.branchList.map((s) =>
                   <div className="col">
                     <div className="card">
