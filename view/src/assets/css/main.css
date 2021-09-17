@@ -28,6 +28,11 @@ code {
   border-radius: 10px;
 }
 
+.grey {
+  font-size: 24px;
+  color:#F7931E;
+  
+}
 
 .middle {
   font-size: 20px;

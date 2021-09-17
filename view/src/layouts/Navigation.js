@@ -24,7 +24,7 @@ const BtnOrange = styled.button`
   background-color: ${colorNavBottom.Button};
   border-style: none;
   border-radius: 30px;
-  
+  box-shadow: #F7931E 0px 0px 10px 0px;
   font-size: 25px;
   &:hover {
     background-color: ${colorNavBottom.ButtonOrange};
@@ -59,13 +59,14 @@ const Navigation = (props) => {
         <div class="container">
           <div class="row row-cols-3 ">
             <div
-              class="col text-center fs-4 "
+              class="col text-center fs-3 "
+              
               onClick={() => redirect("/customer/register")}
-            >
-              <FontAwesomeIcon icon={faStar} />
+            ><div class="grey">
+              <FontAwesomeIcon icon={faStar}  /></div>
               <div class="col text-center ">หน้าแรก</div>
-            </div>
-
+            
+</div>
             <div
               class="col text-center  justify-content-center align-items-center"
               
@@ -74,10 +75,10 @@ const Navigation = (props) => {
               <div class="col text-center "><BtnOrange className="btn btn-primary justify-content-center align-items-center" onClick={() => alert("ไงงง\nยังทำไม่เสร็จเลยย")}>สะสมแต้ม</BtnOrange></div>
             </div>
             <div
-              class="col text-center fs-4"
+              class="col text-center fs-3"
               onClick={() => redirect("/customer/mycard")}
-            >
-              <FontAwesomeIcon icon={faWallet} />
+            ><div class="grey">
+              <FontAwesomeIcon icon={faWallet} /></div>
               <div class="col text-center ">บัตรของคุณ</div>
             </div>
           </div>
