@@ -1,36 +1,26 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Navbar from "../../layouts/NavbarCustomer";
-import Footer from "../../layouts/Footer";
-import Navigation from "../../layouts/Navigation";
-import color from "../../config/color";
-import styled from "styled-components";
 import logo from "../../assets/img/logoC.svg";
-import liff from "@line/liff";
-import Navbarmimige from "../../layouts/Navbarmimige";
-import { Helmet } from "react-helmet";
+import Navigation from "../../layouts/Navigation";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import styled from "styled-components";
+import colorNavBottom from "../../config/colorNavBottom";
+
+
 
 const BtnOrange = styled.button`
-  background-color: ${color.Button};
+  background-color: ${colorNavBottom.Button};
   border-style: none;
   border-radius: 20px;
   &:hover {
-    background-color: ${color.ButtonOrange};
+    background-color: ${colorNavBottom.ButtonOrange};
   }
 `;
-const BgOrg = styled.div`
-  height: 300px;
-  background: ${color.Gradient};
-  border-radius: 0px 0px 35px 35px;
-`;
-
-const BgMimige = styled.div`
-  height: 20px;
-  background: ${color.white};
-  border-radius: 0px 0px 10px 10px;
-`;
-const MarginTop = styled.div`
-  margin-top: 50px;
+const BgGreen = styled.div`
+  height: 70px;
+  background: ${colorNavBottom.Gradient};
+  border-radius: 0px 0px 0px 0px;
 `;
 
 class CustomerRegister extends Component {
@@ -39,55 +29,81 @@ class CustomerRegister extends Component {
     this.state = {
       merchantId: null,
       merchantName: null,
+      name: "",
+      userLineID: "",
+      pictureUrl: "",
     };
   }
 
-  componentDidMount() {
-    document.getElementById("width").innerHTML =
-      "Screen width is " + window.screen.width;
-    document.getElementById("height").innerHTML =
-      "Screen Height: " + window.screen.height;
-    axios
-      .get("/home")
-      .then((response) => {
-        // handle success
-        this.setState({
-          merchantId: response.data.results.merchantId,
-          merchantName: response.data.results.merchantName,
-        });
-        console.log(response.data[0]);
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      })
-      .then(() => {
-        // always executed
+  componentDidMount = async () => {
+    await window.liff.init({ liffId: "1656382933-9DzLvxlE" }).catch((err) => {
+      alert(err);
+    });
+    if (window.liff.isLoggedIn()) {
+      let user = await window.liff.getProfile();
+      const accessToken = window.liff.getAccessToken();
+      console.log(accessToken);
+      this.setState({
+        user: user,
       });
-  }
+    } else {
+      window.liff.login();
+    }
+  };
 
   render() {
+    
     return (
-      <BgOrg>
-        <Navbarmimige>
-          <Helmet>
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-            ></meta>
-          </Helmet>
-        </Navbarmimige>
-        <Navigation history={this.props.history}
-        ></Navigation>
-        <h1>{liff.getOS()}</h1>
-        <h1>
-          <p id="width"></p>
-          <p id="height"></p>
-        </h1>
-        <h1>{liff.getLanguage()}</h1>
-        <h1>{liff.getOS()}</h1>
-        <h1>{liff.getOS()}</h1>
-      </BgOrg>
+      <>
+        <div className="container">
+        
+          {this.state.user ?
+          <>
+          <p>ชื่อ {this.state.user.displayName}</p>
+          <p>Line ID {this.state.user.userId}</p>
+          <img alt="pic" src={this.state.user.pictureUrl} />
+          </>
+          :
+          <div>loading</div>
+  }
+          <div className="row text-left">
+            <div>
+              <img
+                src={logo}
+                className="logo-paddingCustomer"
+                alt="buddyrewards"
+                width="170"
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                name="nickname"
+                id="nickName"
+                className="form-control "
+                placeholder="nickname"
+                required
+              ></input>
+            </div>
+
+            <div>
+              <input
+                type="text"
+                name="firstname"
+                id="firstName"
+                className="form-control"
+                placeholder="firstname"
+                required
+              ></input>
+            </div>
+
+            <div>ddd</div>
+            <button type="button" className="btn rounded-all btnOrg">
+              LINE LOGIN
+            </button>
+          </div>
+        </div>
+      </>
     );
   }
 }

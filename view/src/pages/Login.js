@@ -84,14 +84,14 @@ class Login extends Component {
 
   render() {
     return (
-      <BgGreen >
+      <BgGreen>
         <div className="container">
           <div className="position-absolute overlap-box row align-items-center">
-            <div className="  col-lg-3 col-md-2"></div>
+            <div className="col-lg-3 col-md-2"></div>
             <MarginTop className="col bg-white shadow p-3 mb-5 bg-body rounded-10">
               <div>
                 <div>
-                  
+                  {" "}
                   <Link className="body" to="/">
                     <img src={logo} alt="buddyrewards" width="200" />
                   </Link>

@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import CustomerHome from "./pages/customer/CustomerHome";
+import CustomerQR from "./pages/customer/CustomerQR";
 import CustomerRegister from "./pages/customer/CustomerRegister";
 import CustomerCard from "./pages/customer/CustomerCard";
 import Register from "./pages/Register";
@@ -74,6 +75,7 @@ class App extends Component {
             />
 
             <Route exact path="/customer/home" component={CustomerHome} />
+            <Route exact path="/customer/myQR" component={CustomerQR} />
             <Route
               exact
               path="/customer/register"

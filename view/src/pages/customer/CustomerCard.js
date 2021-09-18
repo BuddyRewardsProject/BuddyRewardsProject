@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Helmet } from "react-helmet";
+import NavTopMyCard from "../../layouts/NavTopMyCard";
 
 import Navigation from '../../layouts/Navigation';
 class CustomerCard extends Component {
@@ -32,6 +34,10 @@ class CustomerCard extends Component {
   render() {
     return (
       <>
+      <Helmet>
+      <title>บัตรของคุณ</title>
+    </Helmet>
+    <NavTopMyCard></NavTopMyCard>
            <Navigation history={this.props.history}
         ></Navigation>
         <div className="container">

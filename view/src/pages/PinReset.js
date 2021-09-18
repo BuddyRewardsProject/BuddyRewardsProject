@@ -24,8 +24,10 @@ const BgGreen = styled.div`
 const MarginTop = styled.div`
   margin-top: 15%;
 `;
-
-class PinReset extends Component {
+const Formsize = styled.form`
+  padding: 5px;
+`;
+class PinMerchantLogin extends Component {
   state = {
     value: "",
   };
@@ -54,18 +56,17 @@ class PinReset extends Component {
           <div className="position-absolute overlap-box row align-items-center">
             <div className="col-lg-3 col-md-2"></div>
             <MarginTop className="col bg-white shadow p-3 mb-5 bg-body rounded-10">
-              <div>
+              <Formsize action="/login" method="post">
                 <div className="LoginMerchantPIN align-items-center">
                   <Link className="body " to="/">
                     <img src={logo} alt="logo" />
                   </Link>
                 </div>
-                <h1 className="text-center mt-3 mb-3">PIN RESET</h1>
-                <h4 className="text-center mt-3 mb-3">
+                <h1 className="text-center mt-3 mb-3 DBB">PIN RESET</h1>
+                <h4 className="text-center mt-3 mb-3 DB">
                   ตั้งรหัส PIN เพื่อเข้าใช้งาน
                 </h4>
                 <div className="text-center ">
-                  <lable>Enter your Pin</lable>
                   <PinInput
                     length={6}
                     initialValue=""
@@ -77,11 +78,13 @@ class PinReset extends Component {
                     style={{ padding: "10px" }}
                     inputStyle={{ borderColor: "blue" }}
                     inputFocusStyle={{ borderColor: "green" }}
-                    onComplete={(value, index) => { }}
+                    onComplete={(value, index) => {}}
                     autoSelect={true}
                     regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
                   />
-                  <lable>Confirm Pin</lable>
+                <h4 className="text-center mt-3 mb-3 DB">
+                  ตั้งรหัส PIN เพื่อเข้าใช้งาน
+                </h4>
                   <PinInput
                     length={6}
                     initialValue=""
@@ -93,7 +96,7 @@ class PinReset extends Component {
                     style={{ padding: "10px" }}
                     inputStyle={{ borderColor: "blue" }}
                     inputFocusStyle={{ borderColor: "green" }}
-                    onComplete={(value, index) => { }}
+                    onComplete={(value, index) => {}}
                     autoSelect={true}
                     regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
                   />
@@ -108,8 +111,9 @@ class PinReset extends Component {
                     clear
                   </BtnOrange>
                 </div>
-              </div>
+              </Formsize>
               <div className="col text-center form-group mt-2 d-grid  mx-auto">
+               
               </div>
             </MarginTop>
             <div className="col-lg-3 col-md-2"></div>
@@ -125,4 +129,4 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, mapDispatch)(PinReset);
+export default connect(mapStateToProps, mapDispatch)(PinMerchantLogin);

@@ -28,7 +28,12 @@ code {
   border-radius: 10px;
 }
 
-.grey {
+.NavBcolorIconSize {
+  font-size: 24px;
+  color:#333333;
+  
+}
+.NavBcolorIconSizeSelect {
   font-size: 24px;
   color:#F7931E;
   

@@ -1,0 +1,29 @@
+.leftPD{
+    padding-left: 15px;
+    padding-top: 15px;
+  }
+
+  .leftPDmyCard{
+    padding-left: 15px;
+   
+  }
+
+  .NavTopColorAndIconSize {
+    padding-top: 15px;
+    padding-right: 15px;
+    font-size: 40px;
+    color:gray;
+    
+  }
+
+  .MyCardNavTopColorAndIconSize {
+    padding-top: 15px;
+    padding-right: 15px;
+    font-size: 25px;
+    color:rgb(70, 70, 70);
+    
+  }
+
+  .bottom-nav-label {
+    font-size: 40px;
+  }
