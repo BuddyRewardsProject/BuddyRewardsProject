@@ -9,6 +9,8 @@ import logo from "../../assets/img/logoC.svg";
 import liff from "@line/liff";
 import NavTop from "../../layouts/NavTop";
 import { Helmet } from "react-helmet";
+import "../../assets/css/CustomerSide/Customer.css";
+
 
 const BtnOrange = styled.button`
   background-color: ${color.Button};
@@ -72,7 +74,7 @@ class CustomerHome extends Component {
           </Helmet>
         </Navbarmimige>*/}
         <Navigation history={this.props.history}></Navigation>
-
+        <div className="margintopforhome">
         <h1>{liff.getOS()}</h1>
         <h1>
           <p id="width"></p>
@@ -80,7 +82,7 @@ class CustomerHome extends Component {
         </h1>
         <h1>{liff.getLanguage()}</h1>
         <h1>{liff.getOS()}</h1>
-        <h1>{liff.getOS()}</h1>
+        <h1>{liff.getOS()}</h1></div>
       </>
     );
   }

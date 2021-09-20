@@ -1,0 +1,25 @@
+.cardBG {
+  height: 100px;
+  border-radius: 9px;
+  box-shadow: #b0b0b08f 0px 0px 9px 0px;
+  background: #ffffff;
+}
+.topSpace {
+  height: 40px;
+}
+
+.margintopforcard {
+ margin-top:80px;
+}
+.margintopforhome {
+  margin-top:120px;
+ }
+
+ .cardNamemiddle{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  margin-top: 15px;
+ }

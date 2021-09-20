@@ -15,11 +15,13 @@ import liff from "@line/liff";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
-const BgGreen = styled.div`
+const BgNavB = styled.div`
   background: ${colorNavBottom.Gradient};
-  padding: env(safe-area-inset-bottom);
+  
+  padding: max(env(safe-area-inset-bottom));
   border-radius: 0px 0px 0px 0px;
 `;
+const CurrentPath = window.location.pathname; 
 
 const iconColorSize = styled.div`
   font-size: 24px;
@@ -30,81 +32,92 @@ const BtnOrange = styled.button`
   background-color: ${colorNavBottom.Button};
   border-style: none;
   border-radius: 30px;
-  box-shadow: #f7931e 0px 0px 10px 0px;
-  font-size: 25px;
+ 
+  font-family: DBHeaventDB, serif;
+  
+  box-shadow: #f7931e 0px 0px 9px 0px;
+  font-size: 26px;
+  width: 100%;
   &:hover {
     background-color: ${colorNavBottom.ButtonOrange};
   }
 `;
-
-const tabs = [
-  {
-    route: "/customer/home",
-    icon: faStar,
-    label: "Home",
-  },
-  {
-    route: "/customer/register",
-    icon: faUserCircle,
-    label: "register",
-  },
-  {
-    route: "/customer/register",
-    icon: faUserCircle,
-    label: "register",
-  },
-];
+const FAS = styled.div`
+  font-size: 24px;
+  color:#6B6B6B;
+  }
+`;
 
 
+var text1 = "หน้าแรก"
 var iconColorHome = "NavBcolorIconSize"
 var iconColorMyCard = "NavBcolorIconSize"
-
+var textColorHome = "NavBcolorTextSize"
+var textColorMyCard = "NavBcolorTextSize"
+var isselect = "0"
 
 const Navigation = (props) => {
   useEffect(() => {
-    var link = window.location.pathname; 
-    if (link === "/customer/mycard"){
-      console.log(link)
+    console.log(CurrentPath);
+    
+    if(CurrentPath == "/customer/home"){
+      iconColorHome = "NavBcolorIconSizeSelect"
+      iconColorMyCard= "NavBcolorIconSize"
+      textColorHome = "NavBcolorTextSizeSelect"
+      textColorMyCard = "NavBcolorTextSize"
+      isselect = "1"
+      console.log(isselect);
+    }else if(CurrentPath == "/customer/mycard"){
       iconColorHome = "NavBcolorIconSize"
       iconColorMyCard= "NavBcolorIconSizeSelect"
+      textColorHome = "NavBcolorTextSize"
+      textColorMyCard = "NavBcolorTextSizeSelect"
+      isselect = "2"
+      console.log(isselect);
     }
    
   }, [])
 
-
-  const redirect = (link) => {
-    props.history.push(link);
-    console.log(link);
-    if(link == "/customer/home"){
+  
+  const redirect = (CurrentPath) => {
+    props.history.push(CurrentPath);
+    console.log(CurrentPath);
+    if(CurrentPath == "/customer/home"){
       iconColorHome = "NavBcolorIconSizeSelect"
       iconColorMyCard= "NavBcolorIconSize"
-    }else if(link == "/customer/mycard"){
+      textColorHome = "NavBcolorTextSizeSelect"
+      textColorMyCard = "NavBcolorTextSize"
+      
+    }else if(CurrentPath == "/customer/mycard"){
       iconColorHome = "NavBcolorIconSize"
       iconColorMyCard= "NavBcolorIconSizeSelect"
+      textColorHome = "NavBcolorTextSize"
+      textColorMyCard = "NavBcolorTextSizeSelect"
     }
   };
 
 
 
   return (
-    <BgGreen className="fixed-bottom ipx">
-      <div className="row d-flex flex-column row justify-content-center align-items-center">
-        <div class="container">
-          <div class="row row-cols-3 ">
+    <BgNavB className="fixed-bottom ipx ">
+      <div className="row d-flex flex-column row justify-content-center align-items-center ">
+        <div class="container mggt">
+          <div class="row ">
             <div
-              class="col text-center fs-3 "
+              class="col text-center   "
               onClick={() => redirect("/customer/home")}
               
             >
               <div class= {iconColorHome} >
                 <FontAwesomeIcon icon={faStar} />
               </div>
-              <div class="col text-center ">หน้าแรก</div>
+              <div class={textColorHome +" col text-center mggt"}>{text1}</div>
+              
             </div>
-            <div class="col text-center  justify-content-center align-items-center">
-              <div class="col text-center ">
+            <div class="col-5 text-center  justify-content-center align-items-center">
+              <div class="col text-center  ">
                 <BtnOrange
-                  className="btn btn-primary justify-content-center align-items-center"
+                  className="btn btn-primary justify-content-center align-items-center QRtextNavB"
                   onClick={() => redirect("/customer/myQR")}
                 >
                   สะสมแต้ม
@@ -112,20 +125,20 @@ const Navigation = (props) => {
               </div>
             </div>
             <div
-              class="col text-center fs-3"
+              class="col text-center  "
               onClick={() => redirect("/customer/mycard")}
             >
               <div class={iconColorMyCard}>
                 <FontAwesomeIcon icon={faWallet} />
               </div>
-              <div class="col text-center ">บัตรของคุณ</div>
+              <div class={ textColorMyCard +" col text-center mggt "}>บัตรของคุณ</div>
             </div>
           </div>
         </div>
       </div>
 
       <div className="container "></div>
-    </BgGreen>
+    </BgNavB>
   );
 };
 export default Navigation;

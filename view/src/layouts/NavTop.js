@@ -5,7 +5,7 @@ import color from "../config/colorNavTop";
 import "../assets/css/CustomerSide/NavTop.css";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { Link } from "react-router-dom";
 const BgNav = styled.div`
   height: 120px;
   background: ${color.Gradient};
@@ -19,10 +19,11 @@ const NavbarTop = () => {
         <div class="row row-cols-2">
           <div className="leftPD ">
             <img src={logo} alt="buddyrewards" width="150" />
-          </div>
-          <div className="text-end  NavTopColorAndIconSize">
+          </div> 
+          <Link to="/customer/register" className="text-end  NavTopColorAndIconSize" >
+         
             <FontAwesomeIcon icon={faUserCircle} />
-          </div>
+          </Link>
         </div>
       </div>
 
