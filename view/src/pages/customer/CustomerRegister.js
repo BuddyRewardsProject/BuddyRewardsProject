@@ -36,11 +36,15 @@ class CustomerRegister extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      merchantId: null,
-      merchantName: null,
-      name: "",
-      userLineID: "",
-      pictureUrl: "",
+      customernickName: null,
+      customerFirstName: null,
+      customerLastName: null,
+      customerEmail: null,
+      customerPassword: null,
+      customerPhoneNumber: null,
+      customerGender: null,
+      customerDOB: null,
+
     };
   }
   /*
@@ -94,7 +98,7 @@ class CustomerRegister extends Component {
               <input
                 type="text"
                 name="firstname"
-                id="customerfirstName"
+                id="customerFirstName"
                 className="form-control"
                 placeholder="ชื่อจริง"
                 required
@@ -152,7 +156,7 @@ class CustomerRegister extends Component {
               <input
                 type="tel"
                 name="Password"
-                id="customerRePassword"
+                id="customerPhoneNumber"
                 className="form-control"
                 placeholder="เบอร์โทรศัพท์"
                 required
@@ -170,7 +174,7 @@ class CustomerRegister extends Component {
             <div>
               <input
                 type="date"
-                id="start"
+                id="customerDOB"
                 className="form-control"
                 min="1000-01-01"
                 max="2019-12-31"

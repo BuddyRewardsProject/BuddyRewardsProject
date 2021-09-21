@@ -15,7 +15,8 @@ import staff from "../assets/img/icon/staff.svg";
 const BtnOrange = styled.button`
   background-color: ${color.Button};
   border-style: none;
-  border-radius: 20px;
+  font-size: 25px;
+  border-radius: 99px;
   color: white;
   &:hover {
     background-color: ${color.ButtonOrange};
@@ -96,8 +97,8 @@ class StaffView extends Component {
                   </div>
                 </div></Link>
                 <Link to="/merchant/branch/staff-Management"><div className="col">
-                  <div className="card h-100 card rounded-10 "  >
-                    <div className="card-body">
+                  <div className="card dashMenuBody h-100 card rounded-10 "  >
+                    <div className="card-body ">
                       <div className="iconStaffManagement align-items-center">
                         <img src={staff} alt="staff Management" />
                       </div>
@@ -130,7 +131,7 @@ class StaffView extends Component {
               </div>
             </div>
             <div className="col-lg-2 col-md-2" />
-            <BtnOrange type="button" className="btn btn-outline rounded-all" onClick={(e) => this.handleClick(e)}>LOGOUT</BtnOrange>
+            <BtnOrange type="button" className="btn btn-outline rounded-all" onClick={(e) => this.handleClick(e)}>ออกจากระบบพนักงาน</BtnOrange>
           </div>         
         </div>
       </div>

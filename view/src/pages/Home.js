@@ -91,7 +91,7 @@ class Home extends Component {
                   </button>
                 </div>
               </Link>
-              <Link to="/customer/Register">
+              <Link to="/customer/register">
                 <div className="d-grid gap-2 col-6 mx-auto">
                   <button
                     type="button"

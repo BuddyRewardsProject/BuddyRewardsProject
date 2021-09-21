@@ -16,10 +16,11 @@ import { bindActionCreators } from 'redux'
 
 const SECRET_KEY = '2aaf1e7d17a8d4706225480585767166cabd'
 
-const BtnOrange = styled.button`
-  background-color: ${color.Button};
+const BtnOrange = styled.div`
+  background: ${color.Gradient};
   border-style: none;
-  border-radius: 20px;
+  font-size: 25px;
+  border-radius: 99px;
   &:hover {
     background-color: ${color.ButtonOrange};
   }
@@ -96,8 +97,8 @@ class Login extends Component {
                     <img src={logo} alt="buddyrewards" width="200" />
                   </Link>
                 </div>
-                <h3 className="text-left mt-3 mb-3 DBB">เข้าสู่ระบบร้านค้า</h3>
-                <div className="col form-group mt-2">
+                <div className="text-left fontSize25 mt-3 DbBold">เข้าสู่ระบบร้านค้า</div>
+                <div className="col form-group ">
                   <label>Username</label>
                   <div>
                     <input
@@ -124,8 +125,8 @@ class Login extends Component {
                   </div>
                 </div>
                 <div className="col text-center form-group mt-2 d-grid gap-2 col-6 mx-auto">
-                  <BtnOrange className="btn btn-primary" type="button" onClick={(e) => this.handleClick(e)}>
-                    login
+                  <BtnOrange className=" btn-primary " type="button" onClick={(e) => this.handleClick(e)}>
+                   เข้าสู่ระบบ
                   </BtnOrange>
                 </div>
               </div>
