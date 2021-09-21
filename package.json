@@ -4,8 +4,13 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.15",
+    "@line/liff": "^2.14.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
+    "bootstrap": "^5.1.1",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
@@ -15,7 +20,12 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.7",
+
     "qrcode": "^1.4.4"
+    "react-router": "^5.2.1",
+    "react-router-dom": "^5.3.0",
+    "reactstrap": "^8.10.0"
+
   },
   "devDependencies": {},
   "scripts": {

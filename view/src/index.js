@@ -28,8 +28,10 @@ const branchToken = localStorage.getItem("branchToken");
 if (branchToken) {
   const pinToken = localStorage.getItem("pinToken");
   if (pinToken) {
+    console.log("pintoken")
     setAuthorizationToken(pinToken);
   } else {
+    console.log("branchtoken")
     setAuthorizationToken(branchToken);
   }
   store.dispatch(setUser(jwt.decode(branchToken)))

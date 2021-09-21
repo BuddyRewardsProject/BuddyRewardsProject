@@ -154,6 +154,7 @@ class PinMerchantLogin extends Component {
                       </div>
                       <div className="text-center">{this.state.pin}</div>
                       <div className="col text-center form-group mt-2 d-grid gap-2 col-6 mx-auto">
+                        <BtnOrange className="btn" onClick={this.onClear} type="button">Submit</BtnOrange>
                         <BtnOrange className="btn" onClick={this.onClear} type="button">clear</BtnOrange>
                       </div>
                     </div>
