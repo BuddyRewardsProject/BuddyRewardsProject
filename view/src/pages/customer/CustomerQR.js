@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import styled from "styled-components";
 
 import logo from "../../assets/img/logoC.svg";
-import { Result } from "express-validator";
+
 
 const Bg = styled.body`
   height: 100vh;
