@@ -8,6 +8,7 @@ const functions = require('./utils/functions')
 const crypto = require('crypto')
 require('dotenv').config()
 const jwt = require('jsonwebtoken');
+const QRCode = require('qrcode');
 
 const branch = require("./controller/branch");
 const category = require("./controller/category");
@@ -46,7 +47,7 @@ app.get('/home', (req, res) => {
 });
 
 
-//Login
+//Merchant Login
 app.post("/merchant/v1/login", async (req, res) => {
     var userName = req.body.userName;
     var hashPassword = req.body.hashPassword;
@@ -526,6 +527,78 @@ app.get("/merchant/v1/branch/staff/role", authenticatePinToken, (req, res) => {
         return functions.responseJson(res, data)
     })
 })
+
+//Create Customer 
+app.post("/customer/v1/add", async (req, res) => {
+    var registerData = req.body.data;
+
+    var d = new Date();
+    var date = d.getDate();
+    var month = d.getMonth() + 1;
+    var year = d.getFullYear();
+    var time = d.getTime();
+    var generate = date + "" + month + "" + year + "" + time;
+
+    // var hash = crypto.createHmac('sha512', process.env.SECRET_KEY)
+    // hash.update(registerData.merchantPassword)
+    // var hasedPassword = hash.digest('hex')
+    
+    if(registerData === ''){ //Null check
+        var data = {
+            status: "error",
+            errorMessage: "registerData=Null"
+        }
+        return functions.responseJson(res, data)
+    }
+
+    var customerInfo ={
+        customerId: generate,
+        customerFirstName: registerData.customerFirstName,
+        customerLastName: registerData.customerLastName,
+        customerNickName: registerData.customerNickName,
+        customerEmail: registerData.customerEmail,
+        // customerPassword: hasedPassword,
+        customerPassword: registerData.customerPassword, //ทำ hash ด้วย
+        customerPhone: registerData.customerPhone,
+        customerGender: registerData.customerGender,
+        customerDOB: registerData.customerDOB
+    }
+
+    try{
+        var customerState = await customer.addCustomer(customerInfo) //console.log(customerState)
+
+        if (customerState.affectedRows === 1 ) {
+            var data = {
+                status: "success"                
+            }
+            return functions.responseJson(res, data)
+        }
+    }catch (error) {
+        var data = {
+            status: "error",
+            errorMessage: "unsuccessAddCustomer"
+        }
+        return functions.responseJson(res, data)
+    }
+})
+
+// app.get("/customer/v1/QR"),(req, res) => {
+//     var customerId = await customer.getCustomerId();
+
+//     let data = {
+//         customerId: customerId   
+//     }
+
+//     let stringdata = JSON.stringify(data)
+
+//     QRCode.toString(stringdata,{type:'terminal'},function (err, QRcode) {
+ 
+//         if(err) return console.log("error occurred")
+     
+//         // Printing the generated code
+//         functions.responseJson(res, data)
+//     })
+// }
 
 app.listen(process.env.PORT, () => {
     console.log('Server is running on port 3001');
