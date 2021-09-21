@@ -8,6 +8,7 @@ const functions = require('./utils/functions')
 const crypto = require('crypto')
 require('dotenv').config()
 const jwt = require('jsonwebtoken');
+const QRCode = require('qrcode');
 
 const branch = require("./controller/branch");
 const category = require("./controller/category");
@@ -46,7 +47,7 @@ app.get('/home', (req, res) => {
 });
 
 
-//Login
+//Merchant Login
 app.post("/merchant/v1/login", async (req, res) => {
     var userName = req.body.userName;
     var hashPassword = req.body.hashPassword;
@@ -65,6 +66,7 @@ app.post("/merchant/v1/login", async (req, res) => {
             branchName: result[0].branch_name,
             phone: result[0].phone,
             userName: result[0].user_name,
+            masterAccount: result[0].master_account,
             districtId: result[0].district_id,
             merchantId: result[0].merchant_id
         }
@@ -85,30 +87,32 @@ app.post("/merchant/v1/login", async (req, res) => {
 //Pin Login
 app.post("/merchant/v1/login/pin", authenticateToken, async (req, res) => {
     var pin = req.body.pincode;
-    var user = await staff.getStaffByPin(pin)
     var authHeader = req.headers['authorization']
     var token = authHeader && authHeader.split(' ')[1]
-
     if (token == null) return res.sendStatus(401)
     var decode = jwt.decode(token)
-    console.log(decode)
-    console.log(user[0].branch_id)
 
-    if (user[0].branch_id !== decode.branchId) {
-        var data = {
-            status: "error",
-            errorMessage: "Username or Password is incorrect"
-        }
-        return functions.responseJson(res, data)
+    var data = {
+        pincode: pin,
+        branchId: decode.branchId
     }
+    var user = await staff.getStaffByPin(data)
 
     if (user.length > 0) {
+        if (user[0].branch_id !== decode.branchId) {
+            var data = {
+                status: "error",
+                errorMessage: "Username or Password is incorrect..."
+            }
+            return functions.responseJson(res, data)
+        }
         if (pin === user[0].pincode) {
             var userInfo = {
                 staffId: user[0].staff_id,
                 firstName: user[0].first_name,
                 lastName: user[0].last_name,
                 phone: user[0].phone,
+                pincode: user[0].pincode,
                 roleId: user[0].role_id,
                 branchId: user[0].branch_id
             }
@@ -208,6 +212,75 @@ app.post("/merchant/v1/register", async (req, res) => {
             if (staffState.affectedRows === 1) {
                 var data = {
                     status: "success"
+                }
+                return functions.responseJson(res, data)
+            }
+        }
+    } catch (error) {
+        var data = {
+            status: "error",
+            errorMessage: "Conflict"
+        }
+        return functions.responseJson(res, data)
+    }
+})
+
+app.post("/merchant/v1/branch/branchmanagement/add", authenticatePinToken, async (req, res) => {
+    var registerData = req.body.data;
+    var generate = Math.round(new Date().getTime() / 1000);
+    var hash = crypto.createHmac('sha512', process.env.SECRET_KEY)
+    hash.update(registerData.merchantPassword)
+    var hasedPassword = hash.digest('hex')
+
+    var authHeader = req.headers['authorization']
+    var token = authHeader && authHeader.split(' ')[1]
+
+    if (token == null) return res.sendStatus(401)
+    var decode = jwt.decode(token)
+    if (decode.roleId !== undefined && decode.roleId === 2 && decode.roleId === 3 && jwt.decode(registerData.userToken).masterAccount === 0) {
+        var data = {
+            status: "error",
+            errorMessage: "Do not have permittion"
+        }
+        return functions.responseJson(res, data)
+    }
+    
+
+    var branchInfo = {
+        branchName: registerData.branchName,
+        phone: registerData.branchPhone,
+        userName: registerData.merchantUserName,
+        password: hasedPassword,
+        masterAccount: 0,
+        districtId: registerData.districtName,
+        merchantId: jwt.decode(registerData.userToken).merchantId
+    }
+    try {
+        var branchState = await branch.addBranch(branchInfo)
+        if (branchState.affectedRows === 1) {
+            var staffInfo = {
+                //staffId: decode.staffId,
+                staffId: generate,
+                firstName: decode.firstName,
+                lastName: decode.lastName,
+                pincode: decode.pincode,
+                phone: decode.phone,
+                roleId: 1,
+                branchId: branchState.insertId
+            }
+
+            console.log(staffInfo)
+            var staffState = await staff.addStaff(staffInfo)
+            console.log(staffState)
+            if (staffState.affectedRows === 1) {
+                var data = {
+                    status: "success"
+                }
+                return functions.responseJson(res, data)
+            } else {
+                var data = {
+                    status: "error",
+                    errorMessage: "Error"
                 }
                 return functions.responseJson(res, data)
             }
@@ -356,7 +429,7 @@ app.post("/merchant/v1/branch/staff/remove", authenticatePinToken, async (req, r
         }
         return functions.responseJson(res, data)
     }
-    
+
     var staffId = req.body.staffId
     console.log(req.body)
     try {
@@ -406,6 +479,23 @@ app.post("/merchant/v1/branch/staff/init", async (req, res) => {
     return functions.responseJson(res, data)
 })
 
+app.post("/merchant/v1/branch/branchmanagement/init", async (req, res) => {
+    var merchantId = req.body.branchId;
+    var categoryInfo = await category.getCategory();
+    var provinceInfo = await province.getProvince();
+    var districtInfo = await district.getDistrict();
+    var branchList = await branch.getBranchByMerchantId(merchantId);
+
+    var data = {
+        status: "sucess",
+        branchList: branchList,
+        categories: categoryInfo,
+        provinces: provinceInfo,
+        districts: districtInfo
+    }
+    return functions.responseJson(res, data)
+})
+
 app.get("/merchant/v1/categories", (req, res) => {
     category.getCategory().then((e) => {
         var data = {
@@ -437,6 +527,78 @@ app.get("/merchant/v1/branch/staff/role", authenticatePinToken, (req, res) => {
         return functions.responseJson(res, data)
     })
 })
+
+//Create Customer 
+app.post("/customer/v1/add", async (req, res) => {
+    var registerData = req.body.data;
+
+    var d = new Date();
+    var date = d.getDate();
+    var month = d.getMonth() + 1;
+    var year = d.getFullYear();
+    var time = d.getTime();
+    var generate = date + "" + month + "" + year + "" + time;
+
+    // var hash = crypto.createHmac('sha512', process.env.SECRET_KEY)
+    // hash.update(registerData.merchantPassword)
+    // var hasedPassword = hash.digest('hex')
+    
+    if(registerData === ''){ //Null check
+        var data = {
+            status: "error",
+            errorMessage: "registerData=Null"
+        }
+        return functions.responseJson(res, data)
+    }
+
+    var customerInfo ={
+        customerId: generate,
+        customerFirstName: registerData.customerFirstName,
+        customerLastName: registerData.customerLastName,
+        customerNickName: registerData.customerNickName,
+        customerEmail: registerData.customerEmail,
+        // customerPassword: hasedPassword,
+        customerPassword: registerData.customerPassword, //ทำ hash ด้วย
+        customerPhone: registerData.customerPhone,
+        customerGender: registerData.customerGender,
+        customerDOB: registerData.customerDOB
+    }
+
+    try{
+        var customerState = await customer.addCustomer(customerInfo) //console.log(customerState)
+
+        if (customerState.affectedRows === 1 ) {
+            var data = {
+                status: "success"                
+            }
+            return functions.responseJson(res, data)
+        }
+    }catch (error) {
+        var data = {
+            status: "error",
+            errorMessage: "unsuccessAddCustomer"
+        }
+        return functions.responseJson(res, data)
+    }
+})
+
+// app.get("/customer/v1/QR"),(req, res) => {
+//     var customerId = await customer.getCustomerId();
+
+//     let data = {
+//         customerId: customerId   
+//     }
+
+//     let stringdata = JSON.stringify(data)
+
+//     QRCode.toString(stringdata,{type:'terminal'},function (err, QRcode) {
+ 
+//         if(err) return console.log("error occurred")
+     
+//         // Printing the generated code
+//         functions.responseJson(res, data)
+//     })
+// }
 
 app.listen(process.env.PORT, () => {
     console.log('Server is running on port 3001');

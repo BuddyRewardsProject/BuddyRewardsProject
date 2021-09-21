@@ -125,6 +125,7 @@ class PinMerchantLogin extends Component {
             <div class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
+
           </div>
         ) : (
           <BgG>
@@ -161,6 +162,7 @@ class PinMerchantLogin extends Component {
                         regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
                         ref={(p) => (this.pin = p)}
                       />
+
                     </div>
                     <div className="text-center">{this.state.pin}</div>
                     <div className="text-center">
