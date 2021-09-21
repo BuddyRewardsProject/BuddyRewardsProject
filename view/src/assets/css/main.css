@@ -151,6 +151,7 @@ background-color: #ffffff!important;
 
 .iconStaffManagement{
   
+  margin-top: -50px;
   width: 100px;
   height: 100px;
   display: block;
@@ -160,6 +161,22 @@ background-color: #ffffff!important;
 
 }
 
+.btnPreRegister{
+  color: #ffffff;
+  background: linear-gradient(180deg, #F7931E 0%, #FF7676 100%);
+  font-size: 25px;
+  border-radius: 99px;
+  border: none;
+  width: 70%;
+  height: 50px;
+}
+.marginTopM50{
+  
+  margin-top: -50px;
+
+  
+
+}
 @font-face {
   font-family: DBHeavent;
   src: url(../fonts/DB_Heavent_v3.2.1.ttf);

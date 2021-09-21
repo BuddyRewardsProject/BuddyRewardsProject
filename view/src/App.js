@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import CustomerHome from "./pages/customer/CustomerHome";
 import CustomerQR from "./pages/customer/CustomerQR";
+import CustomerPreRegister from "./pages/customer/CustomerPreRegister";
 import CustomerRegister from "./pages/customer/CustomerRegister";
+import CustomerLogin from "./pages/customer/CustomerLogin";
 import CustomerCard from "./pages/customer/CustomerCard";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -16,10 +18,8 @@ import StaffManagement from "./pages/StaffManagement";
 import BranchManagement from "./pages/BranchManagement";
 import Navigation from "./layouts/Navigation";
 import React, { Component } from "react";
-import liff from '@line/liff';
+import liff from "@line/liff";
 const browserHistory = createBrowserHistory();
-
-
 
 class App extends Component {
   constructor(props) {
@@ -29,8 +29,6 @@ class App extends Component {
       user: {},
     };
   }
-
-
 
   render() {
     return (
@@ -42,9 +40,7 @@ class App extends Component {
         </Helmet>
         <Router history={browserHistory}>
           <Switch>
-            
-            <Route exact path="/" component={Home}/>
-            
+            <Route exact path="/" component={Home} />
 
             <Route exact path="/merchant/login" component={Login} />
             <Route
@@ -76,11 +72,9 @@ class App extends Component {
 
             <Route exact path="/customer/home" component={CustomerHome} />
             <Route exact path="/customer/myQR" component={CustomerQR} />
-            <Route
-              exact
-              path="/customer/register"
-              component={CustomerRegister}
-            />
+            <Route exact path="/customer/preRegister"component={CustomerPreRegister}/>
+            <Route exact path="/customer/register"component={CustomerRegister}/>
+            <Route exact path="/customer/login"component={CustomerLogin}/>
             <Route exact path="/customer/mycard" component={CustomerCard} />
           </Switch>
         </Router>
