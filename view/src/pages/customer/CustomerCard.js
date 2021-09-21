@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Navbar from "../../layouts/NavbarCustomer";
-import Navigation from '../../layouts/Navigation';
+import { Helmet } from "react-helmet";
+import NavTopMyCard from "../../layouts/NavTopMyCard";
+import "../../assets/css/CustomerSide/Customer.css";
+import Navigation from "../../layouts/Navigation";
 class CustomerCard extends Component {
   constructor(props) {
     super(props);
@@ -32,50 +34,22 @@ class CustomerCard extends Component {
   render() {
     return (
       <>
-         <Navigation></Navigation>
-        <div className="container">
-          <div className="row text-left">
-            <h1>บัตรสะสมแต้มของคุณ</h1>
-            <span className="second-word-formatting"> </span>
-            <div>
-              <input
-                type="text"
-                name="nickname"
-                id="nickName"
-                className="form-control"
-                placeholder="nickname"
-                required
-              ></input>
-            </div>
-
-            <div>
-              <input
-                type="text"
-                name="firstname"
-                id="firstName"
-                className="form-control"
-                placeholder="firstname"
-                required
-              ></input>
-            </div>
-
-            <div className="col col-lg-3"></div>
-
-            <div className="col col-lg-3"></div>
-            <div></div>
-            <button
-              type="button"
-              className="btn btn-outline rounded-all btnOrg"
-            >
-             
-              LINE LOGIN
-            </button>
+        <Helmet>
+          <title>บัตรของคุณ</title>
+        </Helmet>
+        <NavTopMyCard></NavTopMyCard>
+        <Navigation history={this.props.history}></Navigation>
+        <div className="container ">
+          <div className="margintopforcard">
+            
+            <div className="cardBG cardNamemiddle">บัตรสะสมแต้มจ้าาาา</div>
+            <div className="cardBG cardNamemiddle">บัตรสะสมแต้มจ้าาาา</div>
+            <div className="cardBG cardNamemiddle">บัตรสะสมแต้มจ้าาาา</div>
           </div>
         </div>
       </>
     );
   }
 }
-
 
 export default CustomerCard;

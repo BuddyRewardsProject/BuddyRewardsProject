@@ -7,6 +7,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
+    "@line/liff": "^2.14.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "bootstrap": "^5.1.1",
