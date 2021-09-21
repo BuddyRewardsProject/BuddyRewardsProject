@@ -5,7 +5,7 @@ const merchant = require("./controller/merchant")
 const staff = require("./controller/staff")
 const customer = require("./controller/customer")
 
-var generate = Math.round(new Date().getDate().getMonth() );
+// var generate = Math.round(new Date().getDate().getMonth() );
 
 var d = new Date();
 
