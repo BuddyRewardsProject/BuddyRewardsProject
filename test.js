@@ -7,32 +7,32 @@ const customer = require("./controller/customer")
 
 // var generate = Math.round(new Date().getDate().getMonth() );
 
-var d = new Date();
+// var d = new Date();
 
-var date = d.getDate();
-var month = d.getMonth() + 1;
-var year = d.getFullYear();
-var time = d.getTime();
+// var date = d.getDate();
+// var month = d.getMonth() + 1;
+// var year = d.getFullYear();
+// var time = d.getTime();
 
-var generate = date + "" + month + "" + year + "" + time;
+// var generate = date + "" + month + "" + year + "" + time;
 
-console.log(generate)
+// console.log(generate)
 
-const QRCode = require('qrcode')
+// const QRCode = require('qrcode')
 
-let data = {
-        customerId: generate   
-}
+// let data = {
+//         customerId: generate   
+// }
 
-let stringdata = JSON.stringify(data)
+// let stringdata = JSON.stringify(data)
 
-QRCode.toString(stringdata,{type:'terminal'},function (err, QRcode) {
+// QRCode.toString(stringdata,{type:'terminal'},function (err, QRcode) {
  
-    if(err) return console.log("error occurred")
+//     if(err) return console.log("error occurred")
  
-    // Printing the generated code
-    console.log(QRcode)
-})
+//     // Printing the generated code
+//     console.log(QRcode)
+// })
 
 // var customerInfo = {
 //         customerId: generate,
@@ -109,6 +109,6 @@ QRCode.toString(stringdata,{type:'terminal'},function (err, QRcode) {
 //     staff.addStaff(staffInfo)
 // })
 
-// console.log(require('crypto').randomBytes(64).toString('hex'))
+console.log(require('crypto').randomBytes(64).toString('hex'))
 
 

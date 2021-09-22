@@ -16,6 +16,7 @@ const district = require("./controller/district");
 const province = require("./controller/province");
 const merchant = require("./controller/merchant")
 const staff = require("./controller/staff")
+const customer = require("./controller/customer")
 const login = require("./controller/login")
 const staffRole = require("./controller/staffRole");
 const { response } = require('express');
@@ -531,13 +532,13 @@ app.get("/merchant/v1/branch/staff/role", authenticatePinToken, (req, res) => {
 //Create Customer 
 app.post("/customer/v1/add", async (req, res) => {
     var registerData = req.body.data;
-
-    var d = new Date();
-    var date = d.getDate();
-    var month = d.getMonth() + 1;
-    var year = d.getFullYear();
-    var time = d.getTime();
-    var generate = date + "" + month + "" + year + "" + time;
+    // var d = new Date();
+    // var date = d.getDate();
+    // var month = d.getMonth() + 1;
+    // var year = d.getFullYear();
+    // var time = d.getTime();
+    // var generate = date + "" + month + "" + year + "" + time;
+    var generate = Math.round(new Date().getTime() / 1000);
 
     // var hash = crypto.createHmac('sha512', process.env.SECRET_KEY)
     // hash.update(registerData.merchantPassword)
@@ -563,10 +564,8 @@ app.post("/customer/v1/add", async (req, res) => {
         customerGender: registerData.customerGender,
         customerDOB: registerData.customerDOB
     }
-
     try{
         var customerState = await customer.addCustomer(customerInfo) //console.log(customerState)
-
         if (customerState.affectedRows === 1 ) {
             var data = {
                 status: "success"                
