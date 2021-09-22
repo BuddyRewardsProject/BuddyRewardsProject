@@ -175,6 +175,12 @@ background-color: #ffffff!important;
   width: 70%;
   height: 50px;
 }
+
+.webPOSbg{
+
+  background: #F5F6FA;
+
+}
 .marginTopM50{
   
   margin-top: -50px;
@@ -182,6 +188,7 @@ background-color: #ffffff!important;
   
 
 }
+
 .fontSizePin{
   
   font-size: 30px;
@@ -189,7 +196,14 @@ background-color: #ffffff!important;
   
 
 }
-
+.cardBG{
+  height: 90px;
+  
+  background: #ffffff;
+  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  margin: 15px;
+}
 .dashMenuBody{
   filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.25));;
 

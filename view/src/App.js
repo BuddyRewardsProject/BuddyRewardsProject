@@ -11,6 +11,8 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import PinMerchantLogin from "./pages/PinMerchantLogin";
 import StaffView from "./pages/StaffView";
+import WebPOS from "./pages/WebPOS";
+
 import requireAuth from "./utils/requireAuth";
 import { createBrowserHistory } from "history";
 import PinReset from "./pages/PinReset";
@@ -72,10 +74,20 @@ class App extends Component {
 
             <Route exact path="/customer/home" component={CustomerHome} />
             <Route exact path="/customer/myQR" component={CustomerQR} />
-            <Route exact path="/customer/preRegister"component={CustomerPreRegister}/>
-            <Route exact path="/customer/register"component={CustomerRegister}/>
-            <Route exact path="/customer/login"component={CustomerLogin}/>
+            <Route
+              exact
+              path="/customer/preRegister"
+              component={CustomerPreRegister}
+            />
+            <Route
+              exact
+              path="/customer/register"
+              component={CustomerRegister}
+            />
+            <Route exact path="/customer/login" component={CustomerLogin} />
             <Route exact path="/customer/mycard" component={CustomerCard} />
+
+            <Route exact path="/merchant/branch/webPOS" component={WebPOS} />
           </Switch>
         </Router>
       </div>
