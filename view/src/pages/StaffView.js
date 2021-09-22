@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { logoutPin } from '../actions/pinActions'
 import branch from "../assets/img/icon/branch.svg";
 import dash from "../assets/img/icon/Bdash.svg";
-import pos from "../assets/img/icon/Bpos.svg";
+import pos from "../assets/img/icon/pos.svg";
 import staff from "../assets/img/icon/staff.svg";
 
 
@@ -66,7 +66,7 @@ class StaffView extends Component {
             <div className="col">
               <div className="row row-cols-1 row-cols-md-2 g-4 p-4">
               <div className="col">
-              <Link to="/merchant/branch/WebPOS">
+              <Link to="/merchant/branch/ebPOS">
                   <div className="card h-100  card rounded-10  ">
                     <div className="card-body ">
                       <div className="iconStaffManagement align-items-center">

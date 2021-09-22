@@ -1,0 +1,37 @@
+.inPutWidth {
+  width: 100%;
+}
+.outterInput {
+  margin: 15px;
+}
+.inputFontSize{
+  border: 1px solid #c3c3c3;
+    border-radius: 5px;
+  padding: 9px;
+  font-size: 29px;
+}
+.paddingBarCodeIcon{
+  padding-top: 15px;
+  padding-left: 15px;
+    padding-right: 15px;
+}
+.paddingBtm{
+
+ 
+  padding-bottom: 15px;
+}
+.fexk{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+ }
+
+ .HeaderWebPOS{
+  
+  font-size: 35px;
+  font-family: DBHeaventDB, serif;
+  
+
+}
