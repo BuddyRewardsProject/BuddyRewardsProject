@@ -532,10 +532,44 @@ app.post("/customer/v1/add", async (req, res) => {
 // }
 
 // Customer Login
-app.get("/customer/v1/Login"),(res, req) => {
+app.get("/customer/v1/Login"), async (res, req) => {
     var email = req.body.customerEmail;
-    var password = req.body.customerPassword; 
+    var password = req.body.customerPassword;
+    var result = await login.getCustomerByEmail(email);
+
+    if (result.length > 0) {
+        if (result[0].password !== password) {
+            var data = {
+                status: "error",
+                errorMessage: "Username or Password is incorrect"
+            }
+            return functions.responseJson(res, data)
+        }
+        var user = {
+            customerId: result[0].customer_id,
+            customerFirstName: result[0].first_name,
+            customerLastName: result[0].last_name,
+            customerNickName: result[0].nick_name,
+            customerEmail: result[0].email,
+            customerPassword: result[0].password, 
+            customerPhone: result[0].phone,
+            customerGender: result[0].gender,
+            customerDOB: result[0].date_of_birth
+        }
+        var data = {
+            status: "success",
+            // accessToken: generateAccessToken(user)
+        }
+        return functions.responseJson(res, data)
+    } else {
+        var data = {
+            status: "error",
+            errorMessage: "Username or Password is incorrect"
+        }
+        return functions.responseJson(res, data)
+    }
 }
+
 app.post("/merchant/v1/branch/webpos", authenticatePinToken, async (req, res) => {
     var inputData = req.body.data;
 
