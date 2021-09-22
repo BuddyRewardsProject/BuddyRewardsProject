@@ -23,7 +23,7 @@ const BtnOrange = styled.button`
     background-color: ${color.ButtonOrange};
     color: white;
   }
-`;
+`
 
 const BtnClear = styled.button`
   background-color: #eaeaea;
@@ -34,7 +34,7 @@ const BtnClear = styled.button`
   border-radius: 99px;
   color: #5f5f5f;
  
-`;
+`
 const BtnOK = styled.button`
   background-color: #59DD9A;
   width: 290px;
@@ -44,23 +44,12 @@ const BtnOK = styled.button`
   border-radius: 99px;
   color: white;
  
-`;
-const BgColor = styled.div`
-background-color: #c34c4c;
-hight
-`;
+`
 const MarginTop = styled.div`
   margin: 130px;
-`;
-const BranchNameSize = styled.h2`
-  font-size: 48px;
-  font-style: bold;
-  color: white;
-`;
+`
 const Card = styled.div`
- 
   background: #f7f7f7;
-
   box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
   margin: 15px;

@@ -346,76 +346,6 @@ app.post("/merchant/v1/branch/staff/add", authenticatePinToken, async (req, res)
     }
 })
 
-// app.post("/merchant/v1/branch/staff/update", authenticatePinToken, async (req, res) => {
-//     var authHeader = req.headers['authorization']
-//     var token = authHeader && authHeader.split(' ')[1]
-
-//     if (token == null) return res.sendStatus(401)
-//     var decode = jwt.decode(token)
-
-//     if (decode.roleId !== undefined && decode.roleId === 3) {
-//         var data = {
-//             status: "error",
-//             errorMessage: "Do not have permittion"
-//         }
-//         return functions.responseJson(res, data)
-//     }
-
-//     var staffData = req.body.data;
-//     var staffPin = await staff.getStaffById(decode.staffId)
-//     console.log(staffData)
-//     var staffInfo = {
-//         staffId: decode.staffId,
-//         firstName: (function () {
-//             if (staffData.firstName !== null && staffData.firstName && staffData.firstName !== undefined) {
-//                 return staffData.firstName;
-//             }
-//             return decode.firstName
-//         }()),
-//         lastName: (function(){
-//             if (staffData.lastName !== null && staffData.lastName && staffData.lastName !== undefined) {
-//                 return staffData.lastName;
-//             }
-//             return decode.lastName
-//         }()),
-//         pincode: (function(){
-//             if (staffData.pincode !== null && staffData.pincode && staffData.pincode !== undefined) {
-//                 return staffData.pincode;
-//             }
-//             return staffPin[0].pincode
-//         }()),
-//         phone: (function(){
-//             if (staffData.phone !== null && staffData.phone && staffData.phone !== undefined) {
-//                 return staffData.phone;
-//             }
-//             return decode.phone
-//         }()),
-//         roleId: (function(){
-//             if (staffData.roleId !== null && staffData.roleId && staffData.roleId !== undefined) {
-//                 return staffData.roleId;
-//             }
-//             return decode.roleId
-//         }())
-//     }
-//     try {
-//         console.log(staffInfo)
-//         var staffState = await staff.updateStaffManagement(staffInfo)
-//         if (staffState.affectedRows === 1) {
-//             var data = {
-//                 status: "success"
-//             }
-//             return functions.responseJson(res, data)
-//         }
-//     } catch (error) {
-//         console.log(error)
-//         var data = {
-//             status: "error",
-//             errorMessage: "Conflict"
-//         }
-//         return functions.responseJson(res, data)
-//     }
-// })
-
 app.post("/merchant/v1/branch/staff/remove", authenticatePinToken, async (req, res) => {
     var authHeader = req.headers['authorization']
     var token = authHeader && authHeader.split(' ')[1]
@@ -532,13 +462,13 @@ app.get("/merchant/v1/branch/staff/role", authenticatePinToken, (req, res) => {
 //Create Customer 
 app.post("/customer/v1/add", async (req, res) => {
     var registerData = req.body.data;
-
-    var d = new Date();
-    var date = d.getDate();
-    var month = d.getMonth() + 1;
-    var year = d.getFullYear();
-    var time = d.getTime();
-    var generate = date + "" + month + "" + year + "" + time;
+    var generate = Math.round(new Date().getTime() / 1000);
+    // var d = new Date();
+    // var date = d.getDate();
+    // var month = d.getMonth() + 1;
+    // var year = d.getFullYear();
+    // var time = d.getTime();
+    // var generate = date + "" + month + "" + year + "" + time;
 
     // var hash = crypto.createHmac('sha512', process.env.SECRET_KEY)
     // hash.update(registerData.merchantPassword)
@@ -606,6 +536,36 @@ app.get("/customer/v1/Login"),(res, req) => {
     var email = req.body.customerEmail;
     var password = req.body.customerPassword; 
 }
+app.post("/merchant/v1/branch/webpos", authenticatePinToken, async (req, res) => {
+    var inputData = req.body.data;
+
+    if(registerData === ''){
+        var data = {
+            status: "error",
+            errorMessage: "registerData=Null"
+        }
+        return functions.responseJson(res, data)
+    }
+
+    var customerInfo = {
+        customerId: inputData.customerId
+    }
+
+    try{
+
+        var data = {
+            status: "success"                
+        }
+        return functions.responseJson(res, data)
+
+    }catch(error){
+        var data = {
+            status: "error",
+            errorMessage: "Error"
+        }
+        return functions.responseJson(res, data)
+    }
+})
 
 app.listen(process.env.PORT, () => {
     console.log('Server is running on port 3001');
