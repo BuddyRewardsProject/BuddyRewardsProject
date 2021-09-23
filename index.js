@@ -245,7 +245,7 @@ app.post("/merchant/v1/branch/branchmanagement/add", authenticatePinToken, async
         }
         return functions.responseJson(res, data)
     }
-    
+
 
     var branchInfo = {
         branchName: registerData.branchName,
@@ -473,8 +473,8 @@ app.post("/customer/v1/add", async (req, res) => {
     // var hash = crypto.createHmac('sha512', process.env.SECRET_KEY)
     // hash.update(registerData.merchantPassword)
     // var hasedPassword = hash.digest('hex')
-    
-    if(registerData === ''){ //Null check
+
+    if (registerData === '') { //Null check
         var data = {
             status: "error",
             errorMessage: "registerData=Null"
@@ -482,7 +482,7 @@ app.post("/customer/v1/add", async (req, res) => {
         return functions.responseJson(res, data)
     }
 
-    var customerInfo ={
+    var customerInfo = {
         customerId: generate,
         customerFirstName: registerData.customerFirstName,
         customerLastName: registerData.customerLastName,
@@ -495,16 +495,16 @@ app.post("/customer/v1/add", async (req, res) => {
         customerDOB: registerData.customerDOB
     }
 
-    try{
+    try {
         var customerState = await customer.addCustomer(customerInfo) //console.log(customerState)
 
-        if (customerState.affectedRows === 1 ) {
+        if (customerState.affectedRows === 1) {
             var data = {
-                status: "success"                
+                status: "success"
             }
             return functions.responseJson(res, data)
         }
-    }catch (error) {
+    } catch (error) {
         var data = {
             status: "error",
             errorMessage: "unsuccessAddCustomer"
@@ -523,9 +523,9 @@ app.post("/customer/v1/add", async (req, res) => {
 //     let stringdata = JSON.stringify(data)
 
 //     QRCode.toString(stringdata,{type:'terminal'},function (err, QRcode) {
- 
+
 //         if(err) return console.log("error occurred")
-     
+
 //         // Printing the generated code
 //         functions.responseJson(res, data)
 //     })
@@ -570,34 +570,39 @@ app.get("/customer/v1/Login"), async (res, req) => {
     }
 }
 
-app.post("/merchant/v1/branch/webpos", authenticatePinToken, async (req, res) => {
+app.post("/merchant/v1/branch/webpos", async (req, res) => {
     var inputData = req.body.data;
-
-    if(registerData === ''){
+    console.log(inputData)
+    if (inputData === '') {
         var data = {
             status: "error",
-            errorMessage: "registerData=Null"
+            errorMessage: "inputData = Null"
         }
         return functions.responseJson(res, data)
-    }
-
-    var customerInfo = {
-        customerId: inputData.customerId
-    }
-
-    try{
-
-        var data = {
-            status: "success"                
+    } else {
+        var user = await customer.getCustomerById(inputData)
+        console.log(user[0].email)
+        if (user.length > 0) {
+            var customerInfo = {
+                customerId: user[0].customer_id,
+                customerNickName: user[0].nick_name,
+                customerFirstName: user[0].first_name,
+                customerLastName: user[0].last_name,
+                customerEmail: user[0].email,
+                customerDOB: user[0].date_of_birth
+            }
+            var data = {
+                status: "success",
+                customerInfo: customerInfo
+            }
+            return functions.responseJson(res, data)
+        } else {
+            var data = {
+                status: "error",
+                errorMessage: "Error"
+            }
+            return functions.responseJson(res, data)
         }
-        return functions.responseJson(res, data)
-
-    }catch(error){
-        var data = {
-            status: "error",
-            errorMessage: "Error"
-        }
-        return functions.responseJson(res, data)
     }
 })
 

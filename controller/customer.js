@@ -20,9 +20,20 @@ exports.addCustomer = (customer) => {
     })
 }
 
-exports.getCustomerById = (customerId) => {
+exports.getCustomerIdById = (customerId) => {
     return new Promise((resolve, reject) => {
         db.query("SELECT customer_id FROM Customer where customer_id = ?",
+        [customerId],
+            (err, result) => {
+                if (err) reject(err)
+                resolve(result)
+            });
+    })
+}
+
+exports.getCustomerById = (customerId) => {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM Customer where customer_id = ?",
         [customerId],
             (err, result) => {
                 if (err) reject(err)
