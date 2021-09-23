@@ -44,7 +44,8 @@ exports.getCustomerById = (customerId) => {
 
 exports.getCustomerByEmail = (customerEmail) => {
     return new Promise((resolve, reject) => {
-        db.query("SELECT * FROM Customer where email = ?",[customerEmail],
+        db.query("SELECT * FROM Customer where email = ?",
+        [customerEmail],
             (err, result) => {
                 if (err) reject(err)
                 resolve(result)

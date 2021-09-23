@@ -533,9 +533,12 @@ app.post("/customer/v1/add", async (req, res) => {
 
 // Customer Login
 app.post("/customer/v1/login", async (req, res) => {
-    var customerEmail = req.body.email
+    var email = req.body.email
     var password = req.body.password
-    var result = await customer.getCustomerByEmail(customerEmail)
+    var result = await customer.getCustomerByEmail(email)
+    console.log(email)
+    console.log(password)
+    console.log(result)
 
     if (result.length > 0) {
         if (result[0].password != password) {
