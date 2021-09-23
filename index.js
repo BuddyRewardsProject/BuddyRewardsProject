@@ -536,9 +536,6 @@ app.post("/customer/v1/login", async (req, res) => {
     var email = req.body.email
     var password = req.body.password
     var result = await customer.getCustomerByEmail(email)
-    console.log(email)
-    console.log(password)
-    console.log(result)
 
     if (result.length > 0) {
         if (result[0].password != password) {
@@ -566,7 +563,7 @@ app.post("/customer/v1/login", async (req, res) => {
     } else {
         var data = {
             status: "error",
-            errorMessage: "passwordIncollectttttt"
+            errorMessage: "passwordIncollect"
         }
         return functions.responseJson(res, data)
     }
