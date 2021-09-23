@@ -11,15 +11,3 @@ exports.getUserById = (userName) => {
             });
     })
 }
-
-exports.getCustomerByEmail = (email) => {
-    return new Promise((resolve, reject) => {
-        db.query("SELECT * FROM Customer WHERE user_name = ?",[
-            email
-        ],
-            (err, result) => {
-                if (err) reject(err)
-                resolve(result)
-            });
-    })
-}
