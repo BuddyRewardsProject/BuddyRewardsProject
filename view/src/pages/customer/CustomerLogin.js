@@ -3,7 +3,6 @@ import axios from "axios";
 import logoKMUTT from "../../assets/img/kmutt.svg";
 import logo from "../../assets/img/logoC.svg";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 
 import message from 'antd/lib/message/index';
@@ -21,7 +20,6 @@ const success = () => {
       icon:'info',
       fontSize: '15px',
 
-    
     },
   });
 };

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Navbar from "../layouts/Navbar";
 import color from "../config/color";
 import logo from "../assets/img/logoM.svg";
-import logoBW from "../assets/img/logoMBW.svg";
+
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios"

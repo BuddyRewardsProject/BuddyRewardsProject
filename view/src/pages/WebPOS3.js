@@ -7,7 +7,13 @@ import "../assets/css/merchantSide/webPOS.css";
 import { connect } from "react-redux";
 import { logoutPin } from "../actions/pinActions";
 
-import barcodeScan from "../assets/img/icon/barcodeScan.png";
+
+
+import profile from "../assets/img/icon/profileD.svg";
+import {
+  faArrowAltCircleRight,faStar,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const BtnOrange = styled.button`
@@ -26,7 +32,7 @@ const BtnOrange = styled.button`
 
 const BtnClear = styled.button`
   background-color: #eaeaea;
-  width: 99px;
+  width: 129px;
 
   border-style: none;
   font-size: 25px;
@@ -47,14 +53,24 @@ const BtnOK = styled.button`
 const MarginTop = styled.div`
   margin: 130px;
 `
+
 const Card = styled.div`
   background: #f7f7f7;
   box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
   margin: 15px;
+  padding-top: 15px;
 `;
 
-class WebPOS extends Component {
+
+const Cardinfo = styled.div`
+  background: #ffffff;
+  
+  border-radius: 12px;
+  margin-left: 15px;
+  margin-right: 15px;
+`;
+class WebPOS3 extends Component {
   handleClick(e) {
     e.preventDefault();
     this.props.logoutPin();
@@ -69,19 +85,30 @@ class WebPOS extends Component {
         <MarginTop></MarginTop>
 
         <Card className="text-center">
-          <div>
-            <img
-              src={barcodeScan}
+
+           <Cardinfo>
+           <img
+              src={profile}
               class="img-fluid paddingBarCodeIcon"
               alt="barcodeScan"
-              width="450px"
+              width="99px"
             />
-          </div>
-          <div className="HeaderWebPOS">สแกนรหัสจาก QR ลูกค้า</div>
-          <h3> เข้าสู่ระบบโดย {this.props.pinAuth.staff.firstName} #{this.props.pinAuth.staff.staffId}</h3>
-          <div className="outterInput"><input className="inPutWidth inputFontSize DbBold"></input></div>
-          <div className="paddingBtm"><BtnClear >ลบ</BtnClear></div>
-          <div className="paddingBtm"><BtnOK >ตกลง</BtnOK></div>
+            <div className="cardInfoWebPOS1">คุณ nickname #9999</div>
+            <div className="cardInfoWebPOS2">9/9/2021 แต้มที่มีอยู่ #0</div>
+           
+          </Cardinfo>
+         
+          <div className="HeaderWebPOS">ตรวจสอบข้อมูล</div>
+          <div class="row row-cols-3">
+    <div class="col textPointWebPOS">10<FontAwesomeIcon className="WebPosStarIconSize" icon={faStar} />  </div>
+    <div class="col WebPosIconSize">  <FontAwesomeIcon icon={faArrowAltCircleRight} />
+    <FontAwesomeIcon icon={['fas', 'home']} /></div>
+    <div class="col textPointWebPOS">20<FontAwesomeIcon className="WebPosStarIconSize" icon={faStar} /></div>
+   
+  </div>
+         
+          <div className="paddingBtm"><BtnClear >ย้อนกลับ</BtnClear></div>
+          <div className="paddingBtm"><BtnOK >ยืนยันเพิ่มแต้ม</BtnOK></div>
           
         </Card>
         <div className="text-center">
@@ -103,4 +130,4 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, mapDispatch)(WebPOS);
+export default connect(mapStateToProps, mapDispatch)(WebPOS3);

@@ -4,7 +4,6 @@ import logoKMUTT from "../../assets/img/kmutt.svg";
 import logo from "../../assets/img/logoC.svg";
 import Cover from "../../assets/img/CoverPreRegister.png";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 
 import message from "antd/lib/message/index";
