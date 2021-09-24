@@ -75,7 +75,7 @@ class WebPOS extends Component {
               src={barcodeScan}
               class="img-fluid paddingBarCodeIcon"
               alt="barcodeScan"
-              width="500px"
+              width="450px"
             />
           </div>
           <div className="HeaderWebPOS">สแกนรหัสจาก QR ลูกค้า</div>
