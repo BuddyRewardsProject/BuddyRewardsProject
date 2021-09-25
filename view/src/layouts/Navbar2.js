@@ -1,4 +1,4 @@
-import logo from '../assets/img/logoM.svg';
+import logo from '../assets/img/logoMB.svg';
 import { Link } from 'react-router-dom';
 
 export default function Navbar2() {
@@ -18,9 +18,7 @@ export default function Navbar2() {
                                 profile
                             </button>
                             <ul className="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                                <li><a className="dropdown-item" href="#">pin</a></li>
-                                <li><a className="dropdown-item" href="#">settings</a></li>
-                                <li><a className="dropdown-item" href="#">logout</a></li>
+
                             </ul>
                         </div>
                     </div>

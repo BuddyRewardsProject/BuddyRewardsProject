@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/img/logoC.svg";
+
 import styled from "styled-components";
 import color from "../config/colorNavTop";
 import "../assets/css/CustomerSide/NavTop.css";

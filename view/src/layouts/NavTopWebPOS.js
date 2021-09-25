@@ -1,12 +1,9 @@
 import React from "react";
-import logo from "../assets/img/logoM.svg";
+import logo from "../assets/img/logoMB.svg";
 import styled from "styled-components";
-import color from "../config/colorNavTop";
+
 import "../assets/css/merchantSide/NavTopWebPOS.css";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { logoutPin } from '../actions/pinActions'
-import { Link } from "react-router-dom";
+
 const BgNav = styled.div`
   height: 100px;
   background: #FFFFFF;
@@ -20,7 +17,7 @@ const NavTopWebPOS = () => {
   
   return (
     <BgNav className=" navbar fixed-top "><div className=" AllPD ">
-            <img src={logo} class="img-fluid "  alt="" width="290"  />
+            <img src={logo} class="img-fluid "  alt="" width="390"  />
            
           </div> 
       <div class="body">

@@ -1,29 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Navbar from "../../layouts/NavbarCustomer";
-import Footer from "../../layouts/Footer";
+
 import Navigation from "../../layouts/Navigation";
-import color from "../../config/color";
-import styled from "styled-components";
-import logo from "../../assets/img/logoC.svg";
+
+
 import liff from "@line/liff";
 import NavTop from "../../layouts/NavTop";
 import { Helmet } from "react-helmet";
 import "../../assets/css/CustomerSide/Customer.css";
 
 
-const BtnOrange = styled.button`
-  background-color: ${color.Button};
-  border-style: none;
-  border-radius: 20px;
-  &:hover {
-    background-color: ${color.ButtonOrange};
-  }
-`;
-const BgOrg = styled.div`
-  height: 90px;
-  background: ${color.Gradient};
-`;
 
 class CustomerHome extends Component {
   constructor(props) {

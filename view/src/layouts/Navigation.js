@@ -1,18 +1,13 @@
 import React from "react";
-import { Nav, NavItem } from "reactstrap";
-import { NavLink } from "react-router-dom";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSearch,
   faStar,
   faWallet,
-  faQrcode,
-  faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import colorNavBottom from "../config/colorNavBottom";
 import styled from "styled-components";
-import liff from "@line/liff";
-import { Link } from "react-router-dom";
+
 import { useEffect } from "react";
 
 const BgNavB = styled.div`

@@ -12,15 +12,17 @@ import Login from "./pages/Login";
 import PinMerchantLogin from "./pages/PinMerchantLogin";
 import StaffView from "./pages/StaffView";
 import WebPOS from "./pages/WebPOS";
+import WebPOS2 from "./pages/WebPOS2";
+import WebPOS3 from "./pages/WebPOS3";
 
 import requireAuth from "./utils/requireAuth";
 import { createBrowserHistory } from "history";
 import PinReset from "./pages/PinReset";
 import StaffManagement from "./pages/StaffManagement";
 import BranchManagement from "./pages/BranchManagement";
-import Navigation from "./layouts/Navigation";
+
 import React, { Component } from "react";
-import liff from "@line/liff";
+
 const browserHistory = createBrowserHistory();
 
 class App extends Component {
@@ -88,6 +90,8 @@ class App extends Component {
             <Route exact path="/customer/mycard" component={CustomerCard} />
 
             <Route exact path="/merchant/branch/webPOS" component={WebPOS} />
+            <Route exact path="/merchant/branch/webPOS2" component={WebPOS2} />
+            <Route exact path="/merchant/branch/webPOS3" component={WebPOS3} />
           </Switch>
         </Router>
       </div>
