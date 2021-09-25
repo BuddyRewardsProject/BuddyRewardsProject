@@ -533,9 +533,9 @@ app.post("/customer/v1/add", async (req, res) => {
 
 // Customer Login
 app.post("/customer/v1/login", async (req, res) => {
-    var customerEmail = req.body.email
+    var email = req.body.email
     var password = req.body.password
-    var result = await customer.getCustomerByEmail(customerEmail)
+    var result = await customer.getCustomerByEmail(email)
 
     if (result.length > 0) {
         if (result[0].password != password) {
@@ -563,7 +563,7 @@ app.post("/customer/v1/login", async (req, res) => {
     } else {
         var data = {
             status: "error",
-            errorMessage: "passwordIncollectttttt"
+            errorMessage: "passwordIncollect"
         }
         return functions.responseJson(res, data)
     }
