@@ -1,8 +1,14 @@
 .inPutWidth {
   width: 100%;
 }
+.inPutWidth2 {
+  width: 39%;
+}
 .outterInput {
   margin: 15px;
+}
+.outterInputPrice {
+  margin-bottom: 15px;
 }
 .inputFontSize{
   text-align: center;
@@ -30,6 +36,30 @@
  }
 
  .HeaderWebPOS{
+  
+  font-size: 35px;
+  font-family: DBHeaventDB, serif;
+  
+
+}
+.cardInfoWebPOS1{
+  font-size: 35px;
+}
+.cardInfoWebPOS2{
+  font-size: 20px;
+}
+
+.WebPosIconSize {
+  font-size: 39px;
+  color:#59DD9A;
+  
+}
+.WebPosStarIconSize {
+  font-size: 29px;
+  color:#FFC107;
+  
+}
+.textPointWebPOS{
   
   font-size: 35px;
   font-family: DBHeaventDB, serif;
