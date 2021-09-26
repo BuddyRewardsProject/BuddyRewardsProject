@@ -579,13 +579,14 @@ app.post("/merchant/v1/branch/webpos", async (req, res) => {
         }
         return functions.responseJson(res, data)
     } else {
-        var user = await customer.getCustomerById(inputData)
+        var user = await customer.getCustomerById(inputData.customerId)
         console.log(user[0].email)
         if (user.length > 0) {
             var customerInfo = {
                 customerId: user[0].customer_id,
                 customerNickName: user[0].nick_name,
                 customerFirstName: user[0].first_name,
+                customerPhone:user[0].phone,
                 customerLastName: user[0].last_name,
                 customerEmail: user[0].email,
                 customerDOB: user[0].date_of_birth

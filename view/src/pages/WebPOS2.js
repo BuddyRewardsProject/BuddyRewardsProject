@@ -64,15 +64,31 @@ const Cardinfo = styled.div`
   margin-left: 15px;
   margin-right: 15px;
 `;
+
+
+
 class WebPOS2 extends Component {
+  
   handleClick(e) {
     e.preventDefault();
     this.props.logoutPin();
     window.location.href = "/merchant/login/pin";
   }
-
+  
+  
   render() {
+    
     document.body.style.backgroundColor = "#F5F6FA";
+
+    function goBack() {
+      window.history.back();
+    }
+    function goNext() {
+      window.location.href = "/merchant/branch/WebPOS3";
+  
+    }
+
+
     return (
       <div>
         <NavTopWebPOS></NavTopWebPOS>
@@ -85,18 +101,18 @@ class WebPOS2 extends Component {
               src={profile}
               class="img-fluid paddingBarCodeIcon"
               alt="barcodeScan"
-              width="129px"
+              width="99px"
             />
-            <div className="cardInfoWebPOS1">คุณ nickname #9999</div>
-            <div className="cardInfoWebPOS2">9/9/2021 แต้มที่มีอยู่ #0</div>
-           
+            <div className="cardInfoWebPOS1">คุณ {this.props.location.state.customer.customerNickName} #{this.props.location.state.customer.customerId}</div>
+            <div className="cardInfoWebPOS2">{this.props.location.state.customer.customerDOB} </div>
+            <div className="cardInfoWebPOS3">เบอร์ติดต่อ {this.props.location.state.customer.customerPhone}</div>
           </Cardinfo>
          
           <div className="HeaderWebPOS">ระบุบยอดชำระ</div>
           
           <div className="outterInputPrice"><input className="inPutWidth2 inputFontSize DbBold"></input></div>
-          <div className="paddingBtm"><BtnClear >ย้อนกลับ</BtnClear></div>
-          <div className="paddingBtm"><BtnOK >ถัดไป</BtnOK></div>
+          <div className="paddingBtm"><BtnClear onClick={() => goBack()}>ย้อนกลับ</BtnClear></div>
+          <div className="paddingBtm"><BtnOK onClick={() => goNext()} >ถัดไป</BtnOK></div>
           
         </Card>
         <div className="text-center">

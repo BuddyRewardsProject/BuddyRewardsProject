@@ -93,7 +93,7 @@ class WebPOS3 extends Component {
               alt="barcodeScan"
               width="99px"
             />
-            <div className="cardInfoWebPOS1">คุณ nickname #9999</div>
+            <div className="cardInfoWebPOS1">คุณ </div>
             <div className="cardInfoWebPOS2">9/9/2021 แต้มที่มีอยู่ #0</div>
            
           </Cardinfo>

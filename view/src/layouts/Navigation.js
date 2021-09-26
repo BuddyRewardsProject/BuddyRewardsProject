@@ -18,10 +18,7 @@ const BgNavB = styled.div`
 `;
 const CurrentPath = window.location.pathname; 
 
-const iconColorSize = styled.div`
-  font-size: 24px;
-  color: #f7931e;
-`;
+
 
 const BtnOrange = styled.button`
   background-color: ${colorNavBottom.Button};
@@ -37,11 +34,7 @@ const BtnOrange = styled.button`
     background-color: ${colorNavBottom.ButtonOrange};
   }
 `;
-const FAS = styled.div`
-  font-size: 24px;
-  color:#6B6B6B;
-  }
-`;
+
 
 
 var text1 = "หน้าแรก"
@@ -55,14 +48,14 @@ const Navigation = (props) => {
   useEffect(() => {
     console.log(CurrentPath);
     
-    if(CurrentPath == "/customer/home"){
+    if(CurrentPath === "/customer/home"){
       iconColorHome = "NavBcolorIconSizeSelect"
       iconColorMyCard= "NavBcolorIconSize"
       textColorHome = "NavBcolorTextSizeSelect"
       textColorMyCard = "NavBcolorTextSize"
       isselect = "1"
       console.log(isselect);
-    }else if(CurrentPath == "/customer/mycard"){
+    }else if(CurrentPath === "/customer/mycard"){
       iconColorHome = "NavBcolorIconSize"
       iconColorMyCard= "NavBcolorIconSizeSelect"
       textColorHome = "NavBcolorTextSize"
@@ -70,20 +63,25 @@ const Navigation = (props) => {
       isselect = "2"
       console.log(isselect);
     }
-   
+    if(isselect === "1"){
+
+      console.log("haha");
+    }else if(isselect === "2"){
+      console.log("hehe");
+    }
   }, [])
 
   
   const redirect = (CurrentPath) => {
     props.history.push(CurrentPath);
     console.log(CurrentPath);
-    if(CurrentPath == "/customer/home"){
+    if(CurrentPath === "/customer/home"){
       iconColorHome = "NavBcolorIconSizeSelect"
       iconColorMyCard= "NavBcolorIconSize"
       textColorHome = "NavBcolorTextSizeSelect"
       textColorMyCard = "NavBcolorTextSize"
       
-    }else if(CurrentPath == "/customer/mycard"){
+    }else if(CurrentPath === "/customer/mycard"){
       iconColorHome = "NavBcolorIconSize"
       iconColorMyCard= "NavBcolorIconSizeSelect"
       textColorHome = "NavBcolorTextSize"

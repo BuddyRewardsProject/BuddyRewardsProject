@@ -104,7 +104,7 @@ console.log(result)
               <div>
                 <img
                   className="paddingTop15"
-                  src="https://maesot.kpru.ac.th/wp-content/uploads/2018/01/maesot.png"
+                  src="https://cdn.discordapp.com/attachments/490161799501709313/891602669389631499/LzSKgAAAABJRU5ErkJggg.png"
                   alt="buddyrewards"
                   width="140"
                 />
