@@ -20,6 +20,9 @@ const customer = require("./controller/customer")
 const login = require("./controller/login")
 const staffRole = require("./controller/staffRole");
 const { response } = require('express');
+const moment = require('moment');
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -589,7 +592,7 @@ app.post("/merchant/v1/branch/webpos", async (req, res) => {
                 customerPhone:user[0].phone,
                 customerLastName: user[0].last_name,
                 customerEmail: user[0].email,
-                customerDOB: user[0].date_of_birth
+                customerDOB: moment(user[0].date_of_birth).format('DD/MM/YYYY')
             }
             var data = {
                 status: "success",

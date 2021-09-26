@@ -104,7 +104,7 @@ class WebPOS2 extends Component {
               width="99px"
             />
             <div className="cardInfoWebPOS1">คุณ {this.props.location.state.customer.customerNickName} #{this.props.location.state.customer.customerId}</div>
-            <div className="cardInfoWebPOS2">{this.props.location.state.customer.customerDOB} </div>
+            <div className="cardInfoWebPOS2">วันเกิด {this.props.location.state.customer.customerDOB} </div>
             <div className="cardInfoWebPOS3">เบอร์ติดต่อ {this.props.location.state.customer.customerPhone}</div>
           </Cardinfo>
          
