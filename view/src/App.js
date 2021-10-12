@@ -7,6 +7,7 @@ import CustomerPreRegister from "./pages/customer/CustomerPreRegister";
 import CustomerRegister from "./pages/customer/CustomerRegister";
 import CustomerLogin from "./pages/customer/CustomerLogin";
 import CustomerCard from "./pages/customer/CustomerCard";
+import CustomerCardDetail from "./pages/customer/CustomerCardDetail";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import PinMerchantLogin from "./pages/PinMerchantLogin";
@@ -88,10 +89,11 @@ class App extends Component {
             />
             <Route exact path="/customer/login" component={CustomerLogin} />
             <Route exact path="/customer/mycard" component={CustomerCard} />
-
+            <Route exact path="/customer/mycard/detail" component={CustomerCardDetail} />
             <Route exact path="/merchant/branch/webPOS" component={WebPOS} />
             <Route exact path="/merchant/branch/webPOS2" component={WebPOS2} />
             <Route exact path="/merchant/branch/webPOS3" component={WebPOS3} />
+            
           </Switch>
         </Router>
       </div>
