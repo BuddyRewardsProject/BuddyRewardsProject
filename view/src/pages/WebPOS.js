@@ -29,7 +29,7 @@ const BtnOrange = styled.button`
 
 const BtnClear = styled.button`
   background-color: #eaeaea;
-  width: 99px;
+  width: 199px;
 
   border-style: none;
   font-size: 25px;
@@ -141,7 +141,7 @@ class WebPOS extends Component {
                 }
               }}
               ></input></div>
-          <div className="paddingBtm"><BtnClear >ลบ</BtnClear></div>
+          <div className="paddingBtm"><BtnClear >สแกนโดยใช้กล้อง</BtnClear></div>
           <div className="paddingBtm"><BtnOK onClick={(b) => this.sendCustomerID(b)} >ตกลง</BtnOK></div>
           
           <h2>{this.state.customer && this.state.customer.customerNickName}</h2>

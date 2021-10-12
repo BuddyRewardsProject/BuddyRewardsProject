@@ -16,6 +16,7 @@ class Home extends Component {
 
   componentDidMount() {
     console.log(this.props.user);
+    <meta name="theme-color" content="#ecd96f"></meta>
     document.getElementById("width").innerHTML =
       "Screen width is " + window.screen.width;
     document.getElementById("height").innerHTML =
@@ -40,6 +41,7 @@ class Home extends Component {
   }
 
   render() {
+    
     return (
       <>
         <Navbar></Navbar>

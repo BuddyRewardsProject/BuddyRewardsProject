@@ -45,6 +45,7 @@ class CustomerHome extends Component {
   }
 
   render() {
+    
     return (
       <>
         <NavTop className=""> </NavTop>
