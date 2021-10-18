@@ -64,6 +64,7 @@ export default class Register extends Component {
     var staffPhone = $('#phone').val()
     var merchantName = $('#merchantName').val()
     var branchName = $('#branchName').val()
+    var rewardType = $('#rewardType').val()
     var categoryName = $('#categoryName').val()
     var branchPhone = $('#branchPhone').val()
     var provinceName = $('#provinceName').val()
@@ -79,6 +80,7 @@ export default class Register extends Component {
       staffPin: this.state.pin,
       merchantName: merchantName,
       branchName: branchName,
+      rewardType: rewardType,
       categoryName: categoryName,
       branchPhone: branchPhone,
       provinceName: provinceName,
@@ -209,6 +211,14 @@ export default class Register extends Component {
                   </div>
                   <div className="col form-group mt-2">
                     <input type="text" name="branchName" id="branchName" className="form-control" placeholder="Branch Name" required></input>
+                  </div>
+                  <div className="col form-floating mt-2">
+                  <select class="form-select" id="rewardType" required>
+                      <option selected>Choose...</option>
+                      <option value="point">Point</option>   
+                      <option value="stamp">Stamp</option>                 
+                    </select>
+                  <label for="floatingInputInvalid">Reward Type</label>
                   </div>
                   <div className="col form-floating mt-2">
                     <select class="form-select" id="categoryName" required>

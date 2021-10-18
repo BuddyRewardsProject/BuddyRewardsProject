@@ -68,12 +68,14 @@ app.post("/merchant/v1/login", async (req, res) => {
         var user = {
             branchId: result[0].branch_id,
             branchName: result[0].branch_name,
+            rewardType: result[0].reward_type,
             phone: result[0].phone,
             userName: result[0].user_name,
             masterAccount: result[0].master_account,
             districtId: result[0].district_id,
             merchantId: result[0].merchant_id
         }
+        console.log(result[0])
         var data = {
             status: "success",
             accessToken: generateAccessToken(user)
@@ -184,7 +186,8 @@ app.post("/merchant/v1/register", async (req, res) => {
     }
     var merchantInfo = {
         merchantId: generate,
-        merchantName: registerData.merchantName
+        merchantName: registerData.merchantName,
+        rewardType: registerData.rewardType
     }
     var branchInfo = {
         branchName: registerData.branchName,
@@ -210,9 +213,7 @@ app.post("/merchant/v1/register", async (req, res) => {
                 roleId: 1,
                 branchId: branchState.insertId
             }
-            //console.log(staffInfo)
             var staffState = await staff.addStaff(staffInfo)
-            //console.log(staffState)
             if (staffState.affectedRows === 1) {
                 var data = {
                     status: "success"
@@ -272,10 +273,7 @@ app.post("/merchant/v1/branch/branchmanagement/add", authenticatePinToken, async
                 roleId: 1,
                 branchId: branchState.insertId
             }
-
-            console.log(staffInfo)
             var staffState = await staff.addStaff(staffInfo)
-            console.log(staffState)
             if (staffState.affectedRows === 1) {
                 var data = {
                     status: "success"
